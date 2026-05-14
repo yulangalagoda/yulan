@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Environment
+.env*.local
+.env
+
+# Generated content
+public/notion-images/*
+!public/notion-images/.gitkeep
+public/favicon.ico
+public/favicon-16.png
+public/favicon-32.png
+public/apple-touch-icon.png
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.log
