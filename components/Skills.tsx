@@ -8,7 +8,10 @@ interface Props {
 // skills (by Order) as featured if no explicit Featured category exists.
 export default function Skills({ skills }: Props) {
   // Filter out skills with empty names and hidden skills.
-  const visible = skills.filter((s) => s.name && s.visible !== false);
+  // Sort: featured skills first, then non-featured — order from Notion preserved within each group.
+  const visible = skills
+    .filter((s) => s.name && s.visible !== false)
+    .sort((a, b) => Number(b.featured) - Number(a.featured));
   if (!visible.length) return null;
 
   return (
