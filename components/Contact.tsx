@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function Contact({ contact, email }: Props) {
-  const title = contact?.headline?.trim() || 'Open to research collaborations, security engineering roles, and good conversations.';
+  const title = contact?.headline?.trim() || 'Open to research collaborations and consultations in IoV security, adversarial ML, and IDS evaluation.';
   const sub = contact?.content?.trim() || 'Based in Plymouth, United Kingdom. Replies usually within a day. For everything else (projects, writing, antiques, recipes), email is best.';
   const addr = email || 'yulangalagoda1@gmail.com';
 
