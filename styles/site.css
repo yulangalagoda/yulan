@@ -137,6 +137,13 @@ main section[id] { scroll-margin-top: 88px; }
     opacity: 0.5;
   }
 }
+@media (max-width: 640px) {
+  .hero {
+    align-items: flex-start;
+    padding-top: 6rem;
+    padding-bottom: 7rem;
+  }
+}
 .hero__inner {
   position: relative;
   z-index: 1;
