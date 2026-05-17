@@ -653,6 +653,13 @@ main section[id] { scroll-margin-top: 88px; }
   gap: clamp(2rem, 4vw, 3.5rem);
 }
 @media (max-width: 900px) { .cv-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+/* Stacks two cv-blocks inside a single grid column (e.g. Education + Research) */
+.cv-col-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
 .cv-block__heading {
   font-family: var(--font-display);
   font-style: normal;

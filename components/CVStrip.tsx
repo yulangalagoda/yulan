@@ -21,16 +21,13 @@ export default function CVStrip({ education, certifications, skills, research }:
         </header>
 
         <div className="cv-grid">
-          <Education education={education} />
+          <div className="cv-col-stack">
+            <Education education={education} />
+            {research.length > 0 && <Research research={research} />}
+          </div>
           <Certifications certifications={certifications} />
           <Skills skills={skills} />
         </div>
-
-        {research.length > 0 && (
-          <div className="cv-grid" style={{ marginTop: '3rem' }}>
-            <Research research={research} />
-          </div>
-        )}
       </div>
     </section>
   );
