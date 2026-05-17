@@ -143,6 +143,18 @@ main section[id] { scroll-margin-top: 88px; }
     padding-top: 6rem;
     padding-bottom: 7rem;
   }
+
+  /* ── Mobile declutter ───────────────────────────────────────── */
+
+  /* Hero: degree line is redundant — already in Education section */
+  .hero__credentials { display: none; }
+
+  /* Experience: cap highlights at 2, drop tech chips to reduce density */
+  .timeline__highlights li:nth-child(n+3) { display: none; }
+  .timeline__row .work-item__tech { display: none; }
+
+  /* Projects: tagline carries the message — description is extra weight */
+  .work-item__description { display: none; }
 }
 .hero__inner {
   position: relative;
