@@ -193,8 +193,10 @@ main section[id] { scroll-margin-top: 88px; }
   display: inline-block;
   overflow: hidden;
   vertical-align: baseline;
-  padding-bottom: 0.22em;
-  margin-bottom: -0.22em;
+  padding-top: 0.15em;
+  margin-top: -0.15em;
+  padding-bottom: 0.38em;
+  margin-bottom: -0.38em;
 }
 .hero__title .letter {
   display: inline-block;
