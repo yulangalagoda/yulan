@@ -1,15 +1,11 @@
 import Logo from './Logo';
 
-interface Props {
-  logoPath: string | null;
-}
-
-export default function Footer({ logoPath }: Props) {
+export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
         <span className="site-footer__logo">
-          <Logo src={logoPath} alt="Yulan Galagoda" />
+          <Logo alt="Yulan Galagoda" />
           <span>© 2026 YG · Plymouth, UK</span>
         </span>
         <span>

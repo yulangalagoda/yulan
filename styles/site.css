@@ -897,25 +897,15 @@ main section[id] { scroll-margin-top: 88px; }
   .to-top.is-visible { transform: none; }
 }
 
-/* ─── Notion-driven image additions ─────────────────────────── */
-/* Header logo image — constrains regardless of source resolution */
-.site-header__logo img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  display: block;
-}
-
-/* Footer logo image */
+/* Footer logo — sizes the inline YG SVG monogram */
 .site-footer__logo {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 }
-.site-footer__logo img {
+.site-footer__logo svg {
   width: 24px;
   height: 24px;
-  object-fit: contain;
   display: block;
   opacity: 0.85;
 }

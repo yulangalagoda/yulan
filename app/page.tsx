@@ -20,7 +20,7 @@ export default async function Page() {
 
   return (
     <>
-      <Header logoPath={data.logoPath} />
+      <Header />
       <main id="main">
         <Hero hero={data.profile.hero} />
         <About about={data.profile.about} portraitPath={data.portraitPath} />
@@ -36,7 +36,7 @@ export default async function Page() {
         <Contact contact={data.profile.contact} />
       </main>
       <BackToTop />
-      <Footer logoPath={data.logoPath} />
+      <Footer />
       <HeaderScroll />
       <ScrollReveal />
     </>

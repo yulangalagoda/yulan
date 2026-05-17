@@ -1,16 +1,11 @@
 import Logo from './Logo';
 
-interface Props {
-  logoPath: string | null;
-}
-
-export default function Header({ logoPath }: Props) {
+export default function Header() {
   return (
     <header className="site-header" role="banner">
       <div className="site-header__inner">
         <a href="#top" className="site-header__logo" aria-label="YG home">
-          <Logo src={logoPath} alt="Yulan Galagoda" />
-          {!logoPath && <span className="site-header__wordmark">YG</span>}
+          <Logo alt="Yulan Galagoda" />
         </a>
         <nav className="site-nav" aria-label="Primary">
           <a href="#work">Work</a>
