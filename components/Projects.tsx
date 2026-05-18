@@ -1,3 +1,5 @@
+'use client';
+import { useState } from 'react';
 import type { ProjectRow } from '@/lib/types';
 
 interface Props {
@@ -129,6 +131,64 @@ function ProjectDiagram({ name }: { name: string }) {
   );
 }
 
+function WorkItem({ p }: { p: ProjectRow }) {
+  const [open, setOpen] = useState(false);
+  const isReliquary = p.name.toLowerCase().includes('reliquary');
+
+  return (
+    <article className={`work-item reveal${open ? ' work-item--open' : ''}`}>
+      <div
+        className="work-item__visual work-item__visual--diagram"
+        aria-hidden="true"
+        style={isReliquary ? { background: '#F4EEE9' } : undefined}
+      >
+        <ProjectDiagram name={p.name} />
+      </div>
+
+      <div className="work-item__copy">
+        <div className="work-item__meta">
+          {p.type && <span className="pill">{p.type}</span>}
+          {p.year && <span>{yr(p.year)}</span>}
+          {p.status && <span>· {p.status}</span>}
+        </div>
+        <h3 className="work-item__title">{p.name}</h3>
+        {p.tagline && <p className="work-item__tagline">{p.tagline}</p>}
+
+        {/* Toggle — visible on mobile only, hidden via CSS on desktop */}
+        <button
+          className="work-item__toggle"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+        >
+          <span>{open ? 'Show less' : 'Details'}</span>
+          <span className="work-item__toggle-icon" aria-hidden="true">
+            {open ? '↑' : '↓'}
+          </span>
+        </button>
+
+        {/* Body — always visible on desktop, toggle-controlled on mobile */}
+        <div className="work-item__body">
+          {p.description && (
+            <p className="work-item__description">{p.description}</p>
+          )}
+          {p.technologies.length > 0 && (
+            <div className="work-item__tech">
+              {p.technologies.map((t) => (
+                <span className="chip" key={t}>{t}</span>
+              ))}
+            </div>
+          )}
+          {p.liveUrl && (
+            <a href={p.liveUrl} target="_blank" rel="noopener" className="work-item__link">
+              Visit {p.name} <span className="arrow">↗</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function Projects({ projects }: Props) {
   if (!projects.length) return null;
 
@@ -144,42 +204,9 @@ export default function Projects({ projects }: Props) {
         </header>
 
         <div className="work-grid">
-          {projects.map((p) => {
-            const isReliquary = p.name.toLowerCase().includes('reliquary');
-            return (
-              <article className="work-item reveal" key={p.id}>
-                <div
-                  className="work-item__visual work-item__visual--diagram"
-                  aria-hidden="true"
-                  style={isReliquary ? { background: '#F4EEE9' } : undefined}
-                >
-                  <ProjectDiagram name={p.name} />
-                </div>
-                <div className="work-item__copy">
-                  <div className="work-item__meta">
-                    {p.type && <span className="pill">{p.type}</span>}
-                    {p.year && <span>{yr(p.year)}</span>}
-                    {p.status && <span>· {p.status}</span>}
-                  </div>
-                  <h3 className="work-item__title">{p.name}</h3>
-                  {p.tagline && <p className="work-item__tagline">{p.tagline}</p>}
-                  {p.description && <p className="work-item__description">{p.description}</p>}
-                  {p.technologies.length > 0 && (
-                    <div className="work-item__tech">
-                      {p.technologies.map((t) => (
-                        <span className="chip" key={t}>{t}</span>
-                      ))}
-                    </div>
-                  )}
-                  {p.liveUrl && (
-                    <a href={p.liveUrl} target="_blank" rel="noopener" className="work-item__link">
-                      Visit {p.name} <span className="arrow">↗</span>
-                    </a>
-                  )}
-                </div>
-              </article>
-            );
-          })}
+          {projects.map((p) => (
+            <WorkItem key={p.id} p={p} />
+          ))}
         </div>
       </div>
     </section>
