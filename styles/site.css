@@ -491,42 +491,41 @@ main section[id] { scroll-margin-top: 88px; }
 
 /* ─────────────── FEATURED WORK ─────────────── */
 #work { border-top: 1px solid var(--cream-3); }
+
+/* 2-column card grid on desktop */
 .work-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 }
 .work-item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-  padding-top: clamp(3.5rem, 7vw, 5.5rem);
-  padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid var(--cream-3);
+  box-shadow: 0 1px 3px rgba(14,17,22,0.06), 0 6px 20px rgba(14,17,22,0.05);
+  padding: 2rem;
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
 }
-.work-item + .work-item {
-  border-top: 1px solid var(--cream-3);
+.work-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(14,17,22,0.08), 0 20px 48px rgba(14,17,22,0.10);
 }
-.work-item:nth-child(even) .work-item__visual { order: 2; }
-/* Body: nested flex column — same visual as parent gap on desktop */
+/* Diagrams hidden — cards are text-focused */
+.work-item .work-item__visual { display: none; }
+/* Body always visible on desktop */
 .work-item__body { display: flex; flex-direction: column; gap: 1.25rem; }
-/* Toggle: mobile-only element, hidden on desktop */
+/* Toggle is mobile-only */
 .work-item__toggle { display: none; }
+
 @media (max-width: 800px) {
-  /* Switch to card layout */
-  .work-grid { gap: 1rem; }
-  .work-item {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-    background: #ffffff;
-    border-radius: 10px;
-    border: 1px solid var(--cream-3);
-    box-shadow: 0 1px 3px rgba(14,17,22,0.06), 0 6px 20px rgba(14,17,22,0.05);
-  }
-  /* Cards are separated by gap; remove the border-top divider */
-  .work-item + .work-item { border-top: none; }
-  /* Hide diagrams — higher specificity beats .work-item__visual--diagram { display:flex } */
-  .work-item .work-item__visual { display: none; }
+  /* Single column on mobile */
+  .work-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .work-item { padding: 1.5rem; }
+  /* Disable hover lift on touch */
+  .work-item:hover { transform: none; box-shadow: 0 1px 3px rgba(14,17,22,0.06), 0 6px 20px rgba(14,17,22,0.05); }
 
   /* Toggle button */
   .work-item__toggle {
@@ -549,10 +548,9 @@ main section[id] { scroll-margin-top: 88px; }
   .work-item__toggle-icon {
     font-size: 0.85rem;
     line-height: 1;
-    transition: transform 0.2s ease;
   }
 
-  /* Body hidden by default; shown when card is open */
+  /* Body hidden by default on mobile; shown when card is open */
   .work-item__body { display: none; }
   .work-item[data-open] .work-item__body {
     display: flex;
@@ -614,7 +612,6 @@ main section[id] { scroll-margin-top: 88px; }
   font-size: var(--text-lg);
   color: var(--ink);
   line-height: 1.4;
-  margin-top: -0.5rem;
 }
 .work-item__description {
   font-size: var(--text-base);
