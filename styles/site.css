@@ -609,9 +609,11 @@ main section[id] { scroll-margin-top: 88px; }
   letter-spacing: -0.02em;
 }
 .work-item__tagline {
-  font-size: var(--text-base);
-  color: var(--ink);
-  line-height: 1.45;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--navy);
+  line-height: 1.35;
 }
 .work-item__description {
   font-size: var(--text-base);
