@@ -163,6 +163,15 @@ main section[id] { scroll-margin-top: 88px; }
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  /* Radial fog: cream behind the text, fading to transparent at the edges
+     so the canvas animation stays fully visible away from the content */
+  background: radial-gradient(
+    ellipse 85% 95% at 28% 48%,
+    rgba(250,248,244,0.92) 0%,
+    rgba(250,248,244,0.60) 38%,
+    rgba(250,248,244,0.20) 58%,
+    transparent 72%
+  );
 }
 .hero__eyebrow {
   display: inline-flex;
@@ -220,7 +229,6 @@ main section[id] { scroll-margin-top: 88px; }
   margin-bottom: 1.25rem;
   opacity: 0;
   animation: fadeIn 1000ms var(--ease-out) 1400ms forwards;
-  text-shadow: 0 0 20px var(--cream), 0 0 40px var(--cream), 0 0 60px var(--cream);
 }
 .hero__credentials {
   font-family: var(--font-body);
@@ -230,7 +238,6 @@ main section[id] { scroll-margin-top: 88px; }
   margin-bottom: 3rem;
   opacity: 0;
   animation: fadeIn 1000ms var(--ease-out) 1700ms forwards;
-  text-shadow: 0 0 20px var(--cream), 0 0 40px var(--cream);
 }
 .hero__credentials .sep {
   display: inline-block;
