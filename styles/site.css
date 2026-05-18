@@ -508,6 +508,10 @@ main section[id] { scroll-margin-top: 88px; }
   border-top: 1px solid var(--cream-3);
 }
 .work-item:nth-child(even) .work-item__visual { order: 2; }
+/* Body: nested flex column — same visual as parent gap on desktop */
+.work-item__body { display: flex; flex-direction: column; gap: 1.25rem; }
+/* Toggle: mobile-only element, hidden on desktop */
+.work-item__toggle { display: none; }
 @media (max-width: 800px) {
   /* Switch to card layout */
   .work-grid { gap: 1rem; }
@@ -582,10 +586,6 @@ main section[id] { scroll-margin-top: 88px; }
   padding: 2rem;
 }
 .work-item__copy { display: flex; flex-direction: column; gap: 1.25rem; }
-/* Desktop: body flows as if unwrapped into the flex column */
-.work-item__body { display: contents; }
-/* Desktop: toggle hidden — all content always visible */
-.work-item__toggle { display: none; }
 .work-item__meta {
   display: flex;
   align-items: center;
