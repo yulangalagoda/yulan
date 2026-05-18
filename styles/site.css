@@ -609,11 +609,10 @@ main section[id] { scroll-margin-top: 88px; }
   letter-spacing: -0.02em;
 }
 .work-item__tagline {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
+  font-weight: 600;
   color: var(--navy);
-  line-height: 1.35;
+  line-height: 1.45;
 }
 .work-item__description {
   font-size: var(--text-base);
