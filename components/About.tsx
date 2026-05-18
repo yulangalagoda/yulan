@@ -52,6 +52,10 @@ export default function About({ about, portraitPath }: Props) {
             {useParas.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
+            <blockquote className="about__quote">
+              <p>"Security is not a product, but a process."</p>
+              <cite>— Bruce Schneier</cite>
+            </blockquote>
           </div>
         </div>
       </div>

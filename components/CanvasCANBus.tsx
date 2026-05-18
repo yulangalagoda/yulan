@@ -131,12 +131,12 @@ export default function CanvasCANBus({ id = 'hero-canvas', className = 'hero__ca
     const tick = () => {
       ctx.clearRect(0, 0, w, h);
       const baseScale = h * 0.14;
-      drawTrace(h * 0.18, 0.08, baseScale * 0.8);
-      drawTrace(h * 0.38, 0.11, baseScale * 1.0);
-      drawTrace(h * 0.62, 0.095, baseScale * 1.1);
-      drawTrace(h * 0.85, 0.07, baseScale * 0.7);
+      drawTrace(h * 0.18, 0.18, baseScale * 0.8);
+      drawTrace(h * 0.38, 0.24, baseScale * 1.0);
+      drawTrace(h * 0.62, 0.21, baseScale * 1.1);
+      drawTrace(h * 0.85, 0.15, baseScale * 0.7);
 
-      ctx.strokeStyle = `rgba(27, 42, 78, ${0.045 * opacityScale})`;
+      ctx.strokeStyle = `rgba(27, 42, 78, ${0.10 * opacityScale})`;
       ctx.lineWidth = 1;
       [0.18, 0.38, 0.62, 0.85].forEach((p) => {
         ctx.beginPath();

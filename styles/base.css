@@ -74,7 +74,7 @@ p a:hover, li a:hover {
   font-weight: 500;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--ink-mute);
+  color: var(--navy);
 }
 
 /* Body text utilities */
