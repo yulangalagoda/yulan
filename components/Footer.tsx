@@ -10,8 +10,9 @@ export default function Footer() {
         </span>
         <span>
           <a href="#top">Back to top ↑</a>
-          &nbsp;·&nbsp;
-          Designed by Yulan Galagoda · Built in collaboration with AI (Perplexity, Claude Opus 4.7, Claude Sonnet 4.6) on Next.js and Notion · Hosted on Cloudflare Pages
+          <span className="site-footer__attribution">
+            &nbsp;·&nbsp;Designed by Yulan Galagoda · Built in collaboration with AI (Perplexity, Claude Opus 4.7, Claude Sonnet 4.6) on Next.js and Notion · Hosted on Cloudflare Pages
+          </span>
         </span>
       </div>
     </footer>

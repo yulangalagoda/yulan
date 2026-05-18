@@ -20,7 +20,9 @@ export default function Hero({ hero }: Props) {
       <div className="hero__inner">
         <div className="hero__eyebrow">
           <span className="dot"></span>
-          <span className="eyebrow">Plymouth, United Kingdom · Available for opportunities</span>
+          <span className="eyebrow">
+            <span className="hero__eyebrow-location">Plymouth, United Kingdom&nbsp;·&nbsp;</span>Available for collaborations and consultations
+          </span>
         </div>
 
         <h1 className="hero__title" data-split>{headline}</h1>
