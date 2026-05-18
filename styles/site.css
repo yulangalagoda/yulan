@@ -610,7 +610,6 @@ main section[id] { scroll-margin-top: 88px; }
 }
 .work-item__tagline {
   font-size: var(--text-base);
-  font-weight: 600;
   color: var(--navy);
   line-height: 1.45;
 }
