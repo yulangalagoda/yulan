@@ -512,7 +512,8 @@ main section[id] { scroll-margin-top: 88px; }
   .work-item { grid-template-columns: 1fr; }
   .work-item:nth-child(even) .work-item__visual { order: 0; }
   /* No diagram on mobile — text content carries the project story */
-  .work-item__visual { display: none; }
+  .work-item__visual,
+  .work-item__visual--diagram { display: none; }
   .work-item {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
