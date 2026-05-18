@@ -554,7 +554,7 @@ main section[id] { scroll-margin-top: 88px; }
 
   /* Body hidden by default; shown when card is open */
   .work-item__body { display: none; }
-  .work-item--open .work-item__body {
+  .work-item[data-open] .work-item__body {
     display: flex;
     flex-direction: column;
     gap: 1rem;

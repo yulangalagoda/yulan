@@ -136,7 +136,7 @@ function WorkItem({ p }: { p: ProjectRow }) {
   const isReliquary = p.name.toLowerCase().includes('reliquary');
 
   return (
-    <article className={`work-item reveal${open ? ' work-item--open' : ''}`}>
+    <article className="work-item reveal" data-open={open || undefined}>
       <div
         className="work-item__visual work-item__visual--diagram"
         aria-hidden="true"
