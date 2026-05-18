@@ -220,6 +220,7 @@ main section[id] { scroll-margin-top: 88px; }
   margin-bottom: 1.25rem;
   opacity: 0;
   animation: fadeIn 1000ms var(--ease-out) 1400ms forwards;
+  text-shadow: 0 0 20px var(--cream), 0 0 40px var(--cream), 0 0 60px var(--cream);
 }
 .hero__credentials {
   font-family: var(--font-body);
@@ -229,6 +230,7 @@ main section[id] { scroll-margin-top: 88px; }
   margin-bottom: 3rem;
   opacity: 0;
   animation: fadeIn 1000ms var(--ease-out) 1700ms forwards;
+  text-shadow: 0 0 20px var(--cream), 0 0 40px var(--cream);
 }
 .hero__credentials .sep {
   display: inline-block;
