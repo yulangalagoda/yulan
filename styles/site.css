@@ -505,7 +505,7 @@ main section[id] { scroll-margin-top: 88px; }
   border-radius: 10px;
   border: 1px solid var(--cream-3);
   box-shadow: 0 1px 3px rgba(14,17,22,0.06), 0 6px 20px rgba(14,17,22,0.05);
-  padding: 2rem;
+  padding: 1.5rem;
   transition: transform var(--dur-base) var(--ease-out),
               box-shadow var(--dur-base) var(--ease-out);
 }
@@ -516,7 +516,7 @@ main section[id] { scroll-margin-top: 88px; }
 /* Diagrams hidden — cards are text-focused */
 .work-item .work-item__visual { display: none; }
 /* Body always visible on desktop */
-.work-item__body { display: flex; flex-direction: column; gap: 1.25rem; }
+.work-item__body { display: flex; flex-direction: column; gap: 0.875rem; }
 /* Toggle is mobile-only */
 .work-item__toggle { display: none; }
 
@@ -583,19 +583,19 @@ main section[id] { scroll-margin-top: 88px; }
   background: var(--cream-2);
   padding: 2rem;
 }
-.work-item__copy { display: flex; flex-direction: column; gap: 1.25rem; }
+.work-item__copy { display: flex; flex-direction: column; gap: 0.875rem; }
 .work-item__meta {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem 0.75rem;
+  gap: 0.4rem 0.6rem;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   color: var(--ink-mute);
 }
 .work-item__meta .pill {
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.55rem;
   border: 1px solid var(--cream-3);
   border-radius: 999px;
   background: var(--cream);
@@ -604,14 +604,14 @@ main section[id] { scroll-margin-top: 88px; }
   font-family: var(--font-display);
   font-style: normal;
   font-weight: 500;
-  font-size: var(--text-2xl);
-  line-height: 1.1;
+  font-size: var(--text-xl);
+  line-height: 1.15;
   letter-spacing: -0.02em;
 }
 .work-item__tagline {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--ink);
-  line-height: 1.4;
+  line-height: 1.45;
 }
 .work-item__description {
   font-size: var(--text-base);
