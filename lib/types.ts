@@ -118,6 +118,13 @@ export interface SideWorldRow {
   order: number;
 }
 
+export interface BadgeRow {
+  id: string;
+  name: string;
+  imagePath: string | null;
+  order: number;
+}
+
 export interface SiteData {
   profile: {
     hero?: ProfileRow;
@@ -133,6 +140,7 @@ export interface SiteData {
   projects: ProjectRow[];
   research: ResearchRow[];
   sideWorlds: SideWorldRow[];
+  badges: BadgeRow[];
   logoPath: string | null;
   portraitPath: string | null;
 }

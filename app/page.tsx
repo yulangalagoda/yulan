@@ -2,6 +2,7 @@ import { fetchSiteData } from '@/lib/notion';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
+import Badges from '@/components/Badges';
 import Projects from '@/components/Projects';
 import Experience from '@/components/Experience';
 import SideWorlds from '@/components/SideWorlds';
@@ -24,6 +25,7 @@ export default async function Page() {
       <main id="main">
         <Hero hero={data.profile.hero} />
         <About about={data.profile.about} portraitPath={data.portraitPath} />
+        <Badges badges={data.badges} />
         <Projects projects={data.projects} />
         <Experience experience={data.experience} />
         <SideWorlds sideWorlds={data.sideWorlds} />

@@ -781,6 +781,49 @@ main section[id] { scroll-margin-top: 88px; }
   color: var(--navy);
 }
 
+/* ─────────────── BADGES ─────────────── */
+#badges { border-top: 1px solid var(--cream-3); }
+#badges .section-head { margin-bottom: 2rem; }
+.badges-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+.badge-item img {
+  width: auto;
+  height: 90px;
+  object-fit: contain;
+  transition: transform var(--dur-base) var(--ease-out),
+              filter var(--dur-base) var(--ease-out);
+}
+.badge-item:hover img {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 6px 12px rgba(14,17,22,0.15));
+}
+.badge-item figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-align: center;
+  max-width: 120px;
+  line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .badge-item img { height: 72px; }
+  .badges-strip { gap: 1.25rem; }
+}
+
 /* ─────────────── SIDE WORLDS ─────────────── */
 #side-worlds { border-top: 1px solid var(--cream-3); }
 .sideworlds {

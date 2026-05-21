@@ -2,6 +2,7 @@ import { Client } from '@notionhq/client';
 import { plainText, splitHighlights, splitList } from './richtext';
 import { downloadNotionImage, generateFavicons } from './images';
 import type {
+  BadgeRow,
   CertificationRow,
   EducationRow,
   ExperienceRow,
@@ -25,6 +26,7 @@ export const DATA_SOURCES = {
   projects: '8fa4ac5a-3029-498c-b224-fff1fe3ef6e6',
   research: '58d47117-229c-461d-9b50-af4754cb22a9',
   sideWorlds: 'a7e3e4bf-c10d-445b-82e1-148f41664dba',
+  badges: '36756d83-11d2-80fb-960c-000bd090d868',
 } as const;
 
 // Specific page IDs whose image properties drive site-wide assets.
@@ -177,6 +179,7 @@ export async function fetchSiteData(): Promise<SiteData> {
     projectsRaw,
     researchRaw,
     sideWorldsRaw,
+    badgesRaw,
   ] = await Promise.all([
     queryDataSource(client, DATA_SOURCES.profile),
     queryDataSource(client, DATA_SOURCES.socials),
@@ -187,6 +190,7 @@ export async function fetchSiteData(): Promise<SiteData> {
     queryDataSource(client, DATA_SOURCES.projects),
     queryDataSource(client, DATA_SOURCES.research),
     queryDataSource(client, DATA_SOURCES.sideWorlds),
+    queryDataSource(client, DATA_SOURCES.badges),
   ]);
 
   // ── Profile ──────────────────────────────────────────────
@@ -376,6 +380,23 @@ export async function fetchSiteData(): Promise<SiteData> {
     };
   });
 
+  // ── Badges ───────────────────────────────────────────────
+  const badges: BadgeRow[] = await Promise.all(
+    badgesRaw.map(async (page: any) => {
+      const props = page.properties;
+      const files = getFiles(props, 'Badge');
+      const imagePath = files.length > 0
+        ? await downloadNotionImage(page.id, files[0].url)
+        : null;
+      return {
+        id: page.id,
+        name: getTitle(props, 'Name'),
+        imagePath,
+        order: getNumber(props, 'Order'),
+      };
+    })
+  );
+
   return {
     profile: {
       hero: findSection('Hero'),
@@ -391,6 +412,7 @@ export async function fetchSiteData(): Promise<SiteData> {
     projects,
     research,
     sideWorlds,
+    badges,
     logoPath,
     portraitPath,
   };
