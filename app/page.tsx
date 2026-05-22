@@ -12,6 +12,7 @@ import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
 import HeaderScroll from '@/components/HeaderScroll';
 import ScrollReveal from '@/components/ScrollReveal';
+import WebMCP from '@/components/WebMCP';
 
 // Force static generation; the Notion fetch happens at build time.
 export const dynamic = 'force-static';
@@ -41,6 +42,7 @@ export default async function Page() {
       <Footer />
       <HeaderScroll />
       <ScrollReveal />
+      <WebMCP />
     </>
   );
 }
