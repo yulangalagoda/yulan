@@ -1,0 +1,13 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://yulan.me",
+      "https://www.iana.org/assignments/relation/describedby": [
+        {
+          "href": "https://yulan.me",
+          "type": "text/html"
+        }
+      ]
+    }
+  ]
+}

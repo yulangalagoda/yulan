@@ -1,0 +1,9 @@
+{
+  "serverInfo": {
+    "name": "yulan.me",
+    "version": "1.0.0",
+    "description": "Personal portfolio of Yulan Galagoda — cybersecurity engineer and AI researcher specialising in intrusion detection systems for connected vehicles."
+  },
+  "transport": [],
+  "capabilities": {}
+}

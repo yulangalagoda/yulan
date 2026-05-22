@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
+  "skills": [
+    {
+      "name": "Cybersecurity Consultation",
+      "type": "service",
+      "description": "Consultations on intrusion detection, network security architecture, and IoV/CAN bus security. Available for collaborations on research and applied security projects.",
+      "url": "https://yulan.me/#contact"
+    },
+    {
+      "name": "Adversarial ML Research",
+      "type": "research",
+      "description": "Research into adversarial robustness of deep-learning intrusion detection systems, including FGSM and PGD attack evaluation using the CICIoV2024 dataset.",
+      "url": "https://yulan.me/#work"
+    },
+    {
+      "name": "IDS Evaluation",
+      "type": "research",
+      "description": "Evaluation and benchmarking of intrusion detection systems for automotive networks (CAN bus), including adversarial training defence strategies.",
+      "url": "https://yulan.me/#work"
+    }
+  ]
+}
