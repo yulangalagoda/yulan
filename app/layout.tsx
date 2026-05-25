@@ -4,12 +4,25 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'YG · Yulan Galagoda · Cyber security & AI researcher',
   description:
-    'Cyber security engineer and AI researcher building intrusion detection systems for connected vehicles. BSc First Class. MSc Artificial Intelligence, University of Plymouth.',
+    'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning. Based in Plymouth, UK.',
+  authors: [{ name: 'Yulan Galagoda', url: 'https://yulan.me' }],
+  creator: 'Yulan Galagoda',
   openGraph: {
     title: 'YG · Yulan Galagoda',
-    description: 'Cyber security engineer and AI researcher. Adversarial machine learning for the Internet of Vehicles.',
+    description:
+      'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning.',
     type: 'profile',
     url: 'https://yulan.me',
+    siteName: 'Yulan Galagoda',
+    locale: 'en_GB',
+  },
+  twitter: {
+    card: 'summary',
+    site: '@YulanGalagoda',
+    creator: '@YulanGalagoda',
+    title: 'YG · Yulan Galagoda',
+    description:
+      'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning.',
   },
   icons: {
     icon: [
@@ -29,15 +42,35 @@ const personJsonLd = {
   jobTitle: 'Cyber Security Engineer & AI Researcher',
   url: 'https://yulan.me',
   email: 'yulangalagoda1@gmail.com',
+  sameAs: [
+    'https://www.linkedin.com/in/yulangalagoda/',
+    'https://github.com/yulansgalagoda',
+    'https://x.com/YulanGalagoda',
+  ],
   alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'University of Plymouth' }],
   knowsAbout: [
     'Cybersecurity',
-    'Intrusion Detection',
+    'Intrusion Detection Systems',
     'Adversarial Machine Learning',
     'Internet of Vehicles',
-    'CAN bus security',
+    'CAN Bus Security',
     'Deep Learning',
+    'Network Security',
   ],
+};
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Yulan Galagoda',
+  url: 'https://yulan.me',
+  description:
+    'Portfolio of Yulan Galagoda — cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles.',
+  author: {
+    '@type': 'Person',
+    name: 'Yulan Galagoda',
+    url: 'https://yulan.me',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -47,6 +80,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="color-scheme" content="light" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://yulan.me" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -56,6 +91,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>

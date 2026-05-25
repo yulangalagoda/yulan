@@ -42,8 +42,8 @@ export default function SideWorlds({ sideWorlds }: Props) {
                 {w.tagline && <p className="sideworld__tagline">{w.tagline}</p>}
                 {w.description && <p className="sideworld__desc">{w.description}</p>}
                 {url && badge.cls === 'live' && (
-                  <a href={url} target="_blank" rel="noopener" className="sideworld__link">
-                    Open {w.name} <span className="arrow">↗</span>
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="sideworld__link">
+                    Visit {w.name} <span className="arrow" aria-hidden="true">↗</span>
                   </a>
                 )}
               </article>
