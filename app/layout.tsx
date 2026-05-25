@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://yulan.me'),
   title: 'YG · Yulan Galagoda · Cyber security & AI researcher',
   description:
     'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning. Based in Plymouth, UK.',
@@ -15,14 +16,23 @@ export const metadata: Metadata = {
     url: 'https://yulan.me',
     siteName: 'Yulan Galagoda',
     locale: 'en_GB',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
+      },
+    ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     site: '@YulanGalagoda',
     creator: '@YulanGalagoda',
     title: 'YG · Yulan Galagoda',
     description:
       'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning.',
+    images: ['/opengraph-image.png'],
   },
   icons: {
     icon: [
