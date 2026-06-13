@@ -14,8 +14,8 @@ body {
   font-size: var(--text-base);
   line-height: var(--lh-base);
   letter-spacing: var(--tracking-base);
-  color: var(--ink);
-  background: var(--cream);
+  color: var(--text);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -30,31 +30,32 @@ a {
   color: inherit;
   text-decoration: none;
   transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
               opacity var(--dur-fast) var(--ease-out);
 }
 
 ::selection {
-  background: var(--navy);
-  color: var(--cream);
+  background: var(--signal);
+  color: var(--on-signal);
 }
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   line-height: var(--lh-snug);
-  letter-spacing: var(--tracking-tight);
-  color: var(--ink);
+  letter-spacing: var(--tracking-head);
+  color: var(--text);
 }
 
 /* Body links */
 p a, li a {
-  color: var(--navy);
-  border-bottom: 1px solid var(--navy-faint);
+  color: var(--signal);
+  border-bottom: 1px solid rgba(61, 220, 151, 0.3);
   padding-bottom: 1px;
 }
 p a:hover, li a:hover {
-  border-bottom-color: var(--navy);
+  border-bottom-color: var(--signal);
 }
 
 /* Layout containers */
@@ -62,28 +63,25 @@ p a:hover, li a:hover {
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  padding: 0 clamp(1.25rem, 4vw, 1.75rem);
 }
 .container--narrow { max-width: var(--container-narrow); }
-.container--wide   { max-width: var(--container-wide); }
 
-/* Eyebrow label — used everywhere for section labels */
+/* Eyebrow label — mono, signal green */
 .eyebrow {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: var(--text-xs);
   font-weight: 500;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--navy);
+  color: var(--signal);
 }
 
 /* Body text utilities */
 .lede {
-  font-family: var(--font-body);
   font-size: var(--text-lg);
   line-height: 1.55;
-  color: var(--ink-soft);
-  letter-spacing: var(--tracking-base);
+  color: var(--dim);
 }
 
 /* Section primitive */
@@ -95,17 +93,17 @@ section {
 .reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
 }
 .reveal.in-view {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Focus styles — visible and elegant */
+/* Focus styles */
 :focus-visible {
-  outline: 2px solid var(--navy);
-  outline-offset: 4px;
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
   border-radius: 2px;
 }
 
@@ -114,11 +112,13 @@ section {
   position: absolute;
   top: -40px;
   left: 1rem;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--signal);
+  color: var(--on-signal);
   padding: 0.5rem 1rem;
   font-size: var(--text-sm);
+  font-weight: 600;
   z-index: 100;
+  border-radius: var(--radius-sm);
   transition: top var(--dur-fast) var(--ease-out);
 }
 .skip-link:focus { top: 1rem; }

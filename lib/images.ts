@@ -34,6 +34,17 @@ export async function downloadNotionImage(pageId: string, url: string): Promise<
   const filename = `${safeId}.${ext}`;
   const filePath = path.join(OUTPUT_DIR, filename);
 
+  // In dev, re-downloading on every request rewrites files under public/,
+  // which churns Next's file watcher mid-render. Reuse what's on disk.
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      await fs.stat(filePath);
+      return `./notion-images/${filename}`;
+    } catch {
+      // not downloaded yet — fall through
+    }
+  }
+
   try {
     const res = await fetch(url);
     if (!res.ok) {
@@ -56,6 +67,16 @@ export async function downloadNotionImage(pageId: string, url: string): Promise<
 export async function generateFavicons(logoPublicPath: string): Promise<void> {
   // logoPublicPath is e.g. "/notion-images/abc.png" — convert to absolute file path.
   const absolute = path.join(PUBLIC_DIR, logoPublicPath.replace(/^\.?\/+/, ''));
+
+  // Same dev guard as downloadNotionImage: don't rewrite public/ every request.
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      await fs.stat(path.join(PUBLIC_DIR, 'favicon.ico'));
+      return;
+    } catch {
+      // not generated yet — fall through
+    }
+  }
 
   try {
     const stat = await fs.stat(absolute);

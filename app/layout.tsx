@@ -3,15 +3,15 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://yulan.me'),
-  title: 'YG · Yulan Galagoda · Cyber security & AI researcher',
+  title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
   description:
-    'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning. Based in Plymouth, UK.',
+    'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning. Based in Plymouth, UK.',
   authors: [{ name: 'Yulan Galagoda', url: 'https://yulan.me' }],
   creator: 'Yulan Galagoda',
   openGraph: {
-    title: 'YG · Yulan Galagoda',
+    title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
     description:
-      'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning.',
+      'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning.',
     type: 'profile',
     url: 'https://yulan.me',
     siteName: 'Yulan Galagoda',
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@YulanGalagoda',
     creator: '@YulanGalagoda',
-    title: 'YG · Yulan Galagoda',
+    title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
     description:
-      'Cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles and adversarial machine learning.',
+      'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning.',
     images: ['/opengraph-image.png'],
   },
   icons: {
@@ -60,6 +60,10 @@ const personJsonLd = {
   alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'University of Plymouth' }],
   knowsAbout: [
     'Cybersecurity',
+    'Security Operations',
+    'SIEM',
+    'Incident Response',
+    'Vulnerability Management',
     'Intrusion Detection Systems',
     'Adversarial Machine Learning',
     'Internet of Vehicles',
@@ -75,7 +79,7 @@ const websiteJsonLd = {
   name: 'Yulan Galagoda',
   url: 'https://yulan.me',
   description:
-    'Portfolio of Yulan Galagoda — cyber security engineer and AI researcher specialising in intrusion detection for connected vehicles.',
+    'Portfolio of Yulan Galagoda — cyber security engineer and AI researcher covering security operations, intrusion detection, and adversarial machine learning.',
   author: {
     '@type': 'Person',
     name: 'Yulan Galagoda',
@@ -89,14 +93,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#0A0C0F" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://yulan.me" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         />
         <script
           type="application/ld+json"

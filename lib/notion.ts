@@ -165,7 +165,22 @@ async function queryDataSource(client: Client, dataSourceId: string): Promise<an
   return results;
 }
 
+// Dev-only memo so every request doesn't refetch the whole Notion workspace.
+let devCache: { at: number; data: SiteData } | null = null;
+const DEV_CACHE_MS = 60_000;
+
 export async function fetchSiteData(): Promise<SiteData> {
+  // Dev-only escape hatch: render with local fixture data when no Notion
+  // token is available (e.g. design review). Never used unless explicitly set.
+  if (process.env.SITE_FIXTURE?.trim() === '1') {
+    const { fixtureSiteData } = await import('./fixture');
+    return fixtureSiteData;
+  }
+
+  if (process.env.NODE_ENV !== 'production' && devCache && Date.now() - devCache.at < DEV_CACHE_MS) {
+    return devCache.data;
+  }
+
   const client = notionClient();
 
   // Fetch all data sources in parallel.
@@ -249,14 +264,21 @@ export async function fetchSiteData(): Promise<SiteData> {
   });
 
   // ── Experience ───────────────────────────────────────────
-  const experience: ExperienceRow[] = experienceRaw.map((page: any) => {
+  const experience: ExperienceRow[] = await Promise.all(experienceRaw.map(async (page: any) => {
     const props = page.properties;
     const date = getDate(props, 'Start Date');
     const endDate = getDate(props, 'End Date');
+    // Organisation logo: optional "Logo" file property. Rows without an
+    // upload simply render without one; a rebuild picks new uploads up.
+    const logoFiles = getFiles(props, 'Logo');
+    const logoPath = logoFiles.length > 0
+      ? await downloadNotionImage(page.id, logoFiles[0].url)
+      : null;
     return {
       id: page.id,
       role: getTitle(props, 'Role'),
       organisation: flexValue(props, 'Organisation') || undefined,
+      logoPath,
       description: flexValue(props, 'Description') || undefined,
       highlights: splitHighlights(flexValue(props, 'Highlights')),
       location: flexValue(props, 'Location') || undefined,
@@ -267,7 +289,7 @@ export async function fetchSiteData(): Promise<SiteData> {
       current: getCheckbox(props, 'Current'),
       order: getNumber(props, 'Order'),
     };
-  });
+  }));
 
   // ── Education ────────────────────────────────────────────
   const education: EducationRow[] = educationRaw.map((page: any) => {
@@ -397,7 +419,7 @@ export async function fetchSiteData(): Promise<SiteData> {
     })
   );
 
-  return {
+  const data: SiteData = {
     profile: {
       hero: findSection('Hero'),
       about: findSection('About'),
@@ -416,4 +438,9 @@ export async function fetchSiteData(): Promise<SiteData> {
     logoPath,
     portraitPath,
   };
+
+  if (process.env.NODE_ENV !== 'production') {
+    devCache = { at: Date.now(), data };
+  }
+  return data;
 }

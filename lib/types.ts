@@ -22,6 +22,7 @@ export interface ExperienceRow {
   id: string;
   role: string;
   organisation?: string;
+  logoPath?: string | null;
   description?: string;
   highlights: string[];     // Split on <br>
   location?: string;

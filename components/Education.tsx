@@ -24,9 +24,9 @@ export default function Education({ education }: Props) {
             <li className="cv-block__item" key={row.id}>
               <div className="pri">{row.qualification}</div>
               <div className="sec">
-                {row.institution}
-                {row.institution && row.grade ? ' · ' : ''}
-                {row.grade || (row.current ? 'In progress' : '')}
+                {[row.institution, row.grade || (row.current ? 'In progress' : '')]
+                  .filter(Boolean)
+                  .join(' · ')}
               </div>
               {date && <span className="date">{date}</span>}
             </li>

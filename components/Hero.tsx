@@ -1,54 +1,62 @@
-import CanvasCANBus from './CanvasCANBus';
+import LiveWire from './LiveWire';
 import type { ProfileRow } from '@/lib/types';
 
 interface Props {
   hero?: ProfileRow;
 }
 
+const FALLBACK_SENTENCE =
+  'Defending everything from enterprise networks to intelligent machines.';
+const FALLBACK_CREDENTIALS = [
+  'BSc Computer Security, First Class',
+  'MSc Artificial Intelligence in progress',
+  'University of Plymouth',
+];
+
+// The Notion hero Content is a few sentences: role first, credentials after.
+// The design renders the role as the lead sentence and the rest as the mono
+// credentials line, so the whole hero stays editable from Notion.
+function splitHero(content?: string): { sentence: string; credentials: string[] } {
+  const text = content?.trim();
+  if (!text) return { sentence: FALLBACK_SENTENCE, credentials: FALLBACK_CREDENTIALS };
+  const parts = text.split(/\.\s+/).map((s) => s.replace(/\.$/, '').trim()).filter(Boolean);
+  if (parts.length <= 1) return { sentence: text, credentials: FALLBACK_CREDENTIALS };
+  return { sentence: `${parts[0]}.`, credentials: parts.slice(1) };
+}
+
 export default function Hero({ hero }: Props) {
-  // Defaults mirror the prototype so the page still reads correctly if Notion
-  // returns nothing for the Hero row.
   const headline = hero?.headline?.trim() || 'Yulan Galagoda';
-  const sentence =
-    hero?.content?.trim() ||
-    'Cyber security engineer and AI researcher building intrusion detection systems for the cars of tomorrow.';
+  const { sentence, credentials } = splitHero(hero?.content);
 
   return (
     <section className="hero" id="top">
-      <CanvasCANBus />
+      <div className="container hero__grid">
+        <div>
+          <span className="status-pill">Available — roles · research · consulting</span>
 
-      <div className="hero__inner">
-        <div className="hero__eyebrow">
-          <span className="dot"></span>
-          <span className="eyebrow">
-            <span className="hero__eyebrow-location">Plymouth, United Kingdom&nbsp;·&nbsp;</span>Available for collaborations and consultations
-          </span>
+          <h1 className="hero__title">
+            {headline}
+            <span className="grad">Cyber Security Engineer &amp; AI Researcher</span>
+          </h1>
+
+          <p className="hero__sentence">{sentence}</p>
+
+          <p className="hero__credentials">
+            {credentials.map((c, i) => (
+              <span key={i}>
+                {i > 0 && <span className="sep">·</span>}
+                {c}
+              </span>
+            ))}
+          </p>
+
+          <div className="hero__cta-row">
+            <a href="#work" className="btn btn--primary">See the work</a>
+            <a href="#contact" className="btn btn--ghost">Get in touch</a>
+          </div>
         </div>
 
-        <h1 className="hero__title" data-split>{headline}</h1>
-
-        <p className="hero__sentence">{sentence}</p>
-
-        <p className="hero__credentials">
-          BSc Computer Security, First Class
-          <span className="sep">·</span>
-          MSc Artificial Intelligence in progress
-          <span className="sep">·</span>
-          University of Plymouth
-        </p>
-
-        <div className="hero__cta-row">
-          <a href="#work" className="btn btn--primary">
-            See the work
-            <span className="arrow">→</span>
-          </a>
-          <a href="#contact" className="btn btn--ghost">Get in touch</a>
-        </div>
-      </div>
-
-      <div className="hero__scroll" aria-hidden="true">
-        <span>Scroll</span>
-        <span className="line"></span>
+        <LiveWire />
       </div>
     </section>
   );

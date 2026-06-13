@@ -1,0 +1,256 @@
+'use client';
+
+import { useCallback, useEffect, useRef, useState } from 'react';
+import Oscilloscope, { type ScopePort } from './Oscilloscope';
+
+/**
+ * The hero's instrument panel, fed by live global threat telemetry from the
+ * SANS Internet Storm Center (isc.sans.edu — free, CORS-enabled, no key).
+ *
+ * - The scope trace performs today's real attack mix; a trigger cursor
+ *   "decodes" each pulse as it crosses, naming the service and attack type
+ * - Top attacked port today across the ISC honeypot network
+ * - A single running estimate of today's total hits, climbing at the real
+ *   observed rate, with "since page load" derived from the SAME number so the
+ *   two readouts can never contradict each other
+ * - The ISC Infocon global threat level in the panel header
+ *
+ * The panel re-polls ISC periodically; when a new aggregate lands the running
+ * count catches up to it (never steps backward). Everything degrades
+ * gracefully: until data arrives (or if the API is down) the panel shows calm
+ * placeholder readouts.
+ */
+
+const PORT_NAMES: Record<number, string> = {
+  21: 'FTP',
+  22: 'SSH',
+  23: 'Telnet',
+  25: 'SMTP',
+  80: 'HTTP',
+  123: 'NTP',
+  443: 'HTTPS',
+  445: 'SMB',
+  1433: 'MSSQL',
+  2222: 'SSH-alt',
+  3306: 'MySQL',
+  3389: 'RDP',
+  5060: 'SIP',
+  5900: 'VNC',
+  6379: 'Redis',
+  8080: 'HTTP-alt',
+};
+
+// What an attack on each port usually is — the "decode" shown to visitors.
+const PORT_ATTACKS: Record<number, string> = {
+  21: 'legacy file-transfer probing',
+  22: 'SSH password brute-force',
+  23: 'IoT botnet recruitment scans',
+  25: 'mail-relay abuse probes',
+  80: 'web exploit scanning',
+  123: 'NTP amplification probes',
+  443: 'web exploit scanning',
+  445: 'worm-style SMB propagation',
+  1433: 'database brute-force',
+  2222: 'SSH brute-force (alt port)',
+  3306: 'database brute-force',
+  3389: 'remote-desktop brute-force',
+  5060: 'VoIP toll-fraud scans',
+  5900: 'remote-screen hijack attempts',
+  6379: 'database hijack attempts',
+  8080: 'proxy & web-panel scanning',
+};
+
+const GENERIC_ATTACK = 'automated mass scanning';
+
+interface Snapshot {
+  topPort: number;
+  topPortHits: number;
+  totalHits: number;
+  ratePerSec: number;
+  infocon: string;
+  /** Top ports arranged for the scope trace (peak centred). */
+  tracePorts: ScopePort[];
+}
+
+function fmt(n: number): string {
+  return Math.round(n).toLocaleString('en-GB');
+}
+
+async function fetchSnapshot(): Promise<Snapshot | null> {
+  try {
+    const [portsRes, infoconRes] = await Promise.all([
+      fetch('https://isc.sans.edu/api/topports/records/5?json'),
+      fetch('https://isc.sans.edu/api/infocon?json'),
+    ]);
+    if (!portsRes.ok) return null;
+    const ports: any = await portsRes.json();
+    const infocon: string = infoconRes.ok ? (await infoconRes.json())?.status ?? 'green' : 'green';
+
+    const rows: ScopePort[] = [];
+    for (const key of Object.keys(ports)) {
+      const row = ports[key];
+      if (row && typeof row === 'object' && typeof row.records === 'number' && typeof row.targetport === 'number') {
+        rows.push({ port: row.targetport, records: row.records });
+      }
+    }
+    if (rows.length === 0) return null;
+
+    const top = rows.reduce((a, b) => (b.records > a.records ? b : a));
+    const totalHits = rows.reduce((sum, r) => sum + r.records, 0);
+
+    // Arrange the ranked ports so the tallest pulse sits mid-trace:
+    // [rank 2, rank 4, rank 1, rank 5, rank 3].
+    const ranked = [...rows].sort((a, b) => b.records - a.records);
+    const tracePorts = [1, 3, 0, 4, 2]
+      .map((i) => ranked[i])
+      .filter((p): p is ScopePort => Boolean(p));
+
+    // Average observed rate so far today (UTC), from the real daily total.
+    const now = new Date();
+    const secondsToday = Math.max(
+      1,
+      (now.getTime() - Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())) / 1000
+    );
+    return {
+      topPort: top.port,
+      topPortHits: top.records,
+      totalHits,
+      ratePerSec: totalHits / secondsToday,
+      infocon,
+      tracePorts,
+    };
+  } catch {
+    return null;
+  }
+}
+
+const POLL_MS = 300_000; // re-check ISC every 5 min (their CDN caches ~10 min)
+const DECODE_HOLD_MS = 1500; // keep each decode readable before the next one lands
+
+export default function LiveWire() {
+  const [snap, setSnap] = useState<Snapshot | null>(null);
+  const [hitsToday, setHitsToday] = useState(0);
+  const [sinceLoad, setSinceLoad] = useState(0);
+  const [decoded, setDecoded] = useState<ScopePort | null>(null);
+
+  // The running-count model. `hitsToday` and `sinceLoad` are both derived from
+  // one displayed value (anchor + rate × elapsed), so they stay consistent.
+  const loadBaseRef = useRef<number | null>(null); // displayed total when the page loaded
+  const anchorTotalRef = useRef(0); // real total at the last poll (monotonic)
+  const anchorAtRef = useRef(0); // performance.now() when the anchor was set
+  const rateRef = useRef(0); // real attacks/sec
+  const realTotalRef = useRef(0); // latest real ISC total (for the decode share)
+  const tracePortsRef = useRef<ScopePort[]>([]);
+  const lastDecodeAt = useRef(0);
+
+  // Fold a fresh snapshot into the running model without ever stepping back.
+  const applySnapshot = useCallback((s: Snapshot) => {
+    const now = performance.now();
+    const currentDisplayed =
+      anchorTotalRef.current > 0
+        ? anchorTotalRef.current + rateRef.current * ((now - anchorAtRef.current) / 1000)
+        : s.totalHits;
+    anchorTotalRef.current = Math.max(currentDisplayed, s.totalHits);
+    anchorAtRef.current = now;
+    rateRef.current = s.ratePerSec;
+    realTotalRef.current = s.totalHits;
+    tracePortsRef.current = s.tracePorts;
+    if (loadBaseRef.current === null) loadBaseRef.current = anchorTotalRef.current;
+    setSnap(s);
+    setDecoded((prev) => prev ?? { port: s.topPort, records: s.topPortHits });
+  }, []);
+
+  // Initial fetch + periodic re-poll.
+  useEffect(() => {
+    let cancelled = false;
+    const load = () => fetchSnapshot().then((s) => { if (!cancelled && s) applySnapshot(s); });
+    load();
+    const id = setInterval(load, POLL_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(id);
+    };
+  }, [applySnapshot]);
+
+  // Tick the displayed numbers from the single running value.
+  useEffect(() => {
+    if (!snap) return;
+    const id = setInterval(() => {
+      const now = performance.now();
+      const displayed = anchorTotalRef.current + rateRef.current * ((now - anchorAtRef.current) / 1000);
+      setHitsToday(displayed);
+      setSinceLoad(Math.max(0, displayed - (loadBaseRef.current ?? displayed)));
+    }, 250);
+    return () => clearInterval(id);
+  }, [snap]);
+
+  // A pulse crossed the scope's trigger cursor — decode it.
+  const handleTrigger = useCallback((index: number) => {
+    const ports = tracePortsRef.current;
+    const hit = ports[index];
+    if (!hit) return;
+    const now = Date.now();
+    if (now - lastDecodeAt.current < DECODE_HOLD_MS) return;
+    lastDecodeAt.current = now;
+    setDecoded(hit);
+  }, []);
+
+  const portLabel = snap ? `${snap.topPort}${PORT_NAMES[snap.topPort] ? ' · ' + PORT_NAMES[snap.topPort] : ''}` : '— · —';
+  const infocon = (snap?.infocon ?? 'green').toUpperCase();
+  const infoconAlert = infocon !== 'GREEN';
+
+  const decodeShare =
+    decoded && realTotalRef.current ? Math.round((decoded.records / realTotalRef.current) * 100) : 0;
+  const decodeAttack = decoded ? PORT_ATTACKS[decoded.port] ?? GENERIC_ATTACK : null;
+
+  return (
+    <aside className="panel" aria-label="Live global attack telemetry">
+      <div className="panel__head">
+        <span>CH-1 · Global attack traffic</span>
+        <b className={infoconAlert ? 'alert' : ''}>Infocon ▌{infocon}</b>
+      </div>
+      <div className="scope">
+        <Oscilloscope ports={snap?.tracePorts} ratePerSec={snap?.ratePerSec} onTrigger={handleTrigger} />
+      </div>
+
+      <div className="panel__decode" aria-live="off">
+        <span className="panel__decode-label">Decode</span>
+        {decoded ? (
+          <span className="panel__decode-body" key={`${decoded.port}-${lastDecodeAt.current}`}>
+            <span className="panel__decode-id">
+              Port {decoded.port}
+              {PORT_NAMES[decoded.port] ? ` · ${PORT_NAMES[decoded.port]}` : ''}
+            </span>
+            <span className="panel__decode-desc">
+              {decodeAttack} <span className="panel__decode-share">· {decodeShare}%</span>
+            </span>
+          </span>
+        ) : (
+          <span className="panel__decode-body muted">awaiting signal…</span>
+        )}
+      </div>
+
+      <div className="panel__readouts">
+        <div>
+          Top target
+          <b>{snap ? `Port ${portLabel}` : 'Port —'}</b>
+        </div>
+        <div>
+          Hits today
+          <b>{snap ? fmt(hitsToday) : '—'}</b>
+        </div>
+        <div>
+          Since page load
+          <b>{snap ? `+${fmt(sinceLoad)}` : '—'}</b>
+        </div>
+      </div>
+      <p className="panel__source">
+        Live estimate · today&rsquo;s top-5 attacked ports accumulating at the observed rate —{' '}
+        <a href="https://isc.sans.edu" target="_blank" rel="noopener noreferrer">
+          SANS Internet Storm Center
+        </a>{' '}
+        honeypot network
+      </p>
+    </aside>
+  );
+}

@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 
+export const dynamic = 'force-static';
+
 export const alt = 'Yulan Galagoda — Cyber Security Engineer & AI Researcher';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -9,87 +11,86 @@ export default function Image() {
     (
       <div
         style={{
-          background: '#FAF8F4',
+          background: '#0A0C0F',
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '0 0 0 0',
+          padding: '64px 80px',
           fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
         }}
       >
-        {/* Top navy bar */}
-        <div style={{ width: '100%', height: 8, background: '#1B2A4E', flexShrink: 0 }} />
-
-        {/* Content area */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            flex: 1,
-            padding: '64px 80px',
-          }}
-        >
-          {/* YG monogram */}
+        {/* status row */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div
             style={{
-              fontSize: 48,
-              fontWeight: 600,
-              color: '#1B2A4E',
-              letterSpacing: '-0.03em',
-              lineHeight: 1,
+              width: 12,
+              height: 12,
+              borderRadius: 999,
+              background: '#3DDC97',
+            }}
+          />
+          <div
+            style={{
+              fontSize: 22,
+              color: '#3DDC97',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
             }}
           >
-            YG
-          </div>
-
-          {/* Name + title */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <div
-              style={{
-                fontSize: 88,
-                fontWeight: 700,
-                color: '#0E1116',
-                lineHeight: 0.95,
-                letterSpacing: '-0.04em',
-              }}
-            >
-              Yulan Galagoda
-            </div>
-            <div
-              style={{
-                fontSize: 36,
-                fontWeight: 400,
-                color: '#6B6E76',
-                letterSpacing: '-0.01em',
-                lineHeight: 1.3,
-              }}
-            >
-              Cyber Security Engineer &amp; AI Researcher
-            </div>
-          </div>
-
-          {/* Footer row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            <div style={{ width: 48, height: 2, background: '#1B2A4E', flexShrink: 0 }} />
-            <div
-              style={{
-                fontSize: 22,
-                color: '#1B2A4E',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                fontWeight: 500,
-              }}
-            >
-              Plymouth, UK · yulan.me
-            </div>
+            yulan.me — available for roles · research · consulting
           </div>
         </div>
 
-        {/* Bottom navy bar */}
-        <div style={{ width: '100%', height: 4, background: '#1B2A4E', flexShrink: 0 }} />
+        {/* Name + title */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+          <div
+            style={{
+              fontSize: 92,
+              fontWeight: 700,
+              color: '#E8ECF1',
+              lineHeight: 1,
+              letterSpacing: '-0.04em',
+            }}
+          >
+            Yulan Galagoda
+          </div>
+          <div
+            style={{
+              fontSize: 36,
+              fontWeight: 400,
+              color: '#8A93A0',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.3,
+            }}
+          >
+            Cyber Security Engineer &amp; AI Researcher
+          </div>
+        </div>
+
+        {/* trace + footer row */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
+          <svg width="1040" height="80" viewBox="0 0 1040 80">
+            <path
+              d="M0 40 L120 40 L140 12 L160 68 L180 40 L360 40 L380 22 L400 58 L420 40 L600 40 L620 6 L635 74 L655 40 L800 40 L815 30 L830 50 L845 40 L1040 40"
+              fill="none"
+              stroke="#3DDC97"
+              strokeWidth="3"
+            />
+            <circle cx="620" cy="6" r="7" fill="#E0B050" />
+          </svg>
+          <div
+            style={{
+              fontSize: 22,
+              color: '#4A525E',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Security Operations · Intrusion Detection · Adversarial ML · Plymouth, UK
+          </div>
+        </div>
       </div>
     ),
     { ...size },

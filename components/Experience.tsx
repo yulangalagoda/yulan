@@ -34,14 +34,28 @@ export default function Experience({ experience }: Props) {
             <div className="timeline__row reveal" key={row.id}>
               <div className="timeline__date">{dateRange(row)}</div>
               <div className="timeline__main">
-                <h3 className="timeline__role">{row.role}</h3>
-                {(row.organisation || row.location) && (
-                  <div className="timeline__org">
-                    {row.organisation}
-                    {row.organisation && row.location ? ' · ' : ''}
-                    {row.location}
+                <div className="timeline__head">
+                  {row.logoPath && (
+                    <span className="timeline__logo">
+                      <img
+                        src={row.logoPath}
+                        alt={row.organisation ? `${row.organisation} logo` : ''}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </span>
+                  )}
+                  <div>
+                    <h3 className="timeline__role">{row.role}</h3>
+                    {(row.organisation || row.location) && (
+                      <div className="timeline__org">
+                        {row.organisation}
+                        {row.organisation && row.location ? ' · ' : ''}
+                        {row.location}
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
                 {row.description && <p className="timeline__desc">{row.description}</p>}
                 {row.highlights.length > 0 && (
                   <ul className="timeline__highlights">

@@ -19,9 +19,9 @@ export default function SideWorlds({ sideWorlds }: Props) {
       <div className="container">
         <header className="section-head reveal">
           <span className="eyebrow">Side Worlds</span>
-          <h2 className="section-head__title">Other rooms in the same house.</h2>
+          <h2 className="section-head__title">Different worlds, same mind.</h2>
           <p className="section-head__lede">
-            Two long-running personal projects that live next to the engineering work, and quietly inform it.
+            Long-running personal projects, built and curated by me — they live next to the engineering work, and quietly inform it.
           </p>
         </header>
 

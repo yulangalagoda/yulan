@@ -1,6 +1,8 @@
 import { fetchSiteData } from '@/lib/notion';
+import { buildAgentContact, buildAgentProfile, buildAgentProjects } from '@/lib/agent-content';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import StatsStrip from '@/components/StatsStrip';
 import About from '@/components/About';
 import Badges from '@/components/Badges';
 import Projects from '@/components/Projects';
@@ -25,9 +27,10 @@ export default async function Page() {
       <Header />
       <main id="main">
         <Hero hero={data.profile.hero} />
+        <StatsStrip education={data.education} />
+        <Projects projects={data.projects} />
         <About about={data.profile.about} portraitPath={data.portraitPath} />
         <Badges badges={data.badges} />
-        <Projects projects={data.projects} />
         <Experience experience={data.experience} />
         <SideWorlds sideWorlds={data.sideWorlds} />
         <CVStrip
@@ -36,13 +39,17 @@ export default async function Page() {
           skills={data.skills}
           research={data.research}
         />
-        <Contact contact={data.profile.contact} />
+        <Contact contact={data.profile.contact} socials={data.socials} />
       </main>
       <BackToTop />
       <Footer />
       <HeaderScroll />
       <ScrollReveal />
-      <WebMCP />
+      <WebMCP
+        profile={buildAgentProfile(data)}
+        projects={buildAgentProjects(data)}
+        contact={buildAgentContact(data)}
+      />
     </>
   );
 }

@@ -100,7 +100,7 @@ export default function Projects({ projects }: Props) {
       <div className="container">
         <header className="section-head reveal">
           <span className="eyebrow">Selected Work</span>
-          <h2 className="section-head__title">Four projects that explain how I think.</h2>
+          <h2 className="section-head__title">Systems that hold the line.</h2>
           <p className="section-head__lede">
             Each one started as a research question, not a feature list. That is the difference that matters.
           </p>

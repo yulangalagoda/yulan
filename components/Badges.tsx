@@ -17,12 +17,14 @@ export default function Badges({ badges }: Props) {
         <div className="badges-strip reveal">
           {visible.map((b) => (
             <figure key={b.id} className="badge-item" title={b.name}>
-              <img
-                src={b.imagePath!}
-                alt={b.name}
-                loading="lazy"
-                decoding="async"
-              />
+              <span className="badge-item__img">
+                <img
+                  src={b.imagePath!}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
               <figcaption>{b.name}</figcaption>
             </figure>
           ))}
