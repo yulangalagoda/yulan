@@ -126,6 +126,35 @@ async function fetchSnapshot(): Promise<Snapshot | null> {
 
 const POLL_MS = 300_000; // re-check ISC every 5 min (their CDN caches ~10 min)
 const DECODE_HOLD_MS = 1500; // keep each decode readable before the next one lands
+const STORE_KEY = 'lw_hits_v1';
+
+function utcDay(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+// Persist the running total for today so a refresh resumes instead of snapping
+// back to ISC's batch figure. Reset implicitly at UTC midnight (day key).
+function readStored(): { total: number; at: number } | null {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return null;
+    const o = JSON.parse(raw);
+    if (o && o.day === utcDay() && typeof o.total === 'number' && typeof o.at === 'number') {
+      return { total: o.total, at: o.at };
+    }
+  } catch {
+    /* localStorage unavailable (private mode) — fall back to live value */
+  }
+  return null;
+}
+
+function writeStored(total: number): void {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify({ day: utcDay(), total, at: Date.now() }));
+  } catch {
+    /* ignore */
+  }
+}
 
 export default function LiveWire() {
   const [snap, setSnap] = useState<Snapshot | null>(null);
@@ -146,11 +175,19 @@ export default function LiveWire() {
   // Fold a fresh snapshot into the running model without ever stepping back.
   const applySnapshot = useCallback((s: Snapshot) => {
     const now = performance.now();
-    const currentDisplayed =
-      anchorTotalRef.current > 0
-        ? anchorTotalRef.current + rateRef.current * ((now - anchorAtRef.current) / 1000)
+    let baseline: number;
+    if (anchorTotalRef.current > 0) {
+      // Subsequent poll: continue the running value, catching up to real jumps.
+      baseline = anchorTotalRef.current + rateRef.current * ((now - anchorAtRef.current) / 1000);
+    } else {
+      // First snapshot: resume today's persisted running total (carried forward
+      // to now) so a refresh doesn't snap back to ISC's batched figure.
+      const stored = readStored();
+      baseline = stored
+        ? stored.total + s.ratePerSec * ((Date.now() - stored.at) / 1000)
         : s.totalHits;
-    anchorTotalRef.current = Math.max(currentDisplayed, s.totalHits);
+    }
+    anchorTotalRef.current = Math.max(baseline, s.totalHits);
     anchorAtRef.current = now;
     rateRef.current = s.ratePerSec;
     realTotalRef.current = s.totalHits;
@@ -175,11 +212,18 @@ export default function LiveWire() {
   // Tick the displayed numbers from the single running value.
   useEffect(() => {
     if (!snap) return;
+    let sinceWrite = 0;
     const id = setInterval(() => {
       const now = performance.now();
       const displayed = anchorTotalRef.current + rateRef.current * ((now - anchorAtRef.current) / 1000);
       setHitsToday(displayed);
       setSinceLoad(Math.max(0, displayed - (loadBaseRef.current ?? displayed)));
+      // Persist the running total every ~3s so a refresh resumes from here.
+      sinceWrite += 250;
+      if (sinceWrite >= 3000) {
+        sinceWrite = 0;
+        writeStored(displayed);
+      }
     }, 250);
     return () => clearInterval(id);
   }, [snap]);
