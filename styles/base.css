@@ -35,8 +35,8 @@ a {
 }
 
 ::selection {
-  background: var(--signal);
-  color: var(--on-signal);
+  background: var(--signal-soft);
+  color: var(--signal-3);
 }
 
 /* Headings */
@@ -51,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Body links */
 p a, li a {
   color: var(--signal);
-  border-bottom: 1px solid rgba(61, 220, 151, 0.3);
+  border-bottom: 1px solid rgba(14, 124, 90, 0.3);
   padding-bottom: 1px;
 }
 p a:hover, li a:hover {
@@ -63,11 +63,11 @@ p a:hover, li a:hover {
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 1.75rem);
+  padding: 0 clamp(1.5rem, 4vw, 2rem);
 }
 .container--narrow { max-width: var(--container-narrow); }
 
-/* Eyebrow label — mono, signal green */
+/* Eyebrow label — mono, emerald */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -92,8 +92,8 @@ section {
 /* Quiet scroll-fade animation utility — applied via JS observer */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
 }
 .reveal.in-view {
   opacity: 1;

@@ -1,62 +1,58 @@
-import LiveWire from './LiveWire';
 import type { ProfileRow } from '@/lib/types';
 
 interface Props {
   hero?: ProfileRow;
+  portraitPath: string | null;
 }
 
 const FALLBACK_SENTENCE =
   'Defending everything from enterprise networks to intelligent machines.';
-const FALLBACK_CREDENTIALS = [
-  'BSc Computer Security, First Class',
-  'MSc Artificial Intelligence in progress',
-  'University of Plymouth',
-];
 
-// The Notion hero Content is a few sentences: role first, credentials after.
-// The design renders the role as the lead sentence and the rest as the mono
-// credentials line, so the whole hero stays editable from Notion.
-function splitHero(content?: string): { sentence: string; credentials: string[] } {
+// The Notion hero Content is a few sentences: the lead sentence is the value
+// prop; the rest are credentials, surfaced in the facts grid below.
+function leadSentence(content?: string): string {
   const text = content?.trim();
-  if (!text) return { sentence: FALLBACK_SENTENCE, credentials: FALLBACK_CREDENTIALS };
-  const parts = text.split(/\.\s+/).map((s) => s.replace(/\.$/, '').trim()).filter(Boolean);
-  if (parts.length <= 1) return { sentence: text, credentials: FALLBACK_CREDENTIALS };
-  return { sentence: `${parts[0]}.`, credentials: parts.slice(1) };
+  if (!text) return FALLBACK_SENTENCE;
+  const first = text.split(/\.\s+/)[0]?.trim();
+  return first ? `${first.replace(/\.$/, '')}.` : FALLBACK_SENTENCE;
 }
 
-export default function Hero({ hero }: Props) {
+export default function Hero({ hero, portraitPath }: Props) {
   const headline = hero?.headline?.trim() || 'Yulan Galagoda';
-  const { sentence, credentials } = splitHero(hero?.content);
+  const sentence = leadSentence(hero?.content);
 
   return (
     <section className="hero" id="top">
       <div className="container hero__grid">
-        <div>
-          <span className="status-pill">Available — roles · research · consulting</span>
-
-          <h1 className="hero__title">
-            {headline}
-            <span className="grad">Cyber Security Engineer &amp; AI Researcher</span>
-          </h1>
-
-          <p className="hero__sentence">{sentence}</p>
-
-          <p className="hero__credentials">
-            {credentials.map((c, i) => (
-              <span key={i}>
-                {i > 0 && <span className="sep">·</span>}
-                {c}
-              </span>
-            ))}
+        <div className="hero__copy">
+          <p className="hero__avail">
+            <span className="hero__avail-dot" aria-hidden="true"></span>
+            Available — roles · research · consulting · United Kingdom
           </p>
 
+          <h1 className="hero__title">{headline}</h1>
+          <p className="hero__role">Cyber Security Engineer &amp; AI Researcher</p>
+          <p className="hero__line">{sentence}</p>
+
           <div className="hero__cta-row">
-            <a href="#work" className="btn btn--primary">See the work</a>
+            <a href="#work" className="btn btn--primary">View work</a>
             <a href="#contact" className="btn btn--ghost">Get in touch</a>
           </div>
         </div>
 
-        <LiveWire />
+        <figure className="hero__photo" aria-label="Portrait of Yulan Galagoda">
+          {portraitPath ? (
+            <img src={portraitPath} alt="Portrait of Yulan Galagoda" decoding="async" />
+          ) : (
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Portrait placeholder">
+              <rect width="400" height="500" fill="#EDEAE2" />
+              <g transform="translate(200 290)" fill="none" stroke="#B7B1A4" strokeWidth="1.4">
+                <circle cx="0" cy="-95" r="68" />
+                <path d="M-115 120 Q -115 35 0 35 Q 115 35 115 120 Z" />
+              </g>
+            </svg>
+          )}
+        </figure>
       </div>
     </section>
   );

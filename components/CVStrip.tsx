@@ -17,7 +17,7 @@ export default function CVStrip({ education, certifications, skills, research }:
       <div className="container">
         <header className="section-head reveal">
           <span className="eyebrow">Credentials</span>
-          <h2 className="section-head__title">Education, certifications, and a working toolkit.</h2>
+          <h2 className="section-head__title">Education, certifications &amp; skills.</h2>
         </header>
 
         <div className="cv-grid">

@@ -1,26 +1,29 @@
 /* yulan.me — Design Tokens
-   Concept: "Instrument". Dark lab panel — graphite black, signal green.
-   Visual truth: public/design/concept-c-instrument.html */
+   Concept: "Light / Scannable" — warm white, near-monochrome, one emerald accent.
+   Visual truth: the approved light mockup. */
 
 :root {
   /* ── Colour ─────────────────────────────────────────────── */
-  --bg:       #0A0C0F;   /* page surface, graphite black */
-  --panel:    #101318;   /* card / panel surface */
-  --panel-2:  #14181F;   /* panel gradient top */
-  --well:     #0C0F13;   /* inset wells (scope screens, chips) */
-  --edge:     #232932;   /* hairline borders */
-  --edge-2:   #2E3640;   /* hovered borders */
-  --text:     #E8ECF1;   /* primary text */
-  --dim:      #8A93A0;   /* secondary text */
-  --faint:    #4A525E;   /* tertiary / metadata */
-  --signal:   #3DDC97;   /* the accent — signal green */
-  --signal-2: #2BB67D;   /* signal borders / hover frames */
-  --signal-3: #4BEAA5;   /* signal hover fill */
-  --on-signal:#04130C;   /* text on signal surfaces */
-  --warn:     #E0B050;   /* amber annotations (meta, anomalies) */
+  --bg:        #FBFAF7;   /* page surface, warm off-white */
+  --surface:   #FFFFFF;   /* alternating section bands, cards */
+  --panel:     #FFFFFF;   /* lab instrument body */
+  --panel-2:   #FFFFFF;
+  --well:      #F4F1EA;   /* light inset (readout chips, tags) */
+  --scope-bg:  #07090C;   /* lab oscilloscope screen stays dark */
+  --edge:      #E7E3DA;   /* hairline borders */
+  --edge-2:    #D6D1C6;   /* stronger borders / hover */
+  --text:      #15171C;   /* primary text */
+  --dim:       #444953;   /* secondary text */
+  --faint:     #767B85;   /* tertiary / metadata */
+  --signal:    #0E7C5A;   /* the accent — restrained emerald */
+  --signal-2:  #0B6147;   /* accent border */
+  --signal-3:  #0A5C43;   /* accent hover */
+  --signal-soft: #E6F2EC; /* accent tint (kind badges) */
+  --on-signal: #FFFFFF;   /* text on emerald surfaces */
+  --warn:      #B5740E;   /* muted amber for meta accents */
 
   /* ── Type ───────────────────────────────────────────────── */
-  --font-body: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: var(--font-body);
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
@@ -29,19 +32,19 @@
   --text-sm:    clamp(0.8125rem, 0.78rem + 0.2vw, 0.875rem);   /* 13-14px */
   --text-base:  clamp(0.9375rem, 0.9rem + 0.25vw, 1rem);       /* 15-16px */
   --text-lg:    clamp(1.0625rem, 1rem + 0.4vw, 1.1875rem);     /* 17-19px */
-  --text-xl:    clamp(1.3125rem, 1.2rem + 0.8vw, 1.625rem);    /* 21-26px */
-  --text-2xl:   clamp(1.75rem, 1.5rem + 1.6vw, 2.5rem);        /* 28-40px */
-  --text-hero:  clamp(2.875rem, 2rem + 4.4vw, 5.25rem);        /* 46-84px */
+  --text-xl:    clamp(1.25rem, 1.15rem + 0.7vw, 1.5rem);       /* 20-24px */
+  --text-2xl:   clamp(1.5rem, 1.25rem + 1.4vw, 2rem);          /* 24-32px */
+  --text-hero:  clamp(2.75rem, 1.9rem + 4.2vw, 4.25rem);       /* 44-68px */
 
   /* Line heights & tracking */
-  --lh-tight:   1.0;
+  --lh-tight:   1.02;
   --lh-snug:    1.15;
   --lh-base:    1.6;
-  --tracking-tight:  -0.035em;
-  --tracking-head:   -0.025em;
+  --tracking-tight:  -0.03em;
+  --tracking-head:   -0.02em;
   --tracking-base:   0;
   --tracking-wide:   0.1em;
-  --tracking-eyebrow: 0.16em;
+  --tracking-eyebrow: 0.14em;
 
   /* ── Spacing ────────────────────────────────────────────── */
   --space-1:  0.25rem;
@@ -55,26 +58,22 @@
   --space-20: 5rem;
   --space-24: 6rem;
 
-  --section-y:  clamp(3.5rem, 7vw, 6.5rem);
-  --container:  72.5rem;   /* 1160px */
+  --section-y:  clamp(3.5rem, 6vw, 4.5rem);
+  --container:  67.5rem;   /* 1080px */
   --container-narrow: 44rem;
 
   /* ── Shape ──────────────────────────────────────────────── */
   --radius-sm:  6px;
-  --radius:     10px;
-  --radius-lg:  16px;
-  --radius-xl:  20px;
+  --radius:     9px;
+  --radius-lg:  14px;
+  --radius-xl:  16px;
   --radius-pill: 100px;
 
   /* ── Motion ─────────────────────────────────────────────── */
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast:   180ms;
-  --dur-base:   320ms;
+  --dur-base:   300ms;
   --dur-slow:   700ms;
-
-  /* ── Shadows / glows ────────────────────────────────────── */
-  --shadow-panel: 0 24px 60px rgba(0, 0, 0, 0.45);
-  --glow-signal:  0 0 10px var(--signal);
 }
 
 /* Respect motion preferences */

@@ -3,11 +3,9 @@ import { buildAgentContact, buildAgentProfile, buildAgentProjects } from '@/lib/
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import StatsStrip from '@/components/StatsStrip';
-import About from '@/components/About';
-import Badges from '@/components/Badges';
+import WhatIDo from '@/components/WhatIDo';
 import Projects from '@/components/Projects';
 import Experience from '@/components/Experience';
-import SideWorlds from '@/components/SideWorlds';
 import CVStrip from '@/components/CVStrip';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -26,13 +24,11 @@ export default async function Page() {
     <>
       <Header />
       <main id="main">
-        <Hero hero={data.profile.hero} />
+        <Hero hero={data.profile.hero} portraitPath={data.portraitPath} />
         <StatsStrip education={data.education} />
+        <WhatIDo />
         <Projects projects={data.projects} />
-        <About about={data.profile.about} portraitPath={data.portraitPath} />
-        <Badges badges={data.badges} />
         <Experience experience={data.experience} />
-        <SideWorlds sideWorlds={data.sideWorlds} />
         <CVStrip
           education={data.education}
           certifications={data.certifications}

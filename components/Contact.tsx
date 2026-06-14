@@ -25,21 +25,13 @@ function iconFor(row: SocialLinkRow): string | null {
   return ICON_PATHS[key] ?? null;
 }
 
-// Renders a single line of Notion text, converting [label](url) markdown links
-// into anchors. Notion stores links in this field as markdown-style text.
 function InlineLine({ text }: { text: string }) {
   const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
   return (
     <>
       {parts.map((part, i) => {
         const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-        if (m) {
-          return (
-            <a key={i} href={m[2]}>
-              {m[1]}
-            </a>
-          );
-        }
+        if (m) return <a key={i} href={m[2]}>{m[1]}</a>;
         return <span key={i}>{part}</span>;
       })}
     </>
@@ -48,27 +40,22 @@ function InlineLine({ text }: { text: string }) {
 
 export default function Contact({ contact, socials = [], email }: Props) {
   const addr = email || 'yulangalagoda1@gmail.com';
-  // Only rows with a real URL render — half-finished Notion rows stay hidden
-  // until a link is added. Email rows are skipped: the button above covers it.
+  const sub =
+    contact?.content?.trim() ||
+    'Whether you need an engineer on your team, a collaborator on research, or a consultant on a hard security problem — my inbox is open.';
+  const subLines = splitHighlights(sub).filter((l) => !/^email\s*:/i.test(l.trim()));
   const links = socials.filter(
     (s) => s.url && s.url.trim().length > 0 && !s.url.trim().toLowerCase().startsWith('mailto:')
   );
-  const sub =
-    contact?.content?.trim() ||
-    'Open to research collaborations and consultations in IoV security, adversarial ML, and IDS evaluation. Based in Plymouth, United Kingdom.';
-  // Drop lines that just repeat the email button below.
-  const subLines = splitHighlights(sub).filter((l) => !/^email\s*:/i.test(l.trim()));
 
   return (
-    <section id="contact">
+    <section id="contact" className="contact band">
       <div className="container">
-        <div className="contact__card reveal">
-          <span className="contact__eyebrow">Contact</span>
-          <h2 className="contact__title">Put a defender on your team.</h2>
+        <div className="contact__inner reveal">
+          <span className="eyebrow">Contact</span>
+          <h2 className="contact__title">Get in touch.</h2>
           {subLines.map((line, i) => (
-            <p className="contact__sub" key={i}>
-              <InlineLine text={line} />
-            </p>
+            <p className="contact__sub" key={i}><InlineLine text={line} /></p>
           ))}
           <a href={`mailto:${addr}`} className="contact__email">{addr}</a>
 
@@ -79,11 +66,11 @@ export default function Contact({ contact, socials = [], email }: Props) {
                 return (
                   <li key={s.id}>
                     <a href={s.url} target="_blank" rel="noopener noreferrer me" title={s.handle || s.name}>
-                      {icon ? (
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                      {icon && (
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
                           <path d={icon} />
                         </svg>
-                      ) : null}
+                      )}
                       <span>{s.name}</span>
                     </a>
                   </li>

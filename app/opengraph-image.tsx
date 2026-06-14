@@ -11,7 +11,7 @@ export default function Image() {
     (
       <div
         style={{
-          background: '#0A0C0F',
+          background: '#FBFAF7',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -23,19 +23,12 @@ export default function Image() {
       >
         {/* status row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div
-            style={{
-              width: 12,
-              height: 12,
-              borderRadius: 999,
-              background: '#3DDC97',
-            }}
-          />
+          <div style={{ width: 12, height: 12, borderRadius: 999, background: '#0E7C5A' }} />
           <div
             style={{
               fontSize: 22,
-              color: '#3DDC97',
-              letterSpacing: '0.14em',
+              color: '#0E7C5A',
+              letterSpacing: '0.12em',
               textTransform: 'uppercase',
             }}
           >
@@ -44,12 +37,12 @@ export default function Image() {
         </div>
 
         {/* Name + title */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div
             style={{
               fontSize: 92,
               fontWeight: 700,
-              color: '#E8ECF1',
+              color: '#15171C',
               lineHeight: 1,
               letterSpacing: '-0.04em',
             }}
@@ -58,9 +51,9 @@ export default function Image() {
           </div>
           <div
             style={{
-              fontSize: 36,
-              fontWeight: 400,
-              color: '#8A93A0',
+              fontSize: 38,
+              fontWeight: 600,
+              color: '#0E7C5A',
               letterSpacing: '-0.01em',
               lineHeight: 1.3,
             }}
@@ -69,27 +62,16 @@ export default function Image() {
           </div>
         </div>
 
-        {/* trace + footer row */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
-          <svg width="1040" height="80" viewBox="0 0 1040 80">
-            <path
-              d="M0 40 L120 40 L140 12 L160 68 L180 40 L360 40 L380 22 L400 58 L420 40 L600 40 L620 6 L635 74 L655 40 L800 40 L815 30 L830 50 L845 40 L1040 40"
-              fill="none"
-              stroke="#3DDC97"
-              strokeWidth="3"
-            />
-            <circle cx="620" cy="6" r="7" fill="#E0B050" />
-          </svg>
-          <div
-            style={{
-              fontSize: 22,
-              color: '#4A525E',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-            }}
-          >
-            Security Operations · Intrusion Detection · Adversarial ML · Plymouth, UK
-          </div>
+        {/* footer row */}
+        <div
+          style={{
+            fontSize: 22,
+            color: '#767B85',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+          }}
+        >
+          Security Operations · Intrusion Detection · Adversarial ML · United Kingdom
         </div>
       </div>
     ),

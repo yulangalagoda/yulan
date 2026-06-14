@@ -24,44 +24,32 @@ function ProjectModal({ project, onClose }: { project: ProjectRow; onClose: () =
     };
   }, [onClose]);
 
+  const link = project.liveUrl || project.githubUrl || project.reportUrl;
+
   return (
-    <div
-      className="project-modal__overlay"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label={project.name}
-    >
-      <div className="project-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="project-modal__close" onClick={onClose} aria-label="Close">✕</button>
-
-        <div className="work-item__meta">
-          {project.type && <span className="pill">{project.type}</span>}
-          {project.year && <span>{yr(project.year)}</span>}
-          {project.status && <span>· {project.status}</span>}
+    <div className="modal__overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={project.name}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <button className="modal__close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="card__head">
+          {project.type && <span className="card__kind">{project.type}</span>}
+          {project.year && <span className="card__yr">{yr(project.year)}{project.status ? ` · ${project.status}` : ''}</span>}
         </div>
-
-        <h3 className="project-modal__title">{project.name}</h3>
-
-        {project.tagline && (
-          <p className="project-modal__tagline">{project.tagline}</p>
+        <h3 className="modal__title">{project.name}</h3>
+        {project.tagline && <p className="modal__tagline">{project.tagline}</p>}
+        {project.description && <p className="modal__desc">{project.description}</p>}
+        {project.highlights.length > 0 && (
+          <ul className="modal__pts">
+            {project.highlights.map((h, i) => <li key={i}>{h}</li>)}
+          </ul>
         )}
-
-        {project.description && (
-          <p className="project-modal__description">{project.description}</p>
-        )}
-
         {project.technologies.length > 0 && (
-          <div className="work-item__tech">
-            {project.technologies.map((t) => (
-              <span className="chip" key={t}>{t}</span>
-            ))}
+          <div className="card__tags">
+            {project.technologies.map((t) => <span className="tag" key={t}>{t}</span>)}
           </div>
         )}
-
-        {project.liveUrl && (
-          <a href={project.liveUrl} target="_blank" rel="noopener" className="work-item__link">
-            Visit {project.name} <span className="arrow">↗</span>
+        {link && (
+          <a href={link} target="_blank" rel="noopener noreferrer" className="modal__link">
+            Visit {project.name} <span aria-hidden="true">↗</span>
           </a>
         )}
       </div>
@@ -69,53 +57,45 @@ function ProjectModal({ project, onClose }: { project: ProjectRow; onClose: () =
   );
 }
 
-function WorkItem({ p, onClick }: { p: ProjectRow; onClick: () => void }) {
+function ProjectCard({ p, onOpen }: { p: ProjectRow; onOpen: () => void }) {
   return (
-    <article
-      className="work-item reveal"
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick()}
-    >
-      <div className="work-item__copy">
-        <div className="work-item__meta">
-          {p.type && <span className="pill">{p.type}</span>}
-          {p.year && <span>{yr(p.year)}</span>}
-          {p.status && <span>· {p.status}</span>}
-        </div>
-        <h3 className="work-item__title">{p.name}</h3>
-        {p.tagline && <p className="work-item__tagline">{p.tagline}</p>}
-        <span className="work-item__cta" aria-hidden="true">View project →</span>
+    <article className="card" onClick={onOpen} role="button" tabIndex={0}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onOpen()}>
+      <div className="card__head">
+        <span className="card__kind">{p.type || 'Project'}</span>
+        {p.year && <span className="card__yr">{yr(p.year)}</span>}
       </div>
+      <h3 className="card__name">{p.name}</h3>
+      {(p.tagline || p.description) && <p className="card__desc">{p.tagline || p.description}</p>}
+      {p.technologies.length > 0 && (
+        <div className="card__tags">
+          {p.technologies.slice(0, 3).map((t) => <span className="tag" key={t}>{t}</span>)}
+        </div>
+      )}
+      <span className="card__more">View project →</span>
     </article>
   );
 }
 
 export default function Projects({ projects }: Props) {
-  const [openProject, setOpenProject] = useState<ProjectRow | null>(null);
+  const [open, setOpen] = useState<ProjectRow | null>(null);
 
   return (
     <section id="work">
       <div className="container">
         <header className="section-head reveal">
-          <span className="eyebrow">Selected Work</span>
-          <h2 className="section-head__title">Systems that hold the line.</h2>
-          <p className="section-head__lede">
-            Each one started as a research question, not a feature list. That is the difference that matters.
-          </p>
+          <span className="eyebrow">Work</span>
+          <h2 className="section-head__title">Selected projects.</h2>
         </header>
 
         <div className="work-grid">
           {projects.map((p) => (
-            <WorkItem key={p.id} p={p} onClick={() => setOpenProject(p)} />
+            <ProjectCard key={p.id} p={p} onOpen={() => setOpen(p)} />
           ))}
         </div>
       </div>
 
-      {openProject && (
-        <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />
-      )}
+      {open && <ProjectModal project={open} onClose={() => setOpen(null)} />}
     </section>
   );
 }
