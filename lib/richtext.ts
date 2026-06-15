@@ -20,6 +20,17 @@ export function splitHighlights(text: string | undefined): string[] {
 }
 
 /**
+ * URL-safe slug from a title, e.g. "The Meridian" -> "the-meridian".
+ */
+export function slugify(text: string | undefined): string {
+  return (text ?? '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
  * Splits a comma-separated multi-select-ish field. Useful for "Technologies" or
  * "Keywords" properties that the user may have entered as plain text.
  */

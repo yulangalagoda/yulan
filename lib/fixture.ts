@@ -123,6 +123,7 @@ export const fixtureSiteData: SiteData = {
   projects: [
     {
       id: 'fixture-proj-1',
+      slug: 'can-bus-adversarial-ids',
       name: 'CAN-Bus Adversarial IDS',
       tagline: 'Adversarially robust intrusion detection for connected vehicles',
       description:
@@ -144,6 +145,7 @@ export const fixtureSiteData: SiteData = {
     },
     {
       id: 'fixture-proj-2',
+      slug: 'neteagle',
       name: 'NetEAGLE',
       tagline: 'Raspberry Pi home-network defender',
       description:

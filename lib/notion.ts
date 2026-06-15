@@ -1,5 +1,5 @@
 import { Client } from '@notionhq/client';
-import { plainText, splitHighlights, splitList } from './richtext';
+import { plainText, slugify, splitHighlights, splitList } from './richtext';
 import { downloadNotionImage, generateFavicons } from './images';
 import type {
   BadgeRow,
@@ -345,9 +345,11 @@ export async function fetchSiteData(): Promise<SiteData> {
   // ── Projects ─────────────────────────────────────────────
   const projects: ProjectRow[] = projectsRaw.map((page: any) => {
     const props = page.properties;
+    const name = getTitle(props, 'Name');
     return {
       id: page.id,
-      name: getTitle(props, 'Name'),
+      slug: slugify(name),
+      name,
       tagline: flexValue(props, 'Tagline') || undefined,
       description: flexValue(props, 'Description') || undefined,
       highlights: splitHighlights(flexValue(props, 'Highlights')),

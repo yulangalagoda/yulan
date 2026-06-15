@@ -73,6 +73,7 @@ export interface CertificationRow {
 
 export interface ProjectRow {
   id: string;
+  slug: string;
   name: string;
   tagline?: string;
   description?: string;
