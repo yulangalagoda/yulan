@@ -42,49 +42,11 @@ export const metadata: Metadata = {
     ],
     apple: './apple-touch-icon.png',
   },
-};
-
-const personJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Yulan Galagoda',
-  alternateName: ['YG', 'Senarath Galagoda'],
-  jobTitle: 'Cyber Security Engineer & AI Researcher',
-  url: 'https://yulan.me',
-  email: 'yulangalagoda1@gmail.com',
-  sameAs: [
-    'https://www.linkedin.com/in/yulangalagoda/',
-    'https://github.com/yulansgalagoda',
-    'https://x.com/YulanGalagoda',
-  ],
-  alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'University of Plymouth' }],
-  knowsAbout: [
-    'Cybersecurity',
-    'Security Operations',
-    'SIEM',
-    'Incident Response',
-    'Vulnerability Management',
-    'Intrusion Detection Systems',
-    'Adversarial Machine Learning',
-    'Internet of Vehicles',
-    'CAN Bus Security',
-    'Deep Learning',
-    'Network Security',
-  ],
-};
-
-const websiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Yulan Galagoda',
-  url: 'https://yulan.me',
-  description:
-    'Portfolio of Yulan Galagoda — cyber security engineer and AI researcher covering security operations, intrusion detection, and adversarial machine learning.',
-  author: {
-    '@type': 'Person',
-    name: 'Yulan Galagoda',
-    url: 'https://yulan.me',
-  },
+  // Set NEXT_PUBLIC_GSC_VERIFICATION at build time to use Google's HTML-tag
+  // verification; otherwise verify the domain via DNS in Cloudflare (preferred).
+  verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
+    : undefined,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -102,14 +64,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>

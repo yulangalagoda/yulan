@@ -1,5 +1,6 @@
 import { fetchSiteData } from '@/lib/notion';
 import { buildAgentContact, buildAgentProfile, buildAgentProjects } from '@/lib/agent-content';
+import { buildJsonLd } from '@/lib/structured-data';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import StatsStrip from '@/components/StatsStrip';
@@ -22,6 +23,10 @@ export default async function Page() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(data)) }}
+      />
       <Header />
       <main id="main">
         <Hero hero={data.profile.hero} portraitPath={data.portraitPath} />
