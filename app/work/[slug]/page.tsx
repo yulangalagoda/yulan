@@ -49,7 +49,6 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const p = await getProject(slug);
   if (!p) notFound();
 
-  const link = p.liveUrl || p.githubUrl || p.reportUrl;
   const meta = [yr(p.year), p.status, p.role].filter(Boolean);
 
   const jsonLd = {
@@ -126,8 +125,18 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         )}
 
         <div className="detail__links">
+          {(p.reportPath || p.reportUrl) && (
+            <a
+              className="btn btn--primary"
+              href={p.reportPath || p.reportUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download the full report (PDF) ↓
+            </a>
+          )}
           {p.liveUrl && (
-            <a className="btn btn--primary" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
+            <a className="btn btn--ghost" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
               Visit live ↗
             </a>
           )}
@@ -136,12 +145,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
               Source on GitHub ↗
             </a>
           )}
-          {p.reportUrl && (
-            <a className="btn btn--ghost" href={p.reportUrl} target="_blank" rel="noopener noreferrer">
-              Read the report ↗
-            </a>
-          )}
-          {!link && (
+          {!p.reportPath && !p.reportUrl && !p.liveUrl && !p.githubUrl && (
             <a className="btn btn--ghost" href="/#contact">Ask me about this →</a>
           )}
         </div>

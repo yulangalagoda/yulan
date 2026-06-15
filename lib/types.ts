@@ -85,6 +85,7 @@ export interface ProjectRow {
   liveUrl?: string;
   githubUrl?: string;
   reportUrl?: string;
+  reportPath?: string | null;
   featured: boolean;
   year?: string;
   order: number;

@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client';
 import { plainText, slugify, splitHighlights, splitList } from './richtext';
-import { downloadNotionImage, generateFavicons } from './images';
+import { downloadNotionFile, downloadNotionImage, generateFavicons } from './images';
 import type {
   BadgeRow,
   CertificationRow,
@@ -343,12 +343,19 @@ export async function fetchSiteData(): Promise<SiteData> {
   });
 
   // ── Projects ─────────────────────────────────────────────
-  const projects: ProjectRow[] = projectsRaw.map((page: any) => {
+  const projects: ProjectRow[] = await Promise.all(projectsRaw.map(async (page: any) => {
     const props = page.properties;
     const name = getTitle(props, 'Name');
+    const slug = slugify(name);
+    // Optional "Report" file property: the project's final report PDF. Notion
+    // file URLs expire, so download it into the static site at build time.
+    const reportFiles = getFiles(props, 'Report');
+    const reportPath = reportFiles.length > 0
+      ? await downloadNotionFile(page.id, reportFiles[0].url, `${slug}-report`)
+      : null;
     return {
       id: page.id,
-      slug: slugify(name),
+      slug,
       name,
       tagline: flexValue(props, 'Tagline') || undefined,
       description: flexValue(props, 'Description') || undefined,
@@ -360,11 +367,12 @@ export async function fetchSiteData(): Promise<SiteData> {
       liveUrl: getUrl(props, 'Live URL') || undefined,
       githubUrl: getUrl(props, 'GitHub URL') || undefined,
       reportUrl: getUrl(props, 'Report URL') || undefined,
+      reportPath,
       featured: getCheckbox(props, 'Featured'),
       year: getDate(props, 'Year').start,
       order: getNumber(props, 'Order'),
     };
-  });
+  }));
 
   // ── Research & Pubs ──────────────────────────────────────
   const research: ResearchRow[] = researchRaw.map((page: any) => {

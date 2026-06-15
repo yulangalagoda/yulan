@@ -3,6 +3,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'notion-images');
+const DOCS_DIR = path.join(process.cwd(), 'public', 'notion-docs');
 const PUBLIC_DIR = path.join(process.cwd(), 'public');
 
 async function ensureDir(dir: string): Promise<void> {
@@ -56,6 +57,60 @@ export async function downloadNotionImage(pageId: string, url: string): Promise<
     return `./notion-images/${filename}`;
   } catch (err) {
     console.warn(`[images] Error downloading ${url}:`, err);
+    return null;
+  }
+}
+
+function docExtFromUrl(url: string, fallback = 'pdf'): string {
+  try {
+    const u = new URL(url);
+    const m = u.pathname.toLowerCase().match(/\.([a-z0-9]{2,5})$/);
+    if (m) return m[1];
+  } catch {
+    // ignore
+  }
+  return fallback;
+}
+
+/**
+ * Downloads a Notion-hosted document (e.g. a project's final report PDF) into
+ * /public/notion-docs/<basename>.<ext> and returns its public path. Notion file
+ * URLs are signed and expire after ~1 hour, so — like images — we copy them
+ * into the static site at build time. `baseName` gives the download a clean,
+ * human filename (e.g. "neteagle-report"). Returns null if there's no file.
+ */
+export async function downloadNotionFile(
+  pageId: string,
+  url: string,
+  baseName: string
+): Promise<string | null> {
+  if (!url) return null;
+  await ensureDir(DOCS_DIR);
+  const ext = docExtFromUrl(url, 'pdf');
+  const safe = (baseName || pageId.replace(/-/g, '')).replace(/[^a-z0-9-]/gi, '-').toLowerCase();
+  const filename = `${safe}.${ext}`;
+  const filePath = path.join(DOCS_DIR, filename);
+
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      await fs.stat(filePath);
+      return `./notion-docs/${filename}`;
+    } catch {
+      // not downloaded yet — fall through
+    }
+  }
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`[images] Failed to download doc ${url}: HTTP ${res.status}`);
+      return null;
+    }
+    const buf = Buffer.from(await res.arrayBuffer());
+    await fs.writeFile(filePath, buf);
+    return `./notion-docs/${filename}`;
+  } catch (err) {
+    console.warn(`[images] Error downloading doc ${url}:`, err);
     return null;
   }
 }
