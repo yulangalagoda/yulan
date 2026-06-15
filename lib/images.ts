@@ -40,7 +40,7 @@ export async function downloadNotionImage(pageId: string, url: string): Promise<
   if (process.env.NODE_ENV !== 'production') {
     try {
       await fs.stat(filePath);
-      return `./notion-images/${filename}`;
+      return `/notion-images/${filename}`;
     } catch {
       // not downloaded yet — fall through
     }
@@ -54,7 +54,7 @@ export async function downloadNotionImage(pageId: string, url: string): Promise<
     }
     const buf = Buffer.from(await res.arrayBuffer());
     await fs.writeFile(filePath, buf);
-    return `./notion-images/${filename}`;
+    return `/notion-images/${filename}`;
   } catch (err) {
     console.warn(`[images] Error downloading ${url}:`, err);
     return null;
@@ -94,7 +94,7 @@ export async function downloadNotionFile(
   if (process.env.NODE_ENV !== 'production') {
     try {
       await fs.stat(filePath);
-      return `./notion-docs/${filename}`;
+      return `/notion-docs/${filename}`;
     } catch {
       // not downloaded yet — fall through
     }
@@ -108,7 +108,7 @@ export async function downloadNotionFile(
     }
     const buf = Buffer.from(await res.arrayBuffer());
     await fs.writeFile(filePath, buf);
-    return `./notion-docs/${filename}`;
+    return `/notion-docs/${filename}`;
   } catch (err) {
     console.warn(`[images] Error downloading doc ${url}:`, err);
     return null;

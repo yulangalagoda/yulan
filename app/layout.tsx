@@ -36,11 +36,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: './favicon.svg', type: 'image/svg+xml' },
-      { url: './favicon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: './favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16.png', sizes: '16x16', type: 'image/png' },
     ],
-    apple: './apple-touch-icon.png',
+    apple: '/apple-touch-icon.png',
   },
   // Set NEXT_PUBLIC_GSC_VERIFICATION at build time to use Google's HTML-tag
   // verification; otherwise verify the domain via DNS in Cloudflare (preferred).
