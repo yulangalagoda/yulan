@@ -10,6 +10,23 @@ async function ensureDir(dir: string): Promise<void> {
   await fs.mkdir(dir, { recursive: true });
 }
 
+/**
+ * `next build` renders routes in parallel workers that can all decide to
+ * write the same asset at the same moment. Writing straight to the target
+ * corrupts or errors (Windows locks the file outright), so write to a unique
+ * temp file and rename it into place; if the rename loses the race because
+ * another worker already produced the file, that copy is just as good.
+ */
+async function writeFileAtomic(filePath: string, buf: Buffer): Promise<void> {
+  const tmp = `${filePath}.${process.pid}-${Math.random().toString(36).slice(2)}.tmp`;
+  await fs.writeFile(tmp, buf);
+  try {
+    await fs.rename(tmp, filePath);
+  } catch {
+    await fs.unlink(tmp).catch(() => {});
+  }
+}
+
 function extFromUrl(url: string, fallback = 'png'): string {
   try {
     const u = new URL(url);
@@ -53,7 +70,7 @@ export async function downloadNotionImage(pageId: string, url: string): Promise<
       return null;
     }
     const buf = Buffer.from(await res.arrayBuffer());
-    await fs.writeFile(filePath, buf);
+    await writeFileAtomic(filePath, buf);
     return `/notion-images/${filename}`;
   } catch (err) {
     console.warn(`[images] Error downloading ${url}:`, err);
@@ -107,7 +124,7 @@ export async function downloadNotionFile(
       return null;
     }
     const buf = Buffer.from(await res.arrayBuffer());
-    await fs.writeFile(filePath, buf);
+    await writeFileAtomic(filePath, buf);
     return `/notion-docs/${filename}`;
   } catch (err) {
     console.warn(`[images] Error downloading doc ${url}:`, err);
@@ -138,10 +155,11 @@ export async function optimizeHeroImage(publicPath: string): Promise<string> {
   }
 
   try {
-    await sharp(absolute)
+    const buf = await sharp(absolute)
       .resize({ width: 880, withoutEnlargement: true })
       .webp({ quality: 78 })
-      .toFile(outPath);
+      .toBuffer();
+    await writeFileAtomic(outPath, buf);
     return outPublic;
   } catch (err) {
     console.warn('[images] Failed to optimise hero portrait, using original:', err);
@@ -181,22 +199,22 @@ export async function generateFavicons(logoPublicPath: string): Promise<void> {
       .resize(32, 32, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .png()
       .toBuffer();
-    await fs.writeFile(path.join(PUBLIC_DIR, 'favicon.ico'), buf32);
-    await fs.writeFile(path.join(PUBLIC_DIR, 'favicon-32.png'), buf32);
+    await writeFileAtomic(path.join(PUBLIC_DIR, 'favicon.ico'), buf32);
+    await writeFileAtomic(path.join(PUBLIC_DIR, 'favicon-32.png'), buf32);
 
     // 16×16 PNG
     const buf16 = await sharp(absolute)
       .resize(16, 16, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .png()
       .toBuffer();
-    await fs.writeFile(path.join(PUBLIC_DIR, 'favicon-16.png'), buf16);
+    await writeFileAtomic(path.join(PUBLIC_DIR, 'favicon-16.png'), buf16);
 
     // 180×180 Apple touch icon
     const buf180 = await sharp(absolute)
       .resize(180, 180, { fit: 'contain', background: { r: 250, g: 248, b: 244, alpha: 1 } })
       .png()
       .toBuffer();
-    await fs.writeFile(path.join(PUBLIC_DIR, 'apple-touch-icon.png'), buf180);
+    await writeFileAtomic(path.join(PUBLIC_DIR, 'apple-touch-icon.png'), buf180);
   } catch (err) {
     console.warn('[images] Failed to generate favicon assets:', err);
   }

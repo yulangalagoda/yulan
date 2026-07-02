@@ -169,6 +169,13 @@ async function queryDataSource(client: Client, dataSourceId: string): Promise<an
 let devCache: { at: number; data: SiteData } | null = null;
 const DEV_CACHE_MS = 60_000;
 
+// Build-time memo: `next build` renders many routes (pages, sitemap,
+// llms.txt, OG image) that each call fetchSiteData. Without this, every
+// route re-crawls Notion and re-downloads the same assets concurrently,
+// which races the file writes (and on Windows makes them fail outright).
+// Safe because a production render is a one-shot static export.
+let prodFetch: Promise<SiteData> | null = null;
+
 export async function fetchSiteData(): Promise<SiteData> {
   // Dev-only escape hatch: render with local fixture data when no Notion
   // token is available (e.g. design review). Never used unless explicitly set.
@@ -177,10 +184,20 @@ export async function fetchSiteData(): Promise<SiteData> {
     return fixtureSiteData;
   }
 
-  if (process.env.NODE_ENV !== 'production' && devCache && Date.now() - devCache.at < DEV_CACHE_MS) {
-    return devCache.data;
+  if (process.env.NODE_ENV === 'production') {
+    if (!prodFetch) prodFetch = fetchSiteDataUncached();
+    return prodFetch;
   }
 
+  if (devCache && Date.now() - devCache.at < DEV_CACHE_MS) {
+    return devCache.data;
+  }
+  const data = await fetchSiteDataUncached();
+  devCache = { at: Date.now(), data };
+  return data;
+}
+
+async function fetchSiteDataUncached(): Promise<SiteData> {
   const client = notionClient();
 
   // Fetch all data sources in parallel.
@@ -451,8 +468,5 @@ export async function fetchSiteData(): Promise<SiteData> {
     portraitPath,
   };
 
-  if (process.env.NODE_ENV !== 'production') {
-    devCache = { at: Date.now(), data };
-  }
   return data;
 }
