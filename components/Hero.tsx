@@ -42,7 +42,7 @@ export default function Hero({ hero, portraitPath }: Props) {
 
         <figure className="hero__photo" aria-label="Portrait of Yulan Galagoda">
           {portraitPath ? (
-            <img src={portraitPath} alt="Portrait of Yulan Galagoda" decoding="async" />
+            <img src={portraitPath} alt="Portrait of Yulan Galagoda" decoding="async" fetchPriority="high" />
           ) : (
             <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Portrait placeholder">
               <rect width="400" height="500" fill="#EDEAE2" />

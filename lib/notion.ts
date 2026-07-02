@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client';
 import { plainText, slugify, splitHighlights, splitList } from './richtext';
-import { downloadNotionFile, downloadNotionImage, generateFavicons } from './images';
+import { downloadNotionFile, downloadNotionImage, generateFavicons, optimizeHeroImage } from './images';
 import type {
   BadgeRow,
   CertificationRow,
@@ -234,7 +234,9 @@ export async function fetchSiteData(): Promise<SiteData> {
       }
     }
     if (page.id.replace(/-/g, '') === HERO_PAGE_ID.replace(/-/g, '')) {
-      portraitPath = imagePath;
+      // The raw upload is often a multi-hundred-KB phone photo and it's the
+      // page's LCP element — serve a resized WebP instead.
+      portraitPath = imagePath ? await optimizeHeroImage(imagePath) : null;
     }
 
     profileRows.push({

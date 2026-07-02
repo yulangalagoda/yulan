@@ -116,6 +116,40 @@ export async function downloadNotionFile(
 }
 
 /**
+ * Produces a web-sized rendition of the hero portrait next to the original
+ * (<name>-hero.webp). The Notion original can be a multi-MB phone photo; the
+ * hero slot renders at ~440 CSS px wide, so 880px covers 2x displays. Falls
+ * back to the original path if the conversion fails.
+ */
+export async function optimizeHeroImage(publicPath: string): Promise<string> {
+  const absolute = path.join(PUBLIC_DIR, publicPath.replace(/^\.?\/+/, ''));
+  const outName = path.basename(absolute).replace(/\.[a-z0-9]+$/i, '') + '-hero.webp';
+  const outPath = path.join(OUTPUT_DIR, outName);
+  const outPublic = `/notion-images/${outName}`;
+
+  // Same dev guard as downloadNotionImage: don't rewrite public/ every request.
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      await fs.stat(outPath);
+      return outPublic;
+    } catch {
+      // not generated yet — fall through
+    }
+  }
+
+  try {
+    await sharp(absolute)
+      .resize({ width: 880, withoutEnlargement: true })
+      .webp({ quality: 78 })
+      .toFile(outPath);
+    return outPublic;
+  } catch (err) {
+    console.warn('[images] Failed to optimise hero portrait, using original:', err);
+    return publicPath;
+  }
+}
+
+/**
  * Generates favicon assets (ICO, 16x16, 32x32, and 180x180 Apple touch) from a
  * source logo. Writes to /public so they sit at the site root.
  */
