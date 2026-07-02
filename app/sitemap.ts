@@ -23,5 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/research/`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     ...projectPages,
     { url: `${SITE}/lab/`, lastModified: now, changeFrequency: 'weekly', priority: 0.4 },
+    { url: `${SITE}/lab/password/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
   ];
 }
