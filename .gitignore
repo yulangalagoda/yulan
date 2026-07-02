@@ -28,3 +28,6 @@ public/apple-touch-icon.png
 .idea/
 .vscode/
 *.log
+
+# Local agent tooling
+.claude/
