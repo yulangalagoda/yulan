@@ -1,5 +1,13 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  colorScheme: 'light',
+  themeColor: '#FBFAF7',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://yulan.me'),
@@ -8,6 +16,11 @@ export const metadata: Metadata = {
     'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning. Based in Plymouth, UK.',
   authors: [{ name: 'Yulan Galagoda', url: 'https://yulan.me' }],
   creator: 'Yulan Galagoda',
+  robots: { index: true, follow: true },
+  // Homepage canonical only — subpages set their own via `alternates` in
+  // their metadata. (A hardcoded <link rel="canonical"> here would leak onto
+  // every page and conflict with the per-page ones.)
+  alternates: { canonical: '/' },
   openGraph: {
     title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
     description:
@@ -16,14 +29,8 @@ export const metadata: Metadata = {
     url: 'https://yulan.me',
     siteName: 'Yulan Galagoda',
     locale: 'en_GB',
-    images: [
-      {
-        url: '/opengraph-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
-      },
-    ],
+    // og:image / twitter:image come from app/opengraph-image.tsx (the file
+    // convention); listing a manual path here pointed at a 404.
   },
   twitter: {
     card: 'summary_large_image',
@@ -32,7 +39,6 @@ export const metadata: Metadata = {
     title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
     description:
       'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning.',
-    images: ['/opengraph-image.png'],
   },
   icons: {
     icon: [
@@ -53,12 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="color-scheme" content="light" />
-        <meta name="theme-color" content="#FBFAF7" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://yulan.me" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
