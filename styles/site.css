@@ -684,3 +684,64 @@ section.band { background: var(--surface); }
 .pwlab__hibp-result { font-size: var(--text-xs); color: var(--faint); line-height: 1.5; }
 .pwlab__hibp-result .bad { color: #C0392B; font-weight: 600; }
 .pwlab__hibp-result .good { color: var(--signal); font-weight: 600; }
+
+/* ════════════════════════════════════════════════════════════
+   Lab — adversarial examples playground (CH-3)
+   ════════════════════════════════════════════════════════════ */
+.advlab__loading { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--faint); padding: 10px 0; }
+.advlab__modes { display: inline-flex; gap: 2px; background: var(--well); border: 1px solid var(--edge); border-radius: var(--radius-sm); padding: 3px; margin-bottom: 14px; }
+.advlab__modes button {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--dim);
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 14px;
+  cursor: pointer;
+}
+.advlab__modes button.on { background: var(--surface); color: var(--signal); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+
+.advlab__gallery { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; margin-bottom: 4px; }
+.advlab__thumb { padding: 0; border: 1px solid var(--edge-2); border-radius: 6px; background: #000; cursor: pointer; overflow: hidden; aspect-ratio: 1; display: grid; place-items: center; }
+.advlab__thumb canvas { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.advlab__thumb.on { border-color: var(--signal); outline: 1px solid var(--signal); }
+
+.advlab__draw { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 6px; }
+.advlab__canvas { width: 100%; max-width: 252px; aspect-ratio: 1; background: #000; border: 1px solid var(--edge-2); border-radius: var(--radius); touch-action: none; cursor: crosshair; }
+.advlab__draw-actions { display: flex; gap: 8px; }
+.advlab__hint { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); }
+
+.advlab__stage { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 16px 0 12px; flex-wrap: wrap; }
+.advlab__op { font-size: var(--text-xl); color: var(--faint); font-weight: 300; }
+.advlab__panel { margin: 0; display: flex; flex-direction: column; gap: 6px; text-align: center; }
+.advlab__panel canvas { width: 96px; height: 96px; image-rendering: pixelated; border: 1px solid var(--edge-2); border-radius: 6px; background: #000; display: block; }
+.advlab__panel.is-flipped canvas { border-color: #C0392B; outline: 1px solid #C0392B; }
+.advlab__panel figcaption { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+.advlab__panel figcaption b { display: block; font-size: var(--text-sm); color: var(--text); text-transform: none; letter-spacing: 0; margin-top: 2px; font-variant-numeric: tabular-nums; }
+.advlab__panel.is-flipped figcaption b { color: #C0392B; }
+
+.advlab__verdict { text-align: center; font-size: var(--text-sm); line-height: 1.5; min-height: 2.6em; margin-bottom: 14px; }
+.advlab__verdict-bad { color: #C0392B; }
+.advlab__verdict-bad b { font-weight: 700; }
+.advlab__verdict-ok { color: var(--dim); }
+
+.advlab__controls { display: flex; align-items: flex-end; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+.advlab__slider { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 6px; }
+.advlab__slider span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.advlab__slider input[type="range"] { width: 100%; accent-color: var(--signal); }
+.advlab__method { display: inline-flex; gap: 2px; background: var(--well); border: 1px solid var(--edge); border-radius: var(--radius-sm); padding: 3px; }
+.advlab__method button { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--dim); background: transparent; border: 0; border-radius: 5px; padding: 6px 12px; cursor: pointer; }
+.advlab__method button.on { background: var(--surface); color: var(--signal); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+
+.advlab__dist { margin-top: 14px; }
+.advlab__dist-label { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.advlab__bars { display: flex; flex-direction: column; gap: 3px; }
+.advlab__bar { display: grid; grid-template-columns: 14px 1fr 38px; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: var(--text-xs); }
+.advlab__bar-label { color: var(--faint); text-align: center; }
+.advlab__bar-track { height: 8px; background: var(--well); border-radius: 4px; overflow: hidden; }
+.advlab__bar-fill { display: block; height: 100%; background: var(--edge-2); border-radius: 4px; transition: width var(--dur-fast) var(--ease-out); }
+.advlab__bar-val { color: var(--faint); text-align: right; font-variant-numeric: tabular-nums; }
+.advlab__bar.is-pred .advlab__bar-fill { background: var(--signal); }
+.advlab__bar.is-pred .advlab__bar-label, .advlab__bar.is-pred .advlab__bar-val { color: var(--signal); font-weight: 600; }
+.advlab__bar.is-true .advlab__bar-label { text-decoration: underline; text-underline-offset: 2px; }
