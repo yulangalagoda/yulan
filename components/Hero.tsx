@@ -3,6 +3,7 @@ import type { ProfileRow } from '@/lib/types';
 interface Props {
   hero?: ProfileRow;
   portraitPath: string | null;
+  cvPath?: string | null;
 }
 
 const FALLBACK_SENTENCE =
@@ -17,7 +18,7 @@ function leadSentence(content?: string): string {
   return first ? `${first.replace(/\.$/, '')}.` : FALLBACK_SENTENCE;
 }
 
-export default function Hero({ hero, portraitPath }: Props) {
+export default function Hero({ hero, portraitPath, cvPath }: Props) {
   const headline = hero?.headline?.trim() || 'Yulan Galagoda';
   const sentence = leadSentence(hero?.content);
 
@@ -37,6 +38,11 @@ export default function Hero({ hero, portraitPath }: Props) {
           <div className="hero__cta-row">
             <a href="#work" className="btn btn--primary">View work</a>
             <a href="#contact" className="btn btn--ghost">Get in touch</a>
+            {cvPath && (
+              <a href={cvPath} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
+                Download CV ↓
+              </a>
+            )}
           </div>
         </div>
 

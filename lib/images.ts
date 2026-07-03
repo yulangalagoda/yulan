@@ -167,6 +167,35 @@ export async function optimizeHeroImage(publicPath: string): Promise<string> {
   }
 }
 
+const CV_DIR = path.join(PUBLIC_DIR, 'cv');
+const CV_PUBLIC = '/cv/Yulan-Galagoda-CV.pdf';
+
+/**
+ * Downloads the CV/résumé from the Notion "Site Meta" row into
+ * /public/cv/Yulan-Galagoda-CV.pdf, overwriting the committed default. A
+ * committed copy is always present, so the download button works even before
+ * anything is uploaded to Notion; uploading a new PDF and rebuilding replaces
+ * it. Returns the stable public path (or null on failure).
+ */
+export async function downloadNotionCv(url: string): Promise<string | null> {
+  if (!url) return null;
+  await ensureDir(CV_DIR);
+  const filePath = path.join(CV_DIR, 'Yulan-Galagoda-CV.pdf');
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`[images] Failed to download CV ${url}: HTTP ${res.status}`);
+      return null;
+    }
+    const buf = Buffer.from(await res.arrayBuffer());
+    await writeFileAtomic(filePath, buf);
+    return CV_PUBLIC;
+  } catch (err) {
+    console.warn(`[images] Error downloading CV ${url}:`, err);
+    return null;
+  }
+}
+
 /**
  * Generates favicon assets (ICO, 16x16, 32x32, and 180x180 Apple touch) from a
  * source logo. Writes to /public so they sit at the site root.

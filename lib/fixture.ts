@@ -213,4 +213,5 @@ export const fixtureSiteData: SiteData = {
   badges: [],
   logoPath: null,
   portraitPath: null,
+  cvPath: '/cv/Yulan-Galagoda-CV.pdf',
 };

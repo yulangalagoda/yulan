@@ -29,7 +29,7 @@ export default async function Page() {
       />
       <Header />
       <main id="main">
-        <Hero hero={data.profile.hero} portraitPath={data.portraitPath} />
+        <Hero hero={data.profile.hero} portraitPath={data.portraitPath} cvPath={data.cvPath} />
         <StatsStrip education={data.education} />
         <WhatIDo />
         <Projects projects={data.projects} />
@@ -40,7 +40,7 @@ export default async function Page() {
           skills={data.skills}
           research={data.research}
         />
-        <Contact contact={data.profile.contact} socials={data.socials} />
+        <Contact contact={data.profile.contact} socials={data.socials} cvPath={data.cvPath} />
       </main>
       <BackToTop />
       <Footer />

@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client';
 import { plainText, slugify, splitHighlights, splitList } from './richtext';
-import { downloadNotionFile, downloadNotionImage, generateFavicons, optimizeHeroImage } from './images';
+import { downloadNotionCv, downloadNotionFile, downloadNotionImage, generateFavicons, optimizeHeroImage } from './images';
 import type {
   BadgeRow,
   CertificationRow,
@@ -229,6 +229,8 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
   const profileRows: ProfileRow[] = [];
   let logoPath: string | null = null;
   let portraitPath: string | null = null;
+  // A CV is committed at this path by default; the Site Meta row can override it.
+  let cvPath: string | null = '/cv/Yulan-Galagoda-CV.pdf';
 
   for (const page of profileRaw) {
     const props = page.properties;
@@ -248,6 +250,12 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
       logoPath = imagePath;
       if (imagePath) {
         await generateFavicons(imagePath);
+      }
+      // Optional CV upload on the Site Meta row overrides the committed default.
+      const cvFiles = getFiles(props, 'CV');
+      if (cvFiles.length > 0) {
+        const p = await downloadNotionCv(cvFiles[0].url);
+        if (p) cvPath = p;
       }
     }
     if (page.id.replace(/-/g, '') === HERO_PAGE_ID.replace(/-/g, '')) {
@@ -466,6 +474,7 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
     badges,
     logoPath,
     portraitPath,
+    cvPath,
   };
 
   return data;

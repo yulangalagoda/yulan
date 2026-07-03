@@ -146,4 +146,5 @@ export interface SiteData {
   badges: BadgeRow[];
   logoPath: string | null;
   portraitPath: string | null;
+  cvPath: string | null;
 }

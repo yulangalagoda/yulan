@@ -5,6 +5,7 @@ interface Props {
   contact?: ProfileRow;
   socials?: SocialLinkRow[];
   email?: string;
+  cvPath?: string | null;
 }
 
 // Minimal inline icon set, keyed by the Notion row's Icon select (or Name).
@@ -38,7 +39,7 @@ function InlineLine({ text }: { text: string }) {
   );
 }
 
-export default function Contact({ contact, socials = [], email }: Props) {
+export default function Contact({ contact, socials = [], email, cvPath }: Props) {
   const addr = email || 'yulangalagoda1@gmail.com';
   const sub =
     contact?.content?.trim() ||
@@ -58,6 +59,14 @@ export default function Contact({ contact, socials = [], email }: Props) {
             <p className="contact__sub" key={i}><InlineLine text={line} /></p>
           ))}
           <a href={`mailto:${addr}`} className="contact__email">{addr}</a>
+
+          {cvPath && (
+            <p className="contact__cv">
+              <a href={cvPath} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
+                Download CV (PDF) ↓
+              </a>
+            </p>
+          )}
 
           {links.length > 0 && (
             <ul className="contact__socials" aria-label="Profiles elsewhere">

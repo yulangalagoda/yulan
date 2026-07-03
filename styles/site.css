@@ -745,3 +745,6 @@ section.band { background: var(--surface); }
 .advlab__bar.is-pred .advlab__bar-fill { background: var(--signal); }
 .advlab__bar.is-pred .advlab__bar-label, .advlab__bar.is-pred .advlab__bar-val { color: var(--signal); font-weight: 600; }
 .advlab__bar.is-true .advlab__bar-label { text-decoration: underline; text-underline-offset: 2px; }
+
+/* CV download button in the contact block */
+.contact__cv { margin-top: 18px; }
