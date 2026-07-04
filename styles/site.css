@@ -748,3 +748,96 @@ section.band { background: var(--surface); }
 
 /* CV download button in the contact block */
 .contact__cv { margin-top: 18px; }
+
+/* ════════════════════════════════════════════════════════════
+   Lab CH-1 — live attack ports, readable ranked list
+   ════════════════════════════════════════════════════════════ */
+.panel__ports { margin-top: 14px; }
+.panel__ports-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 4px;
+}
+.wire-ports { list-style: none; margin: 0; padding: 0; }
+.wire-ports__empty { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--faint); padding: 12px 0; }
+.wire-port {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  grid-template-areas: "rank id share" ". bar bar";
+  column-gap: 10px;
+  row-gap: 5px;
+  padding: 9px 8px;
+  margin: 0 -8px;
+  border-top: 1px solid var(--edge);
+  border-radius: 8px;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.wire-port:first-child { border-top: 0; }
+.wire-port.is-active { background: var(--signal-soft); }
+.wire-port__rank {
+  grid-area: rank;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--faint);
+  align-self: center;
+}
+.wire-port.is-active .wire-port__rank { color: var(--signal); font-weight: 600; }
+.wire-port__id { grid-area: id; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.wire-port__id b { font-size: var(--text-sm); color: var(--text); font-weight: 600; }
+.wire-port__attack { font-size: var(--text-xs); color: var(--dim); }
+.wire-port__share {
+  grid-area: share;
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--signal);
+  font-variant-numeric: tabular-nums;
+}
+.wire-port__bar { grid-area: bar; height: 5px; background: var(--well); border-radius: 3px; overflow: hidden; }
+.wire-port__fill { display: block; height: 100%; background: var(--signal); border-radius: 3px; transition: width var(--dur-base) var(--ease-out); }
+
+/* Give the scope a caption role: it is ambient, the list carries the meaning */
+.scope { position: relative; }
+
+/* ════════════════════════════════════════════════════════════
+   Homepage — Lab teaser section
+   ════════════════════════════════════════════════════════════ */
+.section-head__sub { margin-top: 10px; color: var(--dim); font-size: var(--text-base); max-width: 40em; }
+.lab-teaser__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: clamp(1.5rem, 4vw, 2.25rem);
+}
+@media (max-width: 860px) { .lab-teaser__grid { grid-template-columns: 1fr; } }
+.lab-teaser__card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.lab-teaser__card:hover {
+  border-color: var(--signal-2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px -18px rgba(14, 124, 90, 0.5);
+}
+.lab-teaser__ch { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; color: var(--warn); }
+.lab-teaser__title { font-size: var(--text-lg); line-height: 1.25; color: var(--text); }
+.lab-teaser__body { font-size: var(--text-sm); color: var(--dim); line-height: 1.55; flex: 1; }
+.lab-teaser__tags { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); }
+.lab-teaser__open { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--signal); margin-top: 4px; }
+.lab-teaser__foot { margin-top: 22px; }
+
+/* Lab landing — featured live panel spacing */
+.lab__featured { margin-top: clamp(1.5rem, 4vw, 2rem); }
+.lab__featured .lab__panel { max-width: 32rem; }

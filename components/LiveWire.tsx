@@ -70,6 +70,10 @@ interface Snapshot {
   infocon: string;
   /** Top ports arranged for the scope trace (peak centred). */
   tracePorts: ScopePort[];
+  /** Top-5 ports ranked by volume, for the readable list. */
+  ranked: ScopePort[];
+  /** Sum of the ranked ports' records — the denominator for share %. */
+  rankedTotal: number;
 }
 
 function fmt(n: number): string {
@@ -100,10 +104,12 @@ async function fetchSnapshot(): Promise<Snapshot | null> {
 
     // Arrange the ranked ports so the tallest pulse sits mid-trace:
     // [rank 2, rank 4, rank 1, rank 5, rank 3].
-    const ranked = [...rows].sort((a, b) => b.records - a.records);
+    const rankedAll = [...rows].sort((a, b) => b.records - a.records);
     const tracePorts = [1, 3, 0, 4, 2]
-      .map((i) => ranked[i])
+      .map((i) => rankedAll[i])
       .filter((p): p is ScopePort => Boolean(p));
+    const ranked = rankedAll.slice(0, 5);
+    const rankedTotal = ranked.reduce((sum, r) => sum + r.records, 0) || 1;
 
     // Average observed rate so far today (UTC), from the real daily total.
     const now = new Date();
@@ -118,6 +124,8 @@ async function fetchSnapshot(): Promise<Snapshot | null> {
       ratePerSec: totalHits / secondsToday,
       infocon,
       tracePorts,
+      ranked,
+      rankedTotal,
     };
   } catch {
     return null;
@@ -160,7 +168,9 @@ export default function LiveWire() {
   const [snap, setSnap] = useState<Snapshot | null>(null);
   const [hitsToday, setHitsToday] = useState(0);
   const [sinceLoad, setSinceLoad] = useState(0);
-  const [decoded, setDecoded] = useState<ScopePort | null>(null);
+  // The port whose pulse is currently crossing the scope cursor — used only to
+  // gently highlight its row in the always-visible list below.
+  const [activePort, setActivePort] = useState<number | null>(null);
 
   // The running-count model. `hitsToday` and `sinceLoad` are both derived from
   // one displayed value (anchor + rate × elapsed), so they stay consistent.
@@ -194,7 +204,6 @@ export default function LiveWire() {
     tracePortsRef.current = s.tracePorts;
     if (loadBaseRef.current === null) loadBaseRef.current = anchorTotalRef.current;
     setSnap(s);
-    setDecoded((prev) => prev ?? { port: s.topPort, records: s.topPortHits });
   }, []);
 
   // Initial fetch + periodic re-poll.
@@ -228,24 +237,20 @@ export default function LiveWire() {
     return () => clearInterval(id);
   }, [snap]);
 
-  // A pulse crossed the scope's trigger cursor — decode it.
+  // A pulse crossed the scope's trigger cursor — briefly light up its row in
+  // the list so the animation and the data read as one thing.
   const handleTrigger = useCallback((index: number) => {
-    const ports = tracePortsRef.current;
-    const hit = ports[index];
+    const hit = tracePortsRef.current[index];
     if (!hit) return;
     const now = Date.now();
     if (now - lastDecodeAt.current < DECODE_HOLD_MS) return;
     lastDecodeAt.current = now;
-    setDecoded(hit);
+    setActivePort(hit.port);
   }, []);
 
-  const portLabel = snap ? `${snap.topPort}${PORT_NAMES[snap.topPort] ? ' · ' + PORT_NAMES[snap.topPort] : ''}` : '— · —';
   const infocon = (snap?.infocon ?? 'green').toUpperCase();
   const infoconAlert = infocon !== 'GREEN';
-
-  const decodeShare =
-    decoded && realTotalRef.current ? Math.round((decoded.records / realTotalRef.current) * 100) : 0;
-  const decodeAttack = decoded ? PORT_ATTACKS[decoded.port] ?? GENERIC_ATTACK : null;
+  const ranked = snap?.ranked ?? [];
 
   return (
     <aside className="panel" aria-label="Live global attack telemetry">
@@ -257,35 +262,50 @@ export default function LiveWire() {
         <Oscilloscope ports={snap?.tracePorts} ratePerSec={snap?.ratePerSec} onTrigger={handleTrigger} />
       </div>
 
-      <div className="panel__decode" aria-live="off">
-        <span className="panel__decode-label">Decode</span>
-        {decoded ? (
-          <span className="panel__decode-body" key={`${decoded.port}-${lastDecodeAt.current}`}>
-            <span className="panel__decode-id">
-              Port {decoded.port}
-              {PORT_NAMES[decoded.port] ? ` · ${PORT_NAMES[decoded.port]}` : ''}
-            </span>
-            <span className="panel__decode-desc">
-              {decodeAttack} <span className="panel__decode-share">· {decodeShare}%</span>
-            </span>
-          </span>
+      <div className="panel__ports">
+        <div className="panel__ports-head">
+          <span>Most-attacked ports today</span>
+          <span>share of top&nbsp;5</span>
+        </div>
+        {ranked.length > 0 ? (
+          <ol className="wire-ports">
+            {ranked.map((p, i) => {
+              const share = Math.round((p.records / (snap!.rankedTotal || 1)) * 100);
+              return (
+                <li
+                  key={p.port}
+                  className={`wire-port${activePort === p.port ? ' is-active' : ''}`}
+                >
+                  <span className="wire-port__rank">{i + 1}</span>
+                  <span className="wire-port__id">
+                    <b>Port {p.port}{PORT_NAMES[p.port] ? ` · ${PORT_NAMES[p.port]}` : ''}</b>
+                    <span className="wire-port__attack">{PORT_ATTACKS[p.port] ?? GENERIC_ATTACK}</span>
+                  </span>
+                  <span className="wire-port__bar" aria-hidden="true">
+                    <span className="wire-port__fill" style={{ width: `${share}%` }} />
+                  </span>
+                  <span className="wire-port__share">{share}%</span>
+                </li>
+              );
+            })}
+          </ol>
         ) : (
-          <span className="panel__decode-body muted">awaiting signal…</span>
+          <p className="wire-ports__empty">Reading the wire…</p>
         )}
       </div>
 
       <div className="panel__readouts">
         <div>
-          Top target
-          <b>{snap ? `Port ${portLabel}` : 'Port —'}</b>
-        </div>
-        <div>
-          Hits today
+          Attacks today
           <b>{snap ? fmt(hitsToday) : '—'}</b>
         </div>
         <div>
-          Since page load
+          Since you opened this
           <b>{snap ? `+${fmt(sinceLoad)}` : '—'}</b>
+        </div>
+        <div>
+          Threat level
+          <b className={infoconAlert ? 'alert' : ''}>{infocon}</b>
         </div>
       </div>
       <p className="panel__source">

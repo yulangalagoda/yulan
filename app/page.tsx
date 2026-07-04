@@ -6,6 +6,7 @@ import Hero from '@/components/Hero';
 import StatsStrip from '@/components/StatsStrip';
 import WhatIDo from '@/components/WhatIDo';
 import Projects from '@/components/Projects';
+import LabTeaser from '@/components/LabTeaser';
 import Experience from '@/components/Experience';
 import CVStrip from '@/components/CVStrip';
 import Contact from '@/components/Contact';
@@ -33,6 +34,7 @@ export default async function Page() {
         <StatsStrip education={data.education} />
         <WhatIDo />
         <Projects projects={data.projects} />
+        <LabTeaser />
         <Experience experience={data.experience} />
         <CVStrip
           education={data.education}
