@@ -100,6 +100,17 @@ export default function LabPage() {
                 <span className="lab__card-open">Open →</span>
               </a>
             </li>
+            <li>
+              <a className="lab__card" href="/lab/phish">
+                <span className="lab__card-ch">CH-7</span>
+                <span className="lab__card-title">Phishing URL inspector</span>
+                <span className="lab__card-desc">
+                  Paste a link and see where it really goes — homoglyph and punycode lookalikes,
+                  brand impersonation, typosquats and the “@” trick, flagged. No fetch.
+                </span>
+                <span className="lab__card-open">Open →</span>
+              </a>
+            </li>
           </ul>
         </section>
       </div>

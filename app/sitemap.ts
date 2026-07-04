@@ -28,5 +28,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/lab/ioc/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE}/lab/can/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE}/lab/workbench/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${SITE}/lab/phish/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
   ];
 }

@@ -997,3 +997,73 @@ section.band { background: var(--surface); }
 .wb__jwt-claims li { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--dim); }
 .wb__jwt-claims li.is-bad { color: #C0392B; font-weight: 600; }
 .wb__jwt-note { font-size: var(--text-xs); color: var(--dim); line-height: 1.5; }
+
+/* ════════════════════════════════════════════════════════════
+   Lab CH-7 — phishing URL inspector
+   ════════════════════════════════════════════════════════════ */
+.panel__head b.is-bad { color: #C0392B; }
+.panel__head b.is-warn { color: var(--warn); }
+.panel__head b.is-low { color: var(--dim); }
+.panel__head b.is-ok { color: var(--signal); }
+.phish__input { width: 100%; }
+.phish__samples { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.phish__samples span { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); }
+.phish__sample {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--dim);
+  background: var(--well);
+  border: 1px solid var(--edge-2);
+  border-radius: 100px;
+  padding: 3px 11px;
+  cursor: pointer;
+}
+.phish__sample:hover { color: var(--signal); border-color: var(--signal-2); }
+
+.phish__anatomy { margin-top: 16px; }
+.phish__anatomy-label { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.phish__url {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--scope-bg);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  word-break: break-all;
+  line-height: 1.6;
+}
+.phish__part--scheme { color: #7B8794; }
+.phish__part--sub { color: #9AA5B1; }
+.phish__part--reg { color: #3DDC97; font-weight: 700; background: rgba(61, 220, 151, 0.14); padding: 1px 3px; border-radius: 3px; }
+.phish__part--path { color: #7B8794; }
+.phish__part--bad { color: #FF6B6B; font-weight: 700; }
+.phish__reg-note { margin-top: 8px; font-size: var(--text-xs); color: var(--dim); line-height: 1.5; }
+.phish__reg-note b { color: var(--text); }
+
+.phish__score { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.phish__gauge { flex: 1; height: 8px; background: var(--well); border-radius: 4px; overflow: hidden; }
+.phish__gauge-fill { display: block; height: 100%; border-radius: 4px; transition: width var(--dur-base) var(--ease-out); }
+.phish__gauge.is-bad .phish__gauge-fill { background: #C0392B; }
+.phish__gauge.is-warn .phish__gauge-fill { background: var(--warn); }
+.phish__gauge.is-low .phish__gauge-fill { background: var(--faint); }
+.phish__gauge.is-ok .phish__gauge-fill { background: var(--signal); width: 100% !important; }
+.phish__score-num { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); font-variant-numeric: tabular-nums; }
+
+.phish__findings { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.phish__finding { display: grid; grid-template-columns: 58px 1fr; gap: 10px; align-items: start; }
+.phish__sev {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 3px 0;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.sev-high .phish__sev { color: #fff; background: #C0392B; }
+.sev-medium .phish__sev { color: #fff; background: var(--warn); }
+.sev-low .phish__sev { color: var(--dim); background: var(--well); border: 1px solid var(--edge-2); }
+.phish__finding-body { display: flex; flex-direction: column; gap: 2px; }
+.phish__finding-body b { font-size: var(--text-sm); color: var(--text); }
+.phish__finding-body span { font-size: var(--text-xs); color: var(--dim); line-height: 1.5; }
+.phish__clean { margin-top: 14px; font-size: var(--text-sm); color: var(--signal); }
