@@ -67,6 +67,39 @@ export default function LabPage() {
                 <span className="lab__card-open">Open →</span>
               </a>
             </li>
+            <li>
+              <a className="lab__card" href="/lab/ioc">
+                <span className="lab__card-ch">CH-4</span>
+                <span className="lab__card-title">IOC extractor</span>
+                <span className="lab__card-desc">
+                  Paste a log or phishing email and pull out the IPs, domains, URLs, hashes and CVEs —
+                  de-duplicated, defanged, ready for a ticket. Client-side.
+                </span>
+                <span className="lab__card-open">Open →</span>
+              </a>
+            </li>
+            <li>
+              <a className="lab__card" href="/lab/can">
+                <span className="lab__card-ch">CH-5</span>
+                <span className="lab__card-title">CAN frame decoder</span>
+                <span className="lab__card-desc">
+                  Decode a raw automotive CAN bus frame — ID, standard/extended, DLC, and a per-byte
+                  view. The protocol at the centre of my research.
+                </span>
+                <span className="lab__card-open">Open →</span>
+              </a>
+            </li>
+            <li>
+              <a className="lab__card" href="/lab/workbench">
+                <span className="lab__card-ch">CH-6</span>
+                <span className="lab__card-title">Hash &amp; encoding workbench</span>
+                <span className="lab__card-desc">
+                  SHA-1/256/512, Base64/hex/URL encode-decode, and a JWT decoder — the everyday
+                  conversions, without pasting secrets into a random site.
+                </span>
+                <span className="lab__card-open">Open →</span>
+              </a>
+            </li>
           </ul>
         </section>
       </div>
