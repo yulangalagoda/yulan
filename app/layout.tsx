@@ -70,12 +70,25 @@ export const metadata: Metadata = {
     : undefined,
 };
 
+// Cloudflare Web Analytics beacon — cookieless, privacy-friendly. Only renders
+// when a token is provided at build time (NEXT_PUBLIC_CF_BEACON_TOKEN in the
+// Cloudflare Pages env). If you instead enable "Web Analytics" on the Pages
+// project (automatic injection), leave this unset — the CSP already allows it.
+const CF_BEACON_TOKEN = process.env.NEXT_PUBLIC_CF_BEACON_TOKEN;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         {children}
+        {CF_BEACON_TOKEN && (
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({ token: CF_BEACON_TOKEN })}
+          />
+        )}
       </body>
     </html>
   );
