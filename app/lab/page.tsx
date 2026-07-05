@@ -1,118 +1,173 @@
 import type { Metadata } from 'next';
-import LiveWire from '@/components/LiveWire';
+
+const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'The Lab — live security & ML instruments · Yulan Galagoda',
+  title: 'The Lab — seven security & ML tools you can use · Yulan Galagoda',
   description:
-    'A workbench of small, working security and machine-learning instruments: live global attack traffic from the SANS Internet Storm Center, a live adversarial-ML (FGSM/PGD) playground, and a transparent password strength analyser — all client-side, built by Yulan Galagoda.',
-  alternates: { canonical: 'https://yulan.me/lab' },
+    'A workbench of small, working security and machine-learning tools by Yulan Galagoda — a live view of global attack traffic, an adversarial-ML playground, an IOC extractor, a CAN-bus decoder, a phishing URL inspector and more. Each runs entirely in your browser; nothing you type is sent anywhere.',
+  alternates: { canonical: `${SITE}/lab` },
 };
+
+interface Instrument {
+  ch: string;
+  title: string;
+  blurb: string;
+  href: string;
+  tags: string;
+  featured?: boolean;
+}
+
+const INSTRUMENTS: Instrument[] = [
+  {
+    ch: 'CH-3',
+    title: 'Adversarial examples playground',
+    blurb:
+      'Fool a neural network in real time. Draw or pick a digit, add an imperceptible perturbation, and watch the classifier flip while the image looks unchanged — a live, from-scratch FGSM/PGD attack. This is the idea at the centre of my research; if you try one thing here, try this.',
+    href: '/lab/adversarial/',
+    tags: 'FGSM · PGD · neural nets',
+    featured: true,
+  },
+  {
+    ch: 'CH-1',
+    title: 'Live global attack traffic',
+    blurb:
+      'See which ports the internet is attacking most right now, live from a worldwide honeypot network — and what each attack actually is.',
+    href: '/lab/live/',
+    tags: 'SANS ISC · live',
+  },
+  {
+    ch: 'CH-7',
+    title: 'Phishing URL inspector',
+    blurb:
+      'Paste a link and see where it truly points. Flags lookalike domains, brand impersonation, typosquats and the classic tricks — without ever opening it.',
+    href: '/lab/phish/',
+    tags: 'homoglyphs · typosquats',
+  },
+  {
+    ch: 'CH-4',
+    title: 'IOC extractor',
+    blurb:
+      'Drop in a log or a phishing email and pull out the IPs, domains, URLs, hashes and CVEs — de-duplicated and defanged, ready for a ticket.',
+    href: '/lab/ioc/',
+    tags: 'SOC triage · defang',
+  },
+  {
+    ch: 'CH-2',
+    title: 'Password strength lab',
+    blurb:
+      'Not a red-yellow-green meter: the actual entropy, the patterns an attacker exploits, realistic crack times, and an optional breach check.',
+    href: '/lab/password/',
+    tags: 'entropy · HIBP',
+  },
+  {
+    ch: 'CH-5',
+    title: 'CAN frame decoder',
+    blurb:
+      'Decode a raw automotive CAN-bus frame into its ID, type, length and per-byte view — the protocol my adversarial-IDS research defends.',
+    href: '/lab/can/',
+    tags: 'automotive · IoV',
+  },
+  {
+    ch: 'CH-6',
+    title: 'Hash & encoding workbench',
+    blurb:
+      'SHA-1/256/512, Base64/hex/URL encode-decode, and a JWT decoder — the everyday conversions, without pasting secrets into a random site.',
+    href: '/lab/workbench/',
+    tags: 'SHA · Base64 · JWT',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${SITE}/lab#page`,
+      url: `${SITE}/lab`,
+      name: 'The Lab — security & ML tools by Yulan Galagoda',
+      isPartOf: { '@id': `${SITE}/#website` },
+    },
+    {
+      '@type': 'ItemList',
+      name: 'Lab instruments',
+      itemListElement: INSTRUMENTS.map((it, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: it.title,
+        url: `${SITE}${it.href}`,
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+        { '@type': 'ListItem', position: 2, name: 'Lab', item: `${SITE}/lab` },
+      ],
+    },
+  ],
+};
+
+const [featured, ...rest] = INSTRUMENTS;
 
 export default function LabPage() {
   return (
     <main className="lab" id="main">
-      <div className="container container--narrow">
+      <div className="container">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <a href="/" className="lab__back">&larr; Yulan Galagoda</a>
 
-        <header className="lab__head">
+        <header className="lab__intro">
           <span className="eyebrow">The Lab</span>
-          <h1 className="lab__title">Instruments I built to think with.</h1>
-          <p className="lab__lede">
-            A small workbench of live security and machine-learning tools. Each one runs entirely
-            in your browser, shows its own working, and does something real — no slideware. Below,
-            a live read of the internet&rsquo;s background attack noise; further down, the two
-            interactive instruments.
+          <h1 className="lab__intro-title">Small tools that do something real.</h1>
+          <p className="lab__intro-lede">
+            Seven working instruments across security and machine learning — not screenshots or
+            slideware. Paste something in and watch it happen: an attack fooling a neural network, a
+            phishing link unmasked, a log stripped for indicators. Every one runs entirely in your
+            browser.
           </p>
+          <ul className="lab__principles" aria-label="How these tools work">
+            <li>Runs in your browser</li>
+            <li>Nothing you type is uploaded</li>
+            <li>Each shows its own working</li>
+          </ul>
         </header>
 
-        <section className="lab__featured" aria-label="Live attack traffic">
-          <div className="lab__panel">
-            <LiveWire />
+        <a className="lab__hero-card" href={featured.href}>
+          <div className="lab__hero-text">
+            <span className="lab__hero-ch">{featured.ch} · Start here</span>
+            <h2 className="lab__hero-title">{featured.title}</h2>
+            <p className="lab__hero-blurb">{featured.blurb}</p>
+            <span className="lab__hero-tags">{featured.tags}</span>
+            <span className="lab__hero-open">Open the playground →</span>
           </div>
-          <p className="lab__note">
-            <strong>CH-1 · Live global attack traffic.</strong> Sourced from the{' '}
-            <a href="https://isc.sans.edu" target="_blank" rel="noopener noreferrer">
-              SANS Internet Storm Center
-            </a>{' '}
-            honeypot network. The list ranks the ports under the heaviest attack right now and
-            names what each attack usually is; the trace above is the live signal those figures
-            come from. Counts are a live estimate accumulating at the observed rate between the
-            source&rsquo;s periodic updates.
-          </p>
-        </section>
+          <div className="lab__hero-art" aria-hidden="true">
+            <span className="lab__hero-digit">7</span>
+            <span className="lab__hero-arrow">→</span>
+            <span className="lab__hero-digit lab__hero-digit--wrong">1</span>
+          </div>
+        </a>
 
-        <section className="lab__instruments" aria-label="Interactive instruments">
-          <h2 className="lab__h2">Interactive instruments</h2>
-          <ul className="lab__grid">
-            <li>
-              <a className="lab__card" href="/lab/adversarial">
-                <span className="lab__card-ch">CH-3</span>
-                <span className="lab__card-title">Adversarial examples playground</span>
-                <span className="lab__card-desc">
-                  Fool a neural network live: add an imperceptible FGSM/PGD perturbation to a
-                  digit and watch the classifier flip. Real gradients, hand-written, in your
-                  browser — the attack at the centre of my research.
+        <ul className="lab__cards">
+          {rest.map((it) => (
+            <li key={it.ch}>
+              <a className="lab__card2" href={it.href}>
+                <span className="lab__card2-ch">{it.ch}</span>
+                <h2 className="lab__card2-title">{it.title}</h2>
+                <p className="lab__card2-blurb">{it.blurb}</p>
+                <span className="lab__card2-foot">
+                  <span className="lab__card2-tags">{it.tags}</span>
+                  <span className="lab__card2-open">Open →</span>
                 </span>
-                <span className="lab__card-open">Open →</span>
               </a>
             </li>
-            <li>
-              <a className="lab__card" href="/lab/password">
-                <span className="lab__card-ch">CH-2</span>
-                <span className="lab__card-title">Password strength lab</span>
-                <span className="lab__card-desc">
-                  Transparent entropy math, pattern and breach detection, and realistic crack-time
-                  estimates across attacker profiles. Runs entirely in your browser.
-                </span>
-                <span className="lab__card-open">Open →</span>
-              </a>
-            </li>
-            <li>
-              <a className="lab__card" href="/lab/ioc">
-                <span className="lab__card-ch">CH-4</span>
-                <span className="lab__card-title">IOC extractor</span>
-                <span className="lab__card-desc">
-                  Paste a log or phishing email and pull out the IPs, domains, URLs, hashes and CVEs —
-                  de-duplicated, defanged, ready for a ticket. Client-side.
-                </span>
-                <span className="lab__card-open">Open →</span>
-              </a>
-            </li>
-            <li>
-              <a className="lab__card" href="/lab/can">
-                <span className="lab__card-ch">CH-5</span>
-                <span className="lab__card-title">CAN frame decoder</span>
-                <span className="lab__card-desc">
-                  Decode a raw automotive CAN bus frame — ID, standard/extended, DLC, and a per-byte
-                  view. The protocol at the centre of my research.
-                </span>
-                <span className="lab__card-open">Open →</span>
-              </a>
-            </li>
-            <li>
-              <a className="lab__card" href="/lab/workbench">
-                <span className="lab__card-ch">CH-6</span>
-                <span className="lab__card-title">Hash &amp; encoding workbench</span>
-                <span className="lab__card-desc">
-                  SHA-1/256/512, Base64/hex/URL encode-decode, and a JWT decoder — the everyday
-                  conversions, without pasting secrets into a random site.
-                </span>
-                <span className="lab__card-open">Open →</span>
-              </a>
-            </li>
-            <li>
-              <a className="lab__card" href="/lab/phish">
-                <span className="lab__card-ch">CH-7</span>
-                <span className="lab__card-title">Phishing URL inspector</span>
-                <span className="lab__card-desc">
-                  Paste a link and see where it really goes — homoglyph and punycode lookalikes,
-                  brand impersonation, typosquats and the “@” trick, flagged. No fetch.
-                </span>
-                <span className="lab__card-open">Open →</span>
-              </a>
-            </li>
-          </ul>
-        </section>
+          ))}
+        </ul>
+
+        <p className="lab__foot-note">
+          Built by Yulan Galagoda. No account, no cookies, no tracking inside the tools — the code for
+          each is on the page it explains.
+        </p>
       </div>
     </main>
   );

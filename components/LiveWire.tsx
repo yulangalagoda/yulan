@@ -1,7 +1,11 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Oscilloscope, { type ScopePort } from './Oscilloscope';
+
+interface ScopePort {
+  port: number;
+  records: number;
+}
 
 /**
  * The hero's instrument panel, fed by live global threat telemetry from the
@@ -133,7 +137,6 @@ async function fetchSnapshot(): Promise<Snapshot | null> {
 }
 
 const POLL_MS = 300_000; // re-check ISC every 5 min (their CDN caches ~10 min)
-const DECODE_HOLD_MS = 1500; // keep each decode readable before the next one lands
 const STORE_KEY = 'lw_hits_v1';
 
 function utcDay(): string {
@@ -168,9 +171,6 @@ export default function LiveWire() {
   const [snap, setSnap] = useState<Snapshot | null>(null);
   const [hitsToday, setHitsToday] = useState(0);
   const [sinceLoad, setSinceLoad] = useState(0);
-  // The port whose pulse is currently crossing the scope cursor — used only to
-  // gently highlight its row in the always-visible list below.
-  const [activePort, setActivePort] = useState<number | null>(null);
 
   // The running-count model. `hitsToday` and `sinceLoad` are both derived from
   // one displayed value (anchor + rate × elapsed), so they stay consistent.
@@ -178,9 +178,7 @@ export default function LiveWire() {
   const anchorTotalRef = useRef(0); // real total at the last poll (monotonic)
   const anchorAtRef = useRef(0); // performance.now() when the anchor was set
   const rateRef = useRef(0); // real attacks/sec
-  const realTotalRef = useRef(0); // latest real ISC total (for the decode share)
-  const tracePortsRef = useRef<ScopePort[]>([]);
-  const lastDecodeAt = useRef(0);
+  const realTotalRef = useRef(0); // latest real ISC total
 
   // Fold a fresh snapshot into the running model without ever stepping back.
   const applySnapshot = useCallback((s: Snapshot) => {
@@ -201,7 +199,6 @@ export default function LiveWire() {
     anchorAtRef.current = now;
     rateRef.current = s.ratePerSec;
     realTotalRef.current = s.totalHits;
-    tracePortsRef.current = s.tracePorts;
     if (loadBaseRef.current === null) loadBaseRef.current = anchorTotalRef.current;
     setSnap(s);
   }, []);
@@ -237,30 +234,23 @@ export default function LiveWire() {
     return () => clearInterval(id);
   }, [snap]);
 
-  // A pulse crossed the scope's trigger cursor — briefly light up its row in
-  // the list so the animation and the data read as one thing.
-  const handleTrigger = useCallback((index: number) => {
-    const hit = tracePortsRef.current[index];
-    if (!hit) return;
-    const now = Date.now();
-    if (now - lastDecodeAt.current < DECODE_HOLD_MS) return;
-    lastDecodeAt.current = now;
-    setActivePort(hit.port);
-  }, []);
-
   const infocon = (snap?.infocon ?? 'green').toUpperCase();
   const infoconAlert = infocon !== 'GREEN';
   const ranked = snap?.ranked ?? [];
 
   return (
-    <aside className="panel" aria-label="Live global attack telemetry">
+    <aside className="panel wire" aria-label="Live global attack telemetry">
       <div className="panel__head">
         <span>CH-1 · Global attack traffic</span>
-        <b className={infoconAlert ? 'alert' : ''}>Infocon ▌{infocon}</b>
+        <b className={infoconAlert ? 'alert' : ''}>Threat level ▌{infocon}</b>
       </div>
-      <div className="scope">
-        <Oscilloscope ports={snap?.tracePorts} ratePerSec={snap?.ratePerSec} onTrigger={handleTrigger} />
-      </div>
+
+      <p className="wire__intro">
+        <span className={`wire__dot${snap ? '' : ' is-idle'}`} aria-hidden="true" />
+        {snap
+          ? 'These are the ports the internet is attacking most right now — measured across a worldwide network of honeypot sensors.'
+          : 'Connecting to the global honeypot network…'}
+      </p>
 
       <div className="panel__ports">
         <div className="panel__ports-head">
@@ -272,10 +262,7 @@ export default function LiveWire() {
             {ranked.map((p, i) => {
               const share = Math.round((p.records / (snap!.rankedTotal || 1)) * 100);
               return (
-                <li
-                  key={p.port}
-                  className={`wire-port${activePort === p.port ? ' is-active' : ''}`}
-                >
+                <li key={p.port} className="wire-port">
                   <span className="wire-port__rank">{i + 1}</span>
                   <span className="wire-port__id">
                     <b>Port {p.port}{PORT_NAMES[p.port] ? ` · ${PORT_NAMES[p.port]}` : ''}</b>

@@ -13,7 +13,7 @@ const INSTRUMENTS = [
     ch: 'CH-1',
     title: 'Live global attack traffic',
     body: 'A live read of the internet’s background attack noise from the SANS Internet Storm Center honeypot network — the most-attacked ports right now, and what each attack actually is.',
-    href: '/lab/',
+    href: '/lab/live/',
     tags: 'SANS ISC · live telemetry',
   },
   {
