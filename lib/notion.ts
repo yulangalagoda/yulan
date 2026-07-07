@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client';
 import { plainText, slugify, splitHighlights, splitList } from './richtext';
-import { downloadNotionCv, downloadNotionFile, downloadNotionImage, optimizeHeroImage } from './images';
+import { cvVersionedPath, downloadNotionCv, downloadNotionFile, downloadNotionImage, optimizeHeroImage } from './images';
 import type {
   BadgeRow,
   CertificationRow,
@@ -229,8 +229,9 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
   const profileRows: ProfileRow[] = [];
   let logoPath: string | null = null;
   let portraitPath: string | null = null;
-  // A CV is committed at this path by default; the Site Meta row can override it.
-  let cvPath: string | null = '/cv/Yulan-Galagoda-CV.pdf';
+  // Resolved after the profile loop from whatever CV is on disk (a Notion
+  // upload if present, else the committed default), with a content-hash query.
+  let cvPath: string | null = null;
 
   for (const page of profileRaw) {
     const props = page.properties;
@@ -251,11 +252,11 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
       // Favicons are a committed brand asset (public/favicon.*), generated from
       // public/favicon.svg — no longer derived from the Notion logo, so the
       // build never overwrites them.
-      // Optional CV upload on the Site Meta row overrides the committed default.
+      // A CV uploaded here overwrites the committed default on disk; the final
+      // (content-versioned) URL is computed once below, after any download.
       const cvFiles = getFiles(props, 'CV');
       if (cvFiles.length > 0) {
-        const p = await downloadNotionCv(cvFiles[0].url);
-        if (p) cvPath = p;
+        await downloadNotionCv(cvFiles[0].url);
       }
     }
     if (page.id.replace(/-/g, '') === HERO_PAGE_ID.replace(/-/g, '')) {
@@ -455,6 +456,9 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
       };
     })
   );
+
+  // Content-versioned CV URL so an updated PDF busts browser/CDN caches.
+  cvPath = await cvVersionedPath();
 
   const data: SiteData = {
     profile: {

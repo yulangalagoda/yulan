@@ -1,5 +1,6 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import sharp from 'sharp';
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'notion-images');
@@ -192,6 +193,24 @@ export async function downloadNotionCv(url: string): Promise<string | null> {
     return CV_PUBLIC;
   } catch (err) {
     console.warn(`[images] Error downloading CV ${url}:`, err);
+    return null;
+  }
+}
+
+/**
+ * Returns the public CV path with a content-hash cache-buster
+ * (…/Yulan-Galagoda-CV.pdf?v=<hash>) so an updated CV always gets a fresh URL —
+ * otherwise browsers and the CDN keep serving the previously-cached PDF. Reads
+ * whatever is on disk (a Notion download if one happened, else the committed
+ * default). Returns null only if no CV file exists.
+ */
+export async function cvVersionedPath(): Promise<string | null> {
+  const filePath = path.join(CV_DIR, 'Yulan-Galagoda-CV.pdf');
+  try {
+    const buf = await fs.readFile(filePath);
+    const hash = crypto.createHash('sha256').update(buf).digest('hex').slice(0, 8);
+    return `${CV_PUBLIC}?v=${hash}`;
+  } catch {
     return null;
   }
 }
