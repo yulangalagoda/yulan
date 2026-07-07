@@ -2,7 +2,6 @@ import type { ProfileRow } from '@/lib/types';
 
 interface Props {
   hero?: ProfileRow;
-  portraitPath: string | null;
   cvPath?: string | null;
 }
 
@@ -18,7 +17,7 @@ function leadSentence(content?: string): string {
   return first ? `${first.replace(/\.$/, '')}.` : FALLBACK_SENTENCE;
 }
 
-export default function Hero({ hero, portraitPath, cvPath }: Props) {
+export default function Hero({ hero, cvPath }: Props) {
   const headline = hero?.headline?.trim() || 'Yulan Galagoda';
   const sentence = leadSentence(hero?.content);
 
@@ -46,19 +45,37 @@ export default function Hero({ hero, portraitPath, cvPath }: Props) {
           </div>
         </div>
 
-        <figure className="hero__photo" aria-label="Portrait of Yulan Galagoda">
-          {portraitPath ? (
-            <img src={portraitPath} alt="Portrait of Yulan Galagoda" decoding="async" fetchPriority="high" />
-          ) : (
-            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Portrait placeholder">
-              <rect width="400" height="500" fill="#EDEAE2" />
-              <g transform="translate(200 290)" fill="none" stroke="#B7B1A4" strokeWidth="1.4">
-                <circle cx="0" cy="-95" r="68" />
-                <path d="M-115 120 Q -115 35 0 35 Q 115 35 115 120 Z" />
-              </g>
-            </svg>
-          )}
-        </figure>
+        {/* A signature "instrument" in place of a portrait: a still of the
+            adversarial-examples attack (a tiny nudge flips 7 → 1), which leads
+            with the work and links through to the live playground. */}
+        <a
+          className="hero-demo"
+          href="/lab/adversarial/"
+          aria-label="Adversarial examples: an imperceptible perturbation flips a neural network's prediction from 7 to 1. Open the live playground."
+        >
+          <div className="hero-demo__head" aria-hidden="true">
+            <span>Adversarial demo</span>
+            <b>EVASION</b>
+          </div>
+          <div className="hero-demo__stage" aria-hidden="true">
+            <span className="hero-demo__tile">
+              <span className="hero-demo__digit">7</span>
+              <small>input · 99%</small>
+            </span>
+            <span className="hero-demo__op">+&thinsp;ε</span>
+            <span className="hero-demo__tile hero-demo__tile--noise">
+              <span className="hero-demo__noise" />
+              <small>perturbation</small>
+            </span>
+            <span className="hero-demo__op">=</span>
+            <span className="hero-demo__tile hero-demo__tile--flip">
+              <span className="hero-demo__digit">1</span>
+              <small>“1” · 93%</small>
+            </span>
+          </div>
+          <code className="hero-demo__formula" aria-hidden="true">x′ = x + ε · sign(∇ₓ&thinsp;L)</code>
+          <span className="hero-demo__cta" aria-hidden="true">Try it live →</span>
+        </a>
       </div>
     </section>
   );

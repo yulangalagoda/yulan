@@ -7,6 +7,7 @@ import StatsStrip from '@/components/StatsStrip';
 import WhatIDo from '@/components/WhatIDo';
 import Projects from '@/components/Projects';
 import LabTeaser from '@/components/LabTeaser';
+import About from '@/components/About';
 import Experience from '@/components/Experience';
 import CVStrip from '@/components/CVStrip';
 import Contact from '@/components/Contact';
@@ -30,11 +31,12 @@ export default async function Page() {
       />
       <Header />
       <main id="main">
-        <Hero hero={data.profile.hero} portraitPath={data.portraitPath} cvPath={data.cvPath} />
+        <Hero hero={data.profile.hero} cvPath={data.cvPath} />
         <StatsStrip education={data.education} />
         <WhatIDo />
         <Projects projects={data.projects} />
         <LabTeaser />
+        <About about={data.profile.about} portraitPath={data.portraitPath} />
         <Experience experience={data.experience} />
         <CVStrip
           education={data.education}

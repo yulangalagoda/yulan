@@ -23,7 +23,7 @@ const AREAS = [
 
 export default function WhatIDo() {
   return (
-    <section id="about" className="band">
+    <section id="approach" className="band">
       <div className="container">
         <header className="section-head reveal">
           <span className="eyebrow">What I do</span>
