@@ -18,10 +18,8 @@ public/notion-images/*
 !public/notion-images/.gitkeep
 public/notion-docs/*
 !public/notion-docs/.gitkeep
-public/favicon.ico
-public/favicon-16.png
-public/favicon-32.png
-public/apple-touch-icon.png
+# Favicons are a committed brand asset (generated from public/favicon.svg by
+# scripts/gen-favicons.mjs), no longer produced from the Notion logo at build.
 
 # Editor / OS
 .DS_Store

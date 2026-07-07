@@ -1,13 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <text
-    x="16"
-    y="24"
-    text-anchor="middle"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-style="italic"
-    font-weight="400"
-    font-size="22"
-    letter-spacing="-0.5"
-    fill="#0E1116"
-  >YG</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Yulan Galagoda">
+  <circle cx="32" cy="32" r="31" fill="#FBFAF7" stroke="#E4E0D6" stroke-width="1.5"/>
+  <g fill="none" stroke="#0E7C5A" stroke-linecap="butt" stroke-linejoin="miter">
+    <path d="M17.5 18.5 L32 35.5 L46.5 18.5" stroke-width="7"/>
+    <path d="M32 34 L32 47.5" stroke-width="7"/>
+    <path d="M12 18.5 H23" stroke-width="3"/>
+    <path d="M41 18.5 H52" stroke-width="3"/>
+    <path d="M24.5 47.5 H39.5" stroke-width="3"/>
+  </g>
 </svg>

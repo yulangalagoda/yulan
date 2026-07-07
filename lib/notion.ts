@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client';
 import { plainText, slugify, splitHighlights, splitList } from './richtext';
-import { downloadNotionCv, downloadNotionFile, downloadNotionImage, generateFavicons, optimizeHeroImage } from './images';
+import { downloadNotionCv, downloadNotionFile, downloadNotionImage, optimizeHeroImage } from './images';
 import type {
   BadgeRow,
   CertificationRow,
@@ -248,9 +248,9 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
     // Hook in site-wide images by page id.
     if (page.id.replace(/-/g, '') === SITE_META_PAGE_ID.replace(/-/g, '')) {
       logoPath = imagePath;
-      if (imagePath) {
-        await generateFavicons(imagePath);
-      }
+      // Favicons are a committed brand asset (public/favicon.*), generated from
+      // public/favicon.svg — no longer derived from the Notion logo, so the
+      // build never overwrites them.
       // Optional CV upload on the Site Meta row overrides the committed default.
       const cvFiles = getFiles(props, 'CV');
       if (cvFiles.length > 0) {
