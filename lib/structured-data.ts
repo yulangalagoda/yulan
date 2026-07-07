@@ -60,7 +60,7 @@ export function buildJsonLd(data: SiteData): object {
     ...(heroDesc ? { description: heroDesc } : {}),
     url: SITE,
     ...(portrait ? { image: portrait } : {}),
-    email: 'yulangalagoda1@gmail.com',
+    email: 'hi@yulan.me',
     address: { '@type': 'PostalAddress', addressCountry: 'GB' },
     sameAs: sameAs.length ? sameAs : FALLBACK_SAMEAS,
     alumniOf: institutions.map((name) => ({ '@type': 'CollegeOrUniversity', name })),

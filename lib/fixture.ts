@@ -28,7 +28,7 @@ export const fixtureSiteData: SiteData = {
       section: 'Contact',
       headline: 'Get in touch',
       content:
-        'Open to research collaborations and consultations in IoV security, adversarial ML, and IDS evaluation.<br><br>Email: [yulangalagoda1@gmail.com](mailto:yulangalagoda1@gmail.com)<br>Location: Plymouth, United Kingdom',
+        'Open to research collaborations and consultations in IoV security, adversarial ML, and IDS evaluation.<br><br>Email: [hi@yulan.me](mailto:hi@yulan.me)<br>Location: Plymouth, United Kingdom',
       imagePath: null,
       order: 3,
     },
