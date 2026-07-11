@@ -53,28 +53,30 @@ export default function Hero({ hero, cvPath }: Props) {
           href="/lab/adversarial/"
           aria-label="Adversarial examples: an imperceptible perturbation flips a neural network's prediction from 7 to 1. Open the live playground."
         >
-          <div className="hero-demo__head" aria-hidden="true">
-            <span>Adversarial demo</span>
-            <b>EVASION</b>
+          <div className="hero-demo__bar" aria-hidden="true">
+            <span>Adversarial ML</span>
+            <span className="hero-demo__tag">evasion</span>
           </div>
-          <div className="hero-demo__stage" aria-hidden="true">
-            <span className="hero-demo__tile">
-              <span className="hero-demo__digit">7</span>
-              <small>input · 99%</small>
+          <div className="hero-demo__flip" aria-hidden="true">
+            <span className="hero-demo__cell">
+              <b className="hero-demo__num">7</b>
+              <small>sees 7 · 99%</small>
             </span>
-            <span className="hero-demo__op">+&thinsp;ε</span>
-            <span className="hero-demo__tile hero-demo__tile--noise">
-              <span className="hero-demo__noise" />
-              <small>perturbation</small>
+            <span className="hero-demo__mid">
+              <span className="hero-demo__eps">+ ε</span>
+              <svg width="46" height="10" viewBox="0 0 46 10" fill="none" aria-hidden="true">
+                <path d="M0 5H41M37 1.5 41 5l-4 3.5" stroke="#3DDC97" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </span>
-            <span className="hero-demo__op">=</span>
-            <span className="hero-demo__tile hero-demo__tile--flip">
-              <span className="hero-demo__digit">1</span>
-              <small>“1” · 93%</small>
+            <span className="hero-demo__cell hero-demo__cell--bad">
+              <b className="hero-demo__num">1</b>
+              <small>reads 1 · 93%</small>
             </span>
           </div>
-          <code className="hero-demo__formula" aria-hidden="true">x′ = x + ε · sign(∇ₓ&thinsp;L)</code>
-          <span className="hero-demo__cta" aria-hidden="true">Try it live →</span>
+          <p className="hero-demo__note" aria-hidden="true">
+            One invisible nudge flips the model&rsquo;s answer.
+          </p>
+          <span className="hero-demo__cta" aria-hidden="true">Try the live attack →</span>
         </a>
       </div>
     </section>
