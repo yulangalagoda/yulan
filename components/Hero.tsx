@@ -27,7 +27,7 @@ export default function Hero({ hero, cvPath }: Props) {
         <div className="hero__copy">
           <p className="hero__avail">
             <span className="hero__avail-dot" aria-hidden="true"></span>
-            Available — roles · research · consulting · United Kingdom
+            <span>Available — roles · research · consulting<span className="hero__avail-loc"> · United Kingdom</span></span>
           </p>
 
           <h1 className="hero__title">{headline}</h1>
