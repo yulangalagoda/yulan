@@ -12,17 +12,17 @@ export default function Writing() {
           </p>
         </header>
 
-        <a className="book reveal" href="/writing/" aria-label="Nothing Is Magic — read about the book">
+        <a className="book reveal" href="/writing/" aria-label="Nothing Is Magic: read about the book">
           <div className="book__body">
             <p className="book__title">Nothing Is Magic</p>
-            <p className="book__sub">Machine learning mathematics — from first principles</p>
+            <p className="book__sub">Machine learning mathematics, from first principles</p>
             <p className="book__desc">
               Most people never meet the mathematics behind machine learning; they meet its symbols.
-              This is the book I wish I&rsquo;d had — linear algebra, calculus and probability rebuilt
+              This is the book I wish I&rsquo;d had: linear algebra, calculus and probability rebuilt
               from pictures and problems you can feel, written for anyone shut out by the notation.
             </p>
             <p className="book__status">
-              Part 1 — Linear algebra — complete · 12 chapters. Calculus, probability &amp; learning
+              Part 1 (linear algebra) complete · 12 chapters. Calculus, probability and learning
               theory in progress.
             </p>
             <span className="book__open">Read about the book →</span>

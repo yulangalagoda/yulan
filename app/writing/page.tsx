@@ -7,12 +7,12 @@ const BOOK_URL = 'https://yulangalagoda.github.io/nothing-is-magic/';
 const REPO_URL = 'https://github.com/yulangalagoda/nothing-is-magic';
 
 export const metadata: Metadata = {
-  title: 'Nothing Is Magic — a book on the mathematics of machine learning · Yulan Galagoda',
+  title: 'Nothing Is Magic: a book on the mathematics of machine learning · Yulan Galagoda',
   description:
-    'Nothing Is Magic is a from-first-principles book by Yulan Galagoda on the mathematics behind machine learning — linear algebra, calculus and probability rebuilt from geometric intuition, for anyone shut out by the notation. Part 1 (linear algebra) complete; more in progress.',
+    'Nothing Is Magic is a from-first-principles book by Yulan Galagoda on the mathematics behind machine learning: linear algebra, calculus and probability rebuilt from geometric intuition, for anyone shut out by the notation. Part 1 (linear algebra) complete; more in progress.',
   alternates: { canonical: `${SITE}/writing` },
   openGraph: {
-    title: 'Nothing Is Magic — the mathematics behind machine learning',
+    title: 'Nothing Is Magic: the mathematics behind machine learning',
     description:
       'A from-first-principles book on the maths behind machine learning, written to be taught rather than decoded.',
     url: `${SITE}/writing`,
@@ -44,7 +44,7 @@ const jsonLd = {
       name: 'Nothing Is Magic',
       alternativeHeadline: 'Machine learning mathematics',
       abstract:
-        'A from-first-principles book on the mathematics behind machine learning — linear algebra, calculus and probability rebuilt from geometric intuition and concrete problems, for self-learners without access to expensive resources.',
+        'A from-first-principles book on the mathematics behind machine learning: linear algebra, calculus and probability rebuilt from geometric intuition and concrete problems, for self-learners without access to expensive resources.',
       author: { '@type': 'Person', name: 'Yulan Galagoda', url: SITE, '@id': `${SITE}/#person` },
       inLanguage: 'en',
       url: BOOK_URL,
@@ -75,7 +75,7 @@ export default function WritingPage() {
           <span className="eyebrow">Writing</span>
           <h1 className="detail__title">Nothing Is Magic</h1>
           <p className="detail__tagline">
-            Machine learning mathematics, rebuilt from first principles — a book I&rsquo;m writing to
+            Machine learning mathematics, rebuilt from first principles. A book I&rsquo;m writing to
             be <em>taught</em>, not decoded.
           </p>
           <div className="detail__meta">
@@ -87,7 +87,7 @@ export default function WritingPage() {
 
         <div className="detail__body">
           <p>
-            Most people never meet the mathematics behind machine learning. They meet its symbols —
+            Most people never meet the mathematics behind machine learning. They meet its symbols:
             a wall of notation that makes a field built on a handful of intuitive ideas feel like
             gatekept magic. <em>Nothing Is Magic</em> is my attempt to take that wall down: to
             rebuild the maths from the pictures and problems underneath it, so anyone with basic
@@ -95,7 +95,7 @@ export default function WritingPage() {
           </p>
           <p>
             Every chapter leads with geometry and a concrete problem before any formal notation
-            appears — because the clearest test of whether you understand something is whether you
+            appears, because the clearest test of whether you understand something is whether you
             can teach it from the ground up. That conviction runs through everything I do: security
             is about refusing to treat a system as a black box, my research is about understanding
             models deeply enough to break and defend them, and this book applies the same instinct to
@@ -109,14 +109,14 @@ export default function WritingPage() {
         </blockquote>
 
         <section className="detail__section">
-          <h2 className="detail__h2">Part 1 — Linear algebra <span className="detail__pill">complete</span></h2>
+          <h2 className="detail__h2">Part 1: Linear algebra <span className="detail__pill">complete</span></h2>
           <ol className="book-toc">
             {PART1.map((c, i) => (
               <li key={i}><span className="book-toc__n">{i + 1}</span>{c}</li>
             ))}
           </ol>
           <p className="detail__body">
-            Parts 2&ndash;4 — calculus, probability &amp; statistics, and learning theory — are in
+            Parts 2 to 4 (calculus, probability &amp; statistics, and learning theory) are in
             progress, extending the same first-principles approach up to the mathematics of how models
             actually learn.
           </p>
