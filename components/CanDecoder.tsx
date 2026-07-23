@@ -24,7 +24,7 @@ export default function CanDecoder() {
         className="iocx__input"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Paste CAN frames — e.g. 0C9#8A6014000000FFFF (one per line)"
+        placeholder="Paste CAN frames, e.g. 0C9#8A6014000000FFFF (one per line)"
         spellCheck={false}
         rows={4}
         aria-label="CAN frames to decode"
@@ -38,7 +38,7 @@ export default function CanDecoder() {
         {frames.map((f, i) => (
           <article className={`candec__frame${f.error ? ' is-error' : ''}`} key={i}>
             {f.error ? (
-              <p className="candec__err"><code>{f.raw}</code> — {f.error}</p>
+              <p className="candec__err"><code>{f.raw}</code>, {f.error}</p>
             ) : (
               <>
                 <div className="candec__meta">
@@ -80,7 +80,7 @@ export default function CanDecoder() {
                     </tbody>
                   </table>
                 ) : (
-                  <p className="candec__nodata">{f.rtr ? 'Remote request — no data field.' : 'No data bytes.'}</p>
+                  <p className="candec__nodata">{f.rtr ? 'Remote request, no data field.' : 'No data bytes.'}</p>
                 )}
               </>
             )}
@@ -90,7 +90,7 @@ export default function CanDecoder() {
       </div>
 
       <p className="panel__source">
-        Structure only — payload meaning needs a vehicle-specific DBC. CAN carries no authentication
+        Structure only, payload meaning needs a vehicle-specific DBC. CAN carries no authentication
         or encryption, which is what makes it worth studying. Runs entirely in your browser.
       </p>
     </aside>

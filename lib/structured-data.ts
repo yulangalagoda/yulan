@@ -72,7 +72,7 @@ export function buildJsonLd(data: SiteData): object {
     '@type': 'ProfilePage',
     '@id': `${SITE}/#profilepage`,
     url: SITE,
-    name: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
+    name: 'Yulan Galagoda · Cyber Security Engineer & AI Researcher',
     mainEntity: { '@id': `${SITE}/#person` },
   };
 
@@ -82,7 +82,7 @@ export function buildJsonLd(data: SiteData): object {
     name: 'Yulan Galagoda',
     url: SITE,
     description:
-      'Portfolio of Yulan Galagoda — cyber security engineer and AI researcher covering security operations, intrusion detection, and adversarial machine learning.',
+      'Portfolio of Yulan Galagoda, cyber security engineer and AI researcher covering security operations, intrusion detection, and adversarial machine learning.',
     author: { '@id': `${SITE}/#person` },
   };
 

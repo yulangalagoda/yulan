@@ -347,7 +347,7 @@ export default function AdversarialLab() {
             </button>
             <button className="btn btn--ghost" onClick={clearDraw}>Clear</button>
           </div>
-          <p className="advlab__hint">Draw a single digit (0–9), big and centred.</p>
+          <p className="advlab__hint">Draw a single digit (0-9), big and centred.</p>
         </div>
       )}
 
@@ -383,7 +383,7 @@ export default function AdversarialLab() {
         {result?.flipped ? (
           <span className="advlab__verdict-bad">
             Fooled: the model now reads <b>{result.adversarialForward.pred}</b> instead of{' '}
-            <b>{result.original.pred}</b> — yet the image looks unchanged.
+            <b>{result.original.pred}</b>, yet the image looks unchanged.
           </span>
         ) : (
           <span className="advlab__verdict-ok">
@@ -431,7 +431,7 @@ export default function AdversarialLab() {
       </div>
 
       <p className="panel__source">
-        Real FGSM/PGD on a 784→128→10 network — forward pass and input gradient hand-written, running
+        Real FGSM/PGD on a 784→128→10 network, forward pass and input gradient hand-written, running
         entirely in your browser. Nothing you draw is transmitted.
       </p>
     </aside>

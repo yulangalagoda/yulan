@@ -6,12 +6,12 @@ export const dynamic = 'force-static';
 const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'Research — Adversarial ML & intrusion detection · Yulan Galagoda',
+  title: 'Research: Adversarial ML & intrusion detection · Yulan Galagoda',
   description:
-    'Research by Yulan Galagoda on adversarial machine learning and intrusion detection for the Internet of Vehicles — including the MSc dissertation on adversarial training for CAN-bus IDS.',
+    'Research by Yulan Galagoda on adversarial machine learning and intrusion detection for the Internet of Vehicles, including the MSc dissertation on adversarial training for CAN-bus IDS.',
   alternates: { canonical: `${SITE}/research` },
   openGraph: {
-    title: 'Research — Yulan Galagoda',
+    title: 'Research · Yulan Galagoda',
     description:
       'Adversarial machine learning and intrusion detection for the Internet of Vehicles.',
     url: `${SITE}/research`,
@@ -68,7 +68,7 @@ export default async function ResearchPage() {
           <span className="eyebrow">Research</span>
           <h1 className="detail__title">Adversarial ML &amp; intrusion detection.</h1>
           <p className="detail__tagline">
-            My research sits where machine learning meets security — making the models that defend
+            My research sits where machine learning meets security, making the models that defend
             networks robust against attacks designed to fool them.
           </p>
         </header>

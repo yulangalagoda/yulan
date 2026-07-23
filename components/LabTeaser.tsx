@@ -5,21 +5,21 @@ const INSTRUMENTS = [
   {
     ch: 'CH-3',
     title: 'Adversarial examples playground',
-    body: 'Fool a neural network live — add an imperceptible, gradient-crafted perturbation to a digit and watch the classifier flip. Real FGSM/PGD, computed in your browser. The attack at the heart of my research, made visible.',
+    body: 'Fool a neural network live: add an imperceptible, gradient-crafted perturbation to a digit and watch the classifier flip. Real FGSM/PGD, computed in your browser. The attack at the heart of my research, made visible.',
     href: '/lab/adversarial/',
     tags: 'FGSM · PGD · MNIST',
   },
   {
     ch: 'CH-1',
     title: 'Live global attack traffic',
-    body: 'A live read of the internet’s background attack noise from the SANS Internet Storm Center honeypot network — the most-attacked ports right now, and what each attack actually is.',
+    body: 'A live read of the internet’s background attack noise from the SANS Internet Storm Center honeypot network: the most-attacked ports right now, and what each attack actually is.',
     href: '/lab/live/',
     tags: 'SANS ISC · live telemetry',
   },
   {
     ch: 'CH-2',
     title: 'Password strength lab',
-    body: 'Transparent entropy math, pattern and breach detection, and honest crack-time estimates across attacker profiles — no black-box meter, nothing leaves the page.',
+    body: 'Transparent entropy math, pattern and breach detection, and honest crack-time estimates across attacker profiles, with no black-box meter, and nothing leaves the page.',
     href: '/lab/password/',
     tags: 'entropy · HIBP · zxcvbn-style',
   },
@@ -33,7 +33,7 @@ export default function LabTeaser() {
           <span className="eyebrow">The Lab</span>
           <h2 className="section-head__title">Things I built to think with.</h2>
           <p className="section-head__sub">
-            Small, working instruments — no slideware. Each runs entirely in your browser and shows
+            Small, working instruments, no slideware. Each runs entirely in your browser and shows
             its own maths.
           </p>
         </header>

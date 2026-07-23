@@ -57,14 +57,14 @@ function yearOf(date: string | undefined): number | undefined {
 function educationLine(e: SiteData['education'][number]): string {
   const name = [e.qualification, e.grade].filter(Boolean).join(', ');
   const when = e.current ? 'in progress' : yearOf(e.endDate)?.toString();
-  return [name, e.institution].filter(Boolean).join(' — ') + (when ? ` (${when})` : '');
+  return [name, e.institution].filter(Boolean).join(', ') + (when ? ` (${when})` : '');
 }
 
 function experienceLine(x: SiteData['experience'][number]): string {
   const start = yearOf(x.startDate);
   const end = x.current ? 'present' : yearOf(x.endDate);
-  const period = start ? ` (${start}–${end ?? ''})`.replace('–)', ')') : '';
-  return [x.role, x.organisation].filter(Boolean).join(' — ') + period;
+  const period = start ? ` (${start}-${end ?? ''})`.replace('-)', ')') : '';
+  return [x.role, x.organisation].filter(Boolean).join(', ') + period;
 }
 
 // The first paragraph of the Contact section states availability.
@@ -112,11 +112,11 @@ export function renderLlmsTxt(data: SiteData): string {
 
   const projectLines = buildAgentProjects(data).map((p) => {
     const meta = [p.type, p.status, p.year].filter(Boolean).join(', ');
-    const parts = [`- **${p.name}**`];
-    if (p.tagline) parts.push(`— ${p.tagline}`);
-    if (meta) parts.push(`(${meta})`);
-    if (p.url) parts.push(`— ${p.url}`);
-    return parts.join(' ');
+    let line = `- **${p.name}**`;
+    if (p.tagline) line += `: ${p.tagline}`;
+    if (meta) line += ` (${meta})`;
+    if (p.url) line += ` ${p.url}`;
+    return line;
   });
 
   const sections = [

@@ -3,9 +3,9 @@ import type { Metadata } from 'next';
 const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'The Lab — seven security & ML tools you can use · Yulan Galagoda',
+  title: 'The Lab: seven security & ML tools you can use · Yulan Galagoda',
   description:
-    'A workbench of small, working security and machine-learning tools by Yulan Galagoda — a live view of global attack traffic, an adversarial-ML playground, an IOC extractor, a CAN-bus decoder, a phishing URL inspector and more. Each runs entirely in your browser; nothing you type is sent anywhere.',
+    'A workbench of small, working security and machine-learning tools by Yulan Galagoda, a live view of global attack traffic, an adversarial-ML playground, an IOC extractor, a CAN-bus decoder, a phishing URL inspector and more. Each runs entirely in your browser; nothing you type is sent anywhere.',
   alternates: { canonical: `${SITE}/lab` },
 };
 
@@ -23,7 +23,7 @@ const INSTRUMENTS: Instrument[] = [
     ch: 'CH-3',
     title: 'Adversarial examples playground',
     blurb:
-      'Fool a neural network in real time. Draw or pick a digit, add an imperceptible perturbation, and watch the classifier flip while the image looks unchanged — a live, from-scratch FGSM/PGD attack. This is the idea at the centre of my research; if you try one thing here, try this.',
+      'Fool a neural network in real time. Draw or pick a digit, add an imperceptible perturbation, and watch the classifier flip while the image looks unchanged, a live, from-scratch FGSM/PGD attack. This is the idea at the centre of my research; if you try one thing here, try this.',
     href: '/lab/adversarial/',
     tags: 'FGSM · PGD · neural nets',
     featured: true,
@@ -32,7 +32,7 @@ const INSTRUMENTS: Instrument[] = [
     ch: 'CH-1',
     title: 'Live global attack traffic',
     blurb:
-      'See which ports the internet is attacking most right now, live from a worldwide honeypot network — and what each attack actually is.',
+      'See which ports the internet is attacking most right now, live from a worldwide honeypot network, and what each attack actually is.',
     href: '/lab/live/',
     tags: 'SANS ISC · live',
   },
@@ -40,7 +40,7 @@ const INSTRUMENTS: Instrument[] = [
     ch: 'CH-7',
     title: 'Phishing URL inspector',
     blurb:
-      'Paste a link and see where it truly points. Flags lookalike domains, brand impersonation, typosquats and the classic tricks — without ever opening it.',
+      'Paste a link and see where it truly points. Flags lookalike domains, brand impersonation, typosquats and the classic tricks, without ever opening it.',
     href: '/lab/phish/',
     tags: 'homoglyphs · typosquats',
   },
@@ -48,7 +48,7 @@ const INSTRUMENTS: Instrument[] = [
     ch: 'CH-4',
     title: 'IOC extractor',
     blurb:
-      'Drop in a log or a phishing email and pull out the IPs, domains, URLs, hashes and CVEs — de-duplicated and defanged, ready for a ticket.',
+      'Drop in a log or a phishing email and pull out the IPs, domains, URLs, hashes and CVEs, de-duplicated and defanged, ready for a ticket.',
     href: '/lab/ioc/',
     tags: 'SOC triage · defang',
   },
@@ -64,7 +64,7 @@ const INSTRUMENTS: Instrument[] = [
     ch: 'CH-5',
     title: 'CAN frame decoder',
     blurb:
-      'Decode a raw automotive CAN-bus frame into its ID, type, length and per-byte view — the protocol my adversarial-IDS research defends.',
+      'Decode a raw automotive CAN-bus frame into its ID, type, length and per-byte view, the protocol my adversarial-IDS research defends.',
     href: '/lab/can/',
     tags: 'automotive · IoV',
   },
@@ -72,7 +72,7 @@ const INSTRUMENTS: Instrument[] = [
     ch: 'CH-6',
     title: 'Hash & encoding workbench',
     blurb:
-      'SHA-1/256/512, Base64/hex/URL encode-decode, and a JWT decoder — the everyday conversions, without pasting secrets into a random site.',
+      'SHA-1/256/512, Base64/hex/URL encode-decode, and a JWT decoder, the everyday conversions, without pasting secrets into a random site.',
     href: '/lab/workbench/',
     tags: 'SHA · Base64 · JWT',
   },
@@ -85,7 +85,7 @@ const jsonLd = {
       '@type': 'CollectionPage',
       '@id': `${SITE}/lab#page`,
       url: `${SITE}/lab`,
-      name: 'The Lab — security & ML tools by Yulan Galagoda',
+      name: 'The Lab: security & ML tools by Yulan Galagoda',
       isPartOf: { '@id': `${SITE}/#website` },
     },
     {
@@ -121,7 +121,7 @@ export default function LabPage() {
           <span className="eyebrow">The Lab</span>
           <h1 className="lab__intro-title">Small tools that do something real.</h1>
           <p className="lab__intro-lede">
-            Seven working instruments across security and machine learning — not screenshots or
+            Seven working instruments across security and machine learning, not screenshots or
             slideware. Paste something in and watch it happen: an attack fooling a neural network, a
             phishing link unmasked, a log stripped for indicators. Every one runs entirely in your
             browser.
@@ -165,7 +165,7 @@ export default function LabPage() {
         </ul>
 
         <p className="lab__foot-note">
-          Built by Yulan Galagoda. No account, no cookies, no tracking inside the tools — the code for
+          Built by Yulan Galagoda. No account, no cookies, no tracking inside the tools, the code for
           each is on the page it explains.
         </p>
       </div>

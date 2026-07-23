@@ -248,7 +248,7 @@ export default function LiveWire() {
       <p className="wire__intro">
         <span className={`wire__dot${snap ? '' : ' is-idle'}`} aria-hidden="true" />
         {snap
-          ? 'These are the ports the internet is attacking most right now — measured across a worldwide network of honeypot sensors.'
+          ? 'These are the ports the internet is attacking most right now, measured across a worldwide network of honeypot sensors.'
           : 'Connecting to the global honeypot network…'}
       </p>
 
@@ -296,7 +296,7 @@ export default function LiveWire() {
         </div>
       </div>
       <p className="panel__source">
-        Live estimate · today&rsquo;s top-5 attacked ports accumulating at the observed rate —{' '}
+        Live estimate · today&rsquo;s top-5 attacked ports accumulating at the observed rate, via{' '}
         <a href="https://isc.sans.edu" target="_blank" rel="noopener noreferrer">
           SANS Internet Storm Center
         </a>{' '}

@@ -26,9 +26,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://yulan.me'),
-  title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
+  title: 'Yulan Galagoda · Cyber Security Engineer & AI Researcher',
   description:
-    'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning. Based in Plymouth, UK.',
+    'Cyber security engineer and AI researcher covering enterprise security operations, intrusion detection systems, and adversarial machine learning. Based in Plymouth, UK.',
   authors: [{ name: 'Yulan Galagoda', url: 'https://yulan.me' }],
   creator: 'Yulan Galagoda',
   robots: { index: true, follow: true },
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   // every page and conflict with the per-page ones.)
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
+    title: 'Yulan Galagoda · Cyber Security Engineer & AI Researcher',
     description:
-      'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning.',
+      'Cyber security engineer and AI researcher covering enterprise security operations, intrusion detection systems, and adversarial machine learning.',
     type: 'profile',
     url: 'https://yulan.me',
     siteName: 'Yulan Galagoda',
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@YulanGalagoda',
     creator: '@YulanGalagoda',
-    title: 'Yulan Galagoda — Cyber Security Engineer & AI Researcher',
+    title: 'Yulan Galagoda · Cyber Security Engineer & AI Researcher',
     description:
-      'Cyber security engineer and AI researcher — enterprise security operations, intrusion detection systems, and adversarial machine learning.',
+      'Cyber security engineer and AI researcher covering enterprise security operations, intrusion detection systems, and adversarial machine learning.',
   },
   icons: {
     icon: [

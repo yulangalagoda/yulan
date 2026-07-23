@@ -27,7 +27,7 @@ export default function Hero({ hero, cvPath }: Props) {
         <div className="hero__copy">
           <p className="hero__avail">
             <span className="hero__avail-dot" aria-hidden="true"></span>
-            <span>Available — Sri Lanka &amp; United Kingdom</span>
+            <span>Available in Sri Lanka &amp; the United Kingdom</span>
           </p>
 
           <h1 className="hero__title">{headline}</h1>

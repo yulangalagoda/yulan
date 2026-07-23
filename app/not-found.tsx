@@ -13,7 +13,7 @@ export default function NotFound() {
           <span className="eyebrow">404</span>
           <h1 className="detail__title">Page not found.</h1>
           <p className="detail__tagline">
-            Nothing lives at this address — it may have moved when the site was reorganised.
+            Nothing lives at this address, it may have moved when the site was reorganised.
           </p>
         </header>
         <div className="detail__links">

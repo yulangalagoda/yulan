@@ -4,7 +4,7 @@ import LiveWire from '@/components/LiveWire';
 const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'Live Global Attack Traffic — what the internet is attacking now · Yulan Galagoda',
+  title: 'Live Global Attack Traffic: what the internet is attacking now · Yulan Galagoda',
   description:
     'A live read of the ports under the heaviest attack across the internet right now, measured by the SANS Internet Storm Center’s worldwide honeypot network. Updates live, entirely in your browser.',
   alternates: { canonical: `${SITE}/lab/live` },
@@ -53,7 +53,7 @@ export default function LiveLabPage() {
           <span className="eyebrow">Lab · Instrument 01</span>
           <h1 className="lab__title">Live global attack traffic</h1>
           <p className="lab__lede">
-            The internet is under constant, automated attack — scanners and bots probing every
+            The internet is under constant, automated attack, scanners and bots probing every
             machine they can reach, around the clock. This shows which services are taking the most
             fire right now, live, and what each of those attacks usually is.
           </p>
@@ -70,10 +70,10 @@ export default function LiveLabPage() {
             <a href="https://isc.sans.edu" target="_blank" rel="noopener noreferrer">
               SANS Internet Storm Center
             </a>{' '}
-            — a worldwide network of <strong>honeypots</strong>, decoy machines deliberately exposed to
+, a worldwide network of <strong>honeypots</strong>, decoy machines deliberately exposed to
             the internet to attract attackers. Every connection they receive is unsolicited, so it&rsquo;s
             a clean measure of background attack activity: no real users, just probes. The panel ranks
-            the <strong>ports</strong> — the numbered doors into a machine, each tied to a service —
+            the <strong>ports</strong>, the numbered doors into a machine, each tied to a service, 
             taking the most hits today, and names the attack each port typically sees, from SSH
             password brute-forcing to IoT-botnet recruitment.
           </p>
@@ -83,7 +83,7 @@ export default function LiveLabPage() {
             periodic updates; <em>since you opened this</em> is the same figure measured from your
             arrival, so you can watch it climb in real time. The <em>threat level</em> mirrors the
             ISC&rsquo;s global &ldquo;Infocon&rdquo; status. Everything runs in your browser against a
-            free, public, no-key API — this is the kind of signal I read every day in security
+            free, public, no-key API, this is the kind of signal I read every day in security
             operations, which is why I wanted a clean live window onto it.
           </p>
         </section>

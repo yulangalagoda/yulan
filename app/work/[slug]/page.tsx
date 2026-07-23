@@ -35,7 +35,7 @@ export async function generateMetadata({
   // "Academic" / "Research" / "Personal" alone reads oddly in a title —
   // qualify it ("Academic project by …").
   const kind = p.type && !/project/i.test(p.type) ? `${p.type} project` : p.type || 'Project';
-  const title = `${p.name} — ${kind} by Yulan Galagoda`;
+  const title = `${p.name} · ${kind} by Yulan Galagoda`;
   const description = (p.tagline || p.description || '').slice(0, 200);
   const url = `${SITE}/work/${p.slug}`;
   return {

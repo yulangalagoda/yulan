@@ -173,10 +173,10 @@ const CV_PUBLIC = '/cv/Yulan-Galagoda-CV.pdf';
 
 /**
  * Downloads the CV/résumé from the Notion "Site Meta" row into
- * /public/cv/Yulan-Galagoda-CV.pdf, overwriting the committed default. A
- * committed copy is always present, so the download button works even before
- * anything is uploaded to Notion; uploading a new PDF and rebuilding replaces
- * it. Returns the stable public path (or null on failure).
+ * /public/cv/Yulan-Galagoda-CV.pdf at build time. The CV is delivered ONLY from
+ * Notion — there is no committed copy in the repo (public/cv is gitignored), so
+ * the download button appears only once a CV has been uploaded to Notion.
+ * Returns the stable public path (or null on failure).
  */
 export async function downloadNotionCv(url: string): Promise<string | null> {
   if (!url) return null;
@@ -199,10 +199,10 @@ export async function downloadNotionCv(url: string): Promise<string | null> {
 
 /**
  * Returns the public CV path with a content-hash cache-buster
- * (…/Yulan-Galagoda-CV.pdf?v=<hash>) so an updated CV always gets a fresh URL —
+ * (…/Yulan-Galagoda-CV.pdf?v=<hash>) so an updated CV always gets a fresh URL,
  * otherwise browsers and the CDN keep serving the previously-cached PDF. Reads
- * whatever is on disk (a Notion download if one happened, else the committed
- * default). Returns null only if no CV file exists.
+ * the Notion-downloaded CV on disk. Returns null when no CV was downloaded, so
+ * the button stays hidden until one is uploaded to Notion.
  */
 export async function cvVersionedPath(): Promise<string | null> {
   const filePath = path.join(CV_DIR, 'Yulan-Galagoda-CV.pdf');

@@ -178,12 +178,12 @@ export function inspectUrl(input: string): PhishReport {
       'high',
       mixed ? 'Mixed-script domain (homoglyph attack)' : 'Non-ASCII characters in the domain',
       mixed
-        ? 'The domain mixes Latin with Cyrillic/Greek letters that look identical — a classic lookalike (e.g. “аpple” with a Cyrillic а).'
+        ? 'The domain mixes Latin with Cyrillic/Greek letters that look identical, a classic lookalike (e.g. “аpple” with a Cyrillic а).'
         : 'Unicode letters can be crafted to look like a trusted brand. Browsers may show this as punycode (xn--…).'
     );
   }
   if (/(^|\.)xn--/i.test(host)) {
-    add('high', 'Punycode domain (xn--)', 'An internationalised domain encoded as ASCII — frequently used to disguise lookalike characters.');
+    add('high', 'Punycode domain (xn--)', 'An internationalised domain encoded as ASCII, frequently used to disguise lookalike characters.');
   }
 
   // ── brand impersonation vs typosquat ────────────────────────
@@ -196,14 +196,14 @@ export function inspectUrl(input: string): PhishReport {
       add(
         'high',
         `Impersonates “${brandInLabels}”`,
-        `“${brandInLabels}” appears in the address, but the real registrable domain is ${registrable} — not ${brandInLabels}’s.`
+        `“${brandInLabels}” appears in the address, but the real registrable domain is ${registrable}, not ${brandInLabels}’s.`
       );
     }
     if (!brandExact) {
       for (const b of BRANDS) {
         const d = levenshtein(secondLevel.toLowerCase(), b);
         if (d > 0 && d <= 2 && Math.abs(secondLevel.length - b.length) <= 2) {
-          add('high', `Looks like a typo of “${b}”`, `“${secondLevel}” is ${d} character${d === 1 ? '' : 's'} away from “${b}” — a likely typosquat.`);
+          add('high', `Looks like a typo of “${b}”`, `“${secondLevel}” is ${d} character${d === 1 ? '' : 's'} away from “${b}”, a likely typosquat.`);
           break;
         }
       }
@@ -217,7 +217,7 @@ export function inspectUrl(input: string): PhishReport {
 
   // ── shortener ───────────────────────────────────────────────
   if (SHORTENERS.has(registrable.toLowerCase())) {
-    add('medium', 'URL shortener', 'The real destination is hidden behind a redirect and can’t be resolved here — expand it before trusting it.');
+    add('medium', 'URL shortener', 'The real destination is hidden behind a redirect and can’t be resolved here, expand it before trusting it.');
   }
 
   // ── transport ───────────────────────────────────────────────
@@ -228,7 +228,7 @@ export function inspectUrl(input: string): PhishReport {
   // ── structure smells ────────────────────────────────────────
   const subCount = subdomain ? subdomain.split('.').length : 0;
   if (subCount >= 3) {
-    add('medium', 'Deeply nested subdomains', `${subCount} subdomain levels — a common way to bury a trusted-looking name far from the real domain.`);
+    add('medium', 'Deeply nested subdomains', `${subCount} subdomain levels, a common way to bury a trusted-looking name far from the real domain.`);
   }
   if (host.length > 30 && !isIp) {
     add('low', 'Unusually long host', 'Long, padded hostnames are used to push the real domain out of view on mobile.');
@@ -245,7 +245,7 @@ export function inspectUrl(input: string): PhishReport {
   const hay = (host + ' ' + path).toLowerCase();
   const hits = KEYWORDS.filter((k) => hay.includes(k));
   if (hits.length >= 2) {
-    add('low', 'Urgent / credential keywords', `Contains ${hits.slice(0, 4).map((h) => `“${h}”`).join(', ')} — wording engineered to create urgency.`);
+    add('low', 'Urgent / credential keywords', `Contains ${hits.slice(0, 4).map((h) => `“${h}”`).join(', ')}, wording engineered to create urgency.`);
   }
 
   const weight: Record<Severity, number> = { high: 40, medium: 18, low: 8, info: 0 };

@@ -4,9 +4,9 @@ import PasswordLab from '@/components/PasswordLab';
 const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'Password Strength Lab — free client-side checker · Yulan Galagoda',
+  title: 'Password Strength Lab: free client-side checker · Yulan Galagoda',
   description:
-    'Analyse password strength with transparent math: guess entropy, dictionary and keyboard-walk detection, realistic crack-time estimates, and an optional k-anonymity breach check. Runs entirely in your browser — nothing is transmitted.',
+    'Analyse password strength with transparent math: guess entropy, dictionary and keyboard-walk detection, realistic crack-time estimates, and an optional k-anonymity breach check. Runs entirely in your browser, nothing is transmitted.',
   alternates: { canonical: `${SITE}/lab/password` },
   openGraph: {
     title: 'Password Strength Lab · Yulan Galagoda',
@@ -55,7 +55,7 @@ export default function PasswordLabPage() {
           <p className="lab__lede">
             Most strength meters are a black box. This one shows its work: the entropy math, the
             patterns an attacker exploits, and what they mean in real cracking time. Everything runs
-            locally — the password never leaves this page.
+            locally, the password never leaves this page.
           </p>
         </header>
 
@@ -68,19 +68,19 @@ export default function PasswordLabPage() {
           <p>
             The analyser starts from the brute-force ceiling: a password of length <em>L</em> drawn
             from a character pool of size <em>P</em> has at most <em>L</em> × log₂(<em>P</em>) bits
-            of entropy. Real attackers never brute-force blindly, though — they run ordered wordlists
+            of entropy. Real attackers never brute-force blindly, though, they run ordered wordlists
             and mangling rules first. So the model hunts for the same structure those rules exploit:
             top-guessed passwords (with l33t substitutions normalised away), dictionary words,
             keyboard walks, ascending or descending sequences, repeats, and years. Each finding
             replaces its share of the naive entropy with what the pattern actually costs an informed
-            attacker — a year is worth ~7 bits, not the ~13 its digits suggest, because there are
+            attacker, a year is worth ~7 bits, not the ~13 its digits suggest, because there are
             only about 130 plausible ones.
           </p>
           <p>
             The crack-time table converts the resulting guess count into wall-clock time under four
             explicit attacker profiles, from a rate-limited login form (~10 guesses/s) to an offline
             GPU rig against fast unsalted hashes (~10¹² guesses/s). The figures are order-of-magnitude
-            estimates on purpose: the spread between the rows — not the precision of any one number —
+            estimates on purpose: the spread between the rows, not the precision of any one number, 
             is what should inform how strong a password needs to be.
           </p>
           <p>
@@ -95,7 +95,7 @@ export default function PasswordLabPage() {
             Honest limitations: the embedded dictionaries are deliberately small (a real cracker
             carries tens of millions of entries), there is no personal-context modelling (names,
             birthdays, usernames), and no Markov or neural guessing model. Treat a strong verdict
-            here as necessary, not sufficient — and use a password manager either way.
+            here as necessary, not sufficient, and use a password manager either way.
           </p>
         </section>
       </div>

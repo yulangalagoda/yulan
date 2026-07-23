@@ -10,13 +10,13 @@ const AREAS = [
   {
     no: '02',
     title: 'Intrusion detection',
-    body: 'Network defence and IDS/IDPS — from Suricata gateways to deep-learning detectors.',
+    body: 'Network defence and IDS/IDPS, from Suricata gateways to deep-learning detectors.',
     tags: 'Suricata · Nmap · UFW · Flask',
   },
   {
     no: '03',
     title: 'AI security & research',
-    body: 'Adversarial machine learning — hardening detection models against attacks designed to fool them.',
+    body: 'Adversarial machine learning, hardening detection models against attacks designed to fool them.',
     tags: 'PyTorch · ART · CAN bus',
   },
 ];

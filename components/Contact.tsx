@@ -43,7 +43,7 @@ export default function Contact({ contact, socials = [], email, cvPath }: Props)
   const addr = email || 'hi@yulan.me';
   const sub =
     contact?.content?.trim() ||
-    'Whether you need an engineer on your team, a collaborator on research, or a consultant on a hard security problem — my inbox is open.';
+    'Whether you need an engineer on your team, a collaborator on research, or a consultant on a hard security problem, my inbox is open.';
   const subLines = splitHighlights(sub).filter((l) => !/^email\s*:/i.test(l.trim()));
   const links = socials.filter(
     (s) => s.url && s.url.trim().length > 0 && !s.url.trim().toLowerCase().startsWith('mailto:')

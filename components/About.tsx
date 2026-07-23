@@ -6,7 +6,7 @@ interface Props {
 }
 
 const FALLBACK = [
-  'I work at the intersection of cyber security and machine learning — hardening the models that defend networks against the attacks designed to fool them.',
+  'I work at the intersection of cyber security and machine learning, hardening the models that defend networks against the attacks designed to fool them.',
 ];
 
 function paragraphs(content?: string): string[] {

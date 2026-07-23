@@ -4,14 +4,14 @@ import PhishInspector from '@/components/PhishInspector';
 const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'Phishing URL Inspector — spot lookalike links · Yulan Galagoda',
+  title: 'Phishing URL Inspector: spot lookalike links · Yulan Galagoda',
   description:
-    'Paste a link and see where it actually goes: registrable domain vs decoration, homoglyph/punycode lookalikes, brand impersonation, typosquats, abused TLDs and the “@” trick. Structural analysis, entirely in your browser — the link is never fetched.',
+    'Paste a link and see where it actually goes: registrable domain vs decoration, homoglyph/punycode lookalikes, brand impersonation, typosquats, abused TLDs and the “@” trick. Structural analysis, entirely in your browser, the link is never fetched.',
   alternates: { canonical: `${SITE}/lab/phish` },
   openGraph: {
     title: 'Phishing URL Inspector · Yulan Galagoda',
     description:
-      'Spot lookalike domains, brand impersonation and typosquats in a link — client-side, no fetch.',
+      'Spot lookalike domains, brand impersonation and typosquats in a link, client-side, no fetch.',
     url: `${SITE}/lab/phish`,
     type: 'website',
   },
@@ -56,7 +56,7 @@ export default function PhishLabPage() {
           <p className="lab__lede">
             Almost every phishing attack turns on one thing: making a link <em>look</em> like it goes
             somewhere it doesn&rsquo;t. Paste a URL and this pulls it apart to show where it truly
-            points, and flags the specific tricks used to disguise it — no fetch, all in your browser.
+            points, and flags the specific tricks used to disguise it, no fetch, all in your browser.
           </p>
         </header>
 
@@ -67,12 +67,12 @@ export default function PhishLabPage() {
         <section className="lab__prose">
           <h2>How it works</h2>
           <p>
-            The one thing that decides where a link goes is the <strong>registrable domain</strong> —
+            The one thing that decides where a link goes is the <strong>registrable domain</strong>, 
             roughly, the name plus its public suffix (<code>example.com</code>, <code>example.co.uk</code>).
             Everything else is decoration the domain&rsquo;s owner controls: any subdomain
             (<code>secure-paypal.evil.com</code>), any path (<code>evil.com/paypal.com/login</code>), any
             brand name dropped in to reassure you. The inspector isolates the registrable domain and
-            highlights it, because reading <em>that</em> — not the reassuring words around it — is the
+            highlights it, because reading <em>that</em>, not the reassuring words around it, is the
             whole skill.
           </p>
           <p>
@@ -86,11 +86,11 @@ export default function PhishLabPage() {
             urgency wording.
           </p>
           <p>
-            The honest limits: it reasons about the string only — it never requests the URL, so it
+            The honest limits: it reasons about the string only, it never requests the URL, so it
             can&rsquo;t follow a shortener&rsquo;s redirect or judge what the page actually does, and its
             registrable-domain logic uses a compact suffix list rather than the full Public Suffix List.
             It&rsquo;s a fast structural gut-check, not a sandbox. The instinct it&rsquo;s meant to
-            build — <em>find the real domain first</em> — is the one that stops most phishing cold.
+            build, <em>find the real domain first</em>, is the one that stops most phishing cold.
           </p>
         </section>
       </div>

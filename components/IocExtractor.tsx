@@ -85,7 +85,7 @@ export default function IocExtractor() {
         <p className="iocx__empty">
           {text.trim()
             ? 'No indicators found in that text.'
-            : 'Nothing extracted yet — paste some text or load the sample.'}
+            : 'Nothing extracted yet, paste some text or load the sample.'}
         </p>
       ) : (
         <div className="iocx__groups">
@@ -120,7 +120,7 @@ export default function IocExtractor() {
       )}
 
       <p className="panel__source">
-        Defanging and de-duplication run entirely in your browser — nothing you paste is transmitted
+        Defanging and de-duplication run entirely in your browser, nothing you paste is transmitted
         or stored.
       </p>
     </aside>

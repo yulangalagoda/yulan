@@ -111,7 +111,7 @@ export default function Workbench() {
                 </ul>
               )}
               <p className="wb__jwt-note">
-                Decoding only — anyone can read a JWT&rsquo;s payload; it is signed, not encrypted.
+                Decoding only, anyone can read a JWT&rsquo;s payload; it is signed, not encrypted.
                 Verifying the signature needs the secret or public key.
               </p>
             </>
@@ -136,7 +136,7 @@ export default function Workbench() {
       </div>
 
       <p className="panel__source">
-        WebCrypto digests and encoding all run locally — nothing you type is transmitted or stored.
+        WebCrypto digests and encoding all run locally, nothing you type is transmitted or stored.
       </p>
     </aside>
   );

@@ -14,7 +14,7 @@ function fmtMonth(iso?: string): string {
 function dateRange(row: ExperienceRow): string {
   const start = fmtMonth(row.startDate);
   const end = row.current ? 'Present' : fmtMonth(row.endDate);
-  if (start && end) return `${start} – ${end}`;
+  if (start && end) return `${start} to ${end}`;
   return start || end || '';
 }
 

@@ -110,9 +110,9 @@ function leetNormalize(s: string): { text: string; substitutions: number } {
 function charPool(pw: string): { size: number; parts: string[] } {
   const parts: string[] = [];
   let size = 0;
-  if (/[a-z]/.test(pw)) { size += 26; parts.push('a–z'); }
-  if (/[A-Z]/.test(pw)) { size += 26; parts.push('A–Z'); }
-  if (/[0-9]/.test(pw)) { size += 10; parts.push('0–9'); }
+  if (/[a-z]/.test(pw)) { size += 26; parts.push('a-z'); }
+  if (/[A-Z]/.test(pw)) { size += 26; parts.push('A-Z'); }
+  if (/[0-9]/.test(pw)) { size += 10; parts.push('0-9'); }
   if (/[^a-zA-Z0-9]/.test(pw)) { size += 33; parts.push('symbols'); }
   if (/[^\x20-\x7E]/.test(pw)) { size += 100; parts.push('non-ASCII'); }
   return { size: Math.max(size, 1), parts };
@@ -367,19 +367,19 @@ export function analyzePassword(pw: string): Analysis | null {
 
   const suggestions: string[] = [];
   if (exactRank !== -1) {
-    suggestions.push('This is one of the most-guessed passwords on the internet — attackers try it within the first few seconds.');
+    suggestions.push('This is one of the most-guessed passwords on the internet, attackers try it within the first few seconds.');
   }
   if (pw.length < 12) {
     suggestions.push('Length beats complexity: every extra character multiplies the search space. Aim for 14+ characters or a 4-word passphrase.');
   }
   if (patterns.some((p) => p.type === 'word' || p.type === 'common')) {
-    suggestions.push('Dictionary words — even with l33t substitutions — are the first thing cracking wordlists cover.');
+    suggestions.push('Dictionary words, even with l33t substitutions, are the first thing cracking wordlists cover.');
   }
   if (patterns.some((p) => p.type === 'keyboard')) {
     suggestions.push('Keyboard walks (qwerty, 1qaz2wsx…) are in every cracking ruleset.');
   }
   if (patterns.some((p) => p.type === 'year')) {
-    suggestions.push('Years and dates add almost no entropy — there are only ~130 plausible ones.');
+    suggestions.push('Years and dates add almost no entropy, there are only ~130 plausible ones.');
   }
   if (poolParts.length === 1 && pw.length < 16) {
     suggestions.push('A single character class shrinks the pool an attacker must search.');

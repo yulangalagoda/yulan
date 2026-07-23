@@ -38,7 +38,7 @@ export default function PhishInspector() {
         type="text"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        placeholder="Paste a link to inspect — e.g. https://secure-login.example.com/…"
+        placeholder="Paste a link to inspect, e.g. https://secure-login.example.com/…"
         autoComplete="off"
         autoCapitalize="off"
         spellCheck={false}
@@ -67,8 +67,8 @@ export default function PhishInspector() {
               <span className="phish__part phish__part--path">{a.path}</span>
             </div>
             <p className="phish__reg-note">
-              Real destination domain: <b>{a.registrable}</b>. Everything else — subdomain, path,
-              brand names — is decoration the owner of <b>{a.registrable}</b> controls.
+              Real destination domain: <b>{a.registrable}</b>. Everything else, subdomain, path,
+              brand names, is decoration the owner of <b>{a.registrable}</b> controls.
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function PhishInspector() {
               ))}
             </ul>
           ) : (
-            <p className="phish__clean">No obvious red flags in the structure. Still — verify the domain is one you know.</p>
+            <p className="phish__clean">No obvious red flags in the structure. Still, verify the domain is one you know.</p>
           )}
         </>
       )}
@@ -100,7 +100,7 @@ export default function PhishInspector() {
       {url.trim() && !report.valid && <p className="iocx__empty">{report.verdict}.</p>}
 
       <p className="panel__source">
-        Structural analysis only — the link is never fetched, so redirects and page content can&rsquo;t
+        Structural analysis only, the link is never fetched, so redirects and page content can&rsquo;t
         be judged. Runs entirely in your browser.
       </p>
     </aside>

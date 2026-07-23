@@ -79,11 +79,11 @@ export function decodeJwt(token: string): JwtDecoded | null {
     const fmt = (n: number) => new Date(n * 1000).toISOString().replace('.000', '');
     if (typeof payload.exp === 'number') {
       claimNotes.push(
-        `exp — ${fmt(payload.exp)} (${payload.exp < now ? 'EXPIRED' : 'valid'})`
+        `exp: ${fmt(payload.exp)} (${payload.exp < now ? 'EXPIRED' : 'valid'})`
       );
     }
-    if (typeof payload.iat === 'number') claimNotes.push(`iat — issued ${fmt(payload.iat)}`);
-    if (typeof payload.nbf === 'number') claimNotes.push(`nbf — not before ${fmt(payload.nbf)}`);
+    if (typeof payload.iat === 'number') claimNotes.push(`iat: issued ${fmt(payload.iat)}`);
+    if (typeof payload.nbf === 'number') claimNotes.push(`nbf: not before ${fmt(payload.nbf)}`);
     return { header, payload, signature: s ?? '', claimNotes };
   } catch {
     return { header: null, payload: {}, signature: s ?? '', claimNotes: [], error: 'Token parts are not valid JSON.' };

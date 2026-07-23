@@ -182,17 +182,17 @@ export default function PasswordLab() {
         </button>
         <span className="pwlab__hibp-result" role="status">
           {hibp.status === 'pwned' && (
-            <b className="bad">Seen {hibp.count.toLocaleString('en-GB')}× in known breaches — do not use.</b>
+            <b className="bad">Seen {hibp.count.toLocaleString('en-GB')}× in known breaches, do not use.</b>
           )}
           {hibp.status === 'clean' && <b className="good">Not found in known breach corpora.</b>}
-          {hibp.status === 'error' && 'Lookup failed — try again.'}
+          {hibp.status === 'error' && 'Lookup failed, try again.'}
           {hibp.status === 'idle' &&
-            'Optional: k-anonymity lookup against Have I Been Pwned. Only the first 5 characters of a local SHA-1 hash are sent — never the password.'}
+            'Optional: k-anonymity lookup against Have I Been Pwned. Only the first 5 characters of a local SHA-1 hash are sent, never the password.'}
         </span>
       </div>
 
       <p className="panel__source">
-        Runs entirely in your browser — nothing you type is transmitted or stored.
+        Runs entirely in your browser, nothing you type is transmitted or stored.
       </p>
     </aside>
   );
