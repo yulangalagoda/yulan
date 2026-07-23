@@ -9,6 +9,7 @@ export default function Header() {
         <nav className="site-nav" aria-label="Primary">
           <a href="#work">Work</a>
           <a href="/research/">Research</a>
+          <a href="/writing/">Writing</a>
           <a href="#lab">Lab</a>
           <a href="#experience">Experience</a>
           <a href="#about">About</a>
