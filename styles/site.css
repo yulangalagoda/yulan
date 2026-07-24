@@ -461,12 +461,32 @@ section.band { background: var(--surface); }
 .detail__meta span + span::before { content: "·"; margin-right: 16px; color: var(--edge-2); }
 .detail__body { margin-top: 8px; }
 .detail__body p { color: var(--dim); margin-bottom: 1em; max-width: 68ch; }
-.detail__section { margin-top: clamp(2rem, 4vw, 2.5rem); }
+.detail__section { margin-top: clamp(2rem, 4vw, 2.5rem); padding: 0; }
 .detail__h2 { font-size: var(--text-lg); margin-bottom: 14px; }
 .detail__list { list-style: none; max-width: 68ch; }
 .detail__list li { position: relative; padding-left: 20px; color: var(--dim); font-size: var(--text-sm); margin-bottom: 8px; }
 .detail__list li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 8px; height: 1px; background: var(--signal); }
 .detail__links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(2rem, 4vw, 2.5rem); }
+
+/* Project detail: two-column case-study layout (narrative left, sticky meta sidebar right). */
+.detail__container { max-width: var(--container); }
+.detail__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  margin-top: clamp(1.5rem, 4vw, 2.25rem);
+  align-items: start;
+}
+.detail__main { min-width: 0; }
+.detail__aside { display: flex; flex-direction: column; gap: clamp(1.5rem, 4vw, 1.75rem); }
+.detail__aside .detail__section { margin-top: 0; }
+.detail__aside .card__tags { margin-top: 0; }
+.detail__aside .detail__links { margin-top: 0; flex-direction: column; align-items: stretch; gap: 10px; }
+.detail__aside .detail__links .btn { width: 100%; justify-content: center; }
+@media (min-width: 880px) {
+  .detail__layout { grid-template-columns: minmax(0, 1fr) 264px; }
+  .detail__aside { position: sticky; top: 32px; }
+}
 .detail__quote {
   margin: clamp(1.5rem, 4vw, 2rem) 0;
   font-size: var(--text-lg);

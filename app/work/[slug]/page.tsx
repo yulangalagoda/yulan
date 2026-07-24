@@ -81,7 +81,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   return (
     <main className="detail" id="main">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="container container--narrow">
+      <div className="container detail__container">
         <a href="/#work" className="detail__back">&larr; All work</a>
 
         <header className="detail__head">
@@ -97,60 +97,66 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
           )}
         </header>
 
-        {p.description && (
-          <div className="detail__body">
-            {p.description.split(/\n{2,}/).map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
+        <div className="detail__layout">
+          <div className="detail__main">
+            {p.description && (
+              <div className="detail__body">
+                {p.description.split(/\n{2,}/).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            )}
+
+            {p.highlights.length > 0 && (
+              <section className="detail__section">
+                <h2 className="detail__h2">What it involved</h2>
+                <ul className="detail__list">
+                  {p.highlights.map((h, i) => (
+                    <li key={i}>{h}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
-        )}
 
-        {p.highlights.length > 0 && (
-          <section className="detail__section">
-            <h2 className="detail__h2">What it involved</h2>
-            <ul className="detail__list">
-              {p.highlights.map((h, i) => (
-                <li key={i}>{h}</li>
-              ))}
-            </ul>
-          </section>
-        )}
+          <aside className="detail__aside">
+            {p.technologies.length > 0 && (
+              <section className="detail__section">
+                <h2 className="detail__h2">Stack</h2>
+                <div className="card__tags">
+                  {p.technologies.map((t) => (
+                    <span className="tag" key={t}>{t}</span>
+                  ))}
+                </div>
+              </section>
+            )}
 
-        {p.technologies.length > 0 && (
-          <section className="detail__section">
-            <h2 className="detail__h2">Stack</h2>
-            <div className="card__tags">
-              {p.technologies.map((t) => (
-                <span className="tag" key={t}>{t}</span>
-              ))}
+            <div className="detail__links">
+              {(p.reportPath || p.reportUrl) && (
+                <a
+                  className="btn btn--primary"
+                  href={p.reportPath || p.reportUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download the full report (PDF) ↓
+                </a>
+              )}
+              {p.liveUrl && (
+                <a className="btn btn--ghost" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
+                  Visit live ↗
+                </a>
+              )}
+              {p.githubUrl && (
+                <a className="btn btn--ghost" href={p.githubUrl} target="_blank" rel="noopener noreferrer">
+                  Source on GitHub ↗
+                </a>
+              )}
+              {!p.reportPath && !p.reportUrl && !p.liveUrl && !p.githubUrl && (
+                <a className="btn btn--ghost" href="/#contact">Ask me about this →</a>
+              )}
             </div>
-          </section>
-        )}
-
-        <div className="detail__links">
-          {(p.reportPath || p.reportUrl) && (
-            <a
-              className="btn btn--primary"
-              href={p.reportPath || p.reportUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download the full report (PDF) ↓
-            </a>
-          )}
-          {p.liveUrl && (
-            <a className="btn btn--ghost" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
-              Visit live ↗
-            </a>
-          )}
-          {p.githubUrl && (
-            <a className="btn btn--ghost" href={p.githubUrl} target="_blank" rel="noopener noreferrer">
-              Source on GitHub ↗
-            </a>
-          )}
-          {!p.reportPath && !p.reportUrl && !p.liveUrl && !p.githubUrl && (
-            <a className="btn btn--ghost" href="/#contact">Ask me about this →</a>
-          )}
+          </aside>
         </div>
       </div>
     </main>
