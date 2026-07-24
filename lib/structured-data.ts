@@ -21,7 +21,7 @@ const KNOWS_ABOUT = [
 
 const FALLBACK_SAMEAS = [
   'https://www.linkedin.com/in/yulangalagoda/',
-  'https://github.com/yulansgalagoda',
+  'https://github.com/yulangalagoda',
   'https://x.com/YulanGalagoda',
 ];
 
@@ -34,6 +34,12 @@ export function buildJsonLd(data: SiteData): object {
   const sameAs = data.socials
     .map((s) => s.url?.trim())
     .filter((u): u is string => Boolean(u) && !u!.toLowerCase().startsWith('mailto:'));
+
+  // ORCID is a persistent researcher identifier: surface it explicitly as a
+  // schema.org PropertyValue (a strong entity signal), derived from sameAs so
+  // it never drifts from the Notion-managed social links.
+  const orcidUrl = (sameAs.length ? sameAs : FALLBACK_SAMEAS).find((u) => /orcid\.org/i.test(u));
+  const orcidId = orcidUrl?.match(/orcid\.org\/([0-9X-]{9,})/i)?.[1];
 
   const institutions = Array.from(
     new Set(data.education.map((e) => e.institution?.trim()).filter(Boolean) as string[])
@@ -63,6 +69,9 @@ export function buildJsonLd(data: SiteData): object {
     email: 'hi@yulan.me',
     address: { '@type': 'PostalAddress', addressCountry: 'GB' },
     sameAs: sameAs.length ? sameAs : FALLBACK_SAMEAS,
+    ...(orcidUrl && orcidId
+      ? { identifier: { '@type': 'PropertyValue', propertyID: 'ORCID', value: orcidId, url: orcidUrl } }
+      : {}),
     alumniOf: institutions.map((name) => ({ '@type': 'CollegeOrUniversity', name })),
     knowsAbout: KNOWS_ABOUT,
     ...(hasCredential.length ? { hasCredential } : {}),
