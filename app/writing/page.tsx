@@ -17,6 +17,21 @@ export const metadata: Metadata = {
       'A from-first-principles book on the maths behind machine learning, written to be taught rather than decoded.',
     url: `${SITE}/writing`,
     type: 'book',
+    images: [
+      {
+        url: '/og/nothing-is-magic.png',
+        width: 1200,
+        height: 630,
+        alt: 'Nothing Is Magic, a book on the mathematics behind machine learning by Yulan Galagoda',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nothing Is Magic: the mathematics behind machine learning',
+    description:
+      'A from-first-principles book on the maths behind machine learning, written to be taught rather than decoded.',
+    images: ['/og/nothing-is-magic.png'],
   },
 };
 
