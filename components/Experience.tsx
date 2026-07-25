@@ -1,4 +1,5 @@
 import type { ExperienceRow } from '@/lib/types';
+import { anchorList } from '@/lib/anchors';
 
 interface Props {
   experience: ExperienceRow[];
@@ -21,6 +22,8 @@ function dateRange(row: ExperienceRow): string {
 export default function Experience({ experience }: Props) {
   if (!experience.length) return null;
 
+  const anchors = anchorList(experience, 'exp', (r) => r.role || r.organisation || 'role');
+
   return (
     <section id="experience" className="band">
       <div className="container">
@@ -30,8 +33,8 @@ export default function Experience({ experience }: Props) {
         </header>
 
         <div className="timeline">
-          {experience.map((row) => (
-            <div className="exp__row" key={row.id}>
+          {experience.map((row, i) => (
+            <div className="exp__row" id={anchors[i]} key={row.id}>
               {row.logoPath ? (
                 <span className="exp__logo" aria-hidden="true">
                   <img src={row.logoPath} alt="" loading="lazy" decoding="async" />

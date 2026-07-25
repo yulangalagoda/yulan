@@ -38,12 +38,15 @@ export async function generateMetadata({
   const title = `${p.name} · ${kind} by Yulan Galagoda`;
   const description = (p.tagline || p.description || '').slice(0, 200);
   const url = `${SITE}/work/${p.slug}`;
+  // Projects with a hand-built branded OG card in public/og/<slug>.png.
+  const OG_SLUGS = new Set(['adversec', 'glean']);
+  const images = OG_SLUGS.has(p.slug) ? [`/og/${p.slug}.png`] : undefined;
   return {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'article' },
-    twitter: { card: 'summary_large_image', title, description },
+    openGraph: { title, description, url, type: 'article', ...(images ? { images } : {}) },
+    twitter: { card: 'summary_large_image', title, description, ...(images ? { images } : {}) },
   };
 }
 
