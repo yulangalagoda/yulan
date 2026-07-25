@@ -1338,3 +1338,60 @@ section.band { background: var(--surface); }
 .about__body .section-head__title { margin: 10px 0 16px; }
 .about__para { color: var(--dim); line-height: var(--lh-base); margin-bottom: 14px; max-width: 42em; }
 .about__para:last-child { margin-bottom: 0; }
+
+/* ═══ CH-8 · Unfaithful chain-of-thought ═══════════════════════════════════ */
+.ucot { display: flex; flex-direction: column; gap: 20px; }
+.ucot__sample { background: #FBEED6; border: 1px solid var(--warn); color: #6b4a0e; padding: 10px 14px; border-radius: var(--radius); font-size: var(--text-sm); }
+
+.ucot__metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.ucot__metric { background: var(--well); border: 1px solid var(--edge); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.ucot__metric b { font-size: var(--text-xl); font-weight: 700; color: var(--text); line-height: 1; }
+.ucot__metric span { font-size: var(--text-xs); color: var(--faint); line-height: 1.4; }
+.ucot__metric--punch { background: var(--signal-soft); border-color: var(--signal-2); }
+.ucot__metric--punch b { color: var(--signal-3); }
+
+.ucot__controls { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; }
+.ucot__pick { display: flex; flex-direction: column; gap: 6px; flex: 1 1 320px; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.04em; color: var(--faint); text-transform: uppercase; }
+.ucot__pick select { font-family: var(--font-body); font-size: var(--text-sm); text-transform: none; letter-spacing: 0; color: var(--text); background: var(--surface); border: 1px solid var(--edge-2); border-radius: var(--radius-sm); padding: 9px 12px; width: 100%; }
+.ucot__bias { display: inline-flex; border: 1px solid var(--edge-2); border-radius: var(--radius-sm); overflow: hidden; }
+.ucot__bias button { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.04em; padding: 9px 14px; color: var(--dim); background: var(--surface); border: none; border-right: 1px solid var(--edge); cursor: pointer; }
+.ucot__bias button:last-child { border-right: none; }
+.ucot__bias button.is-active { background: var(--signal); color: var(--on-signal); }
+
+.ucot__q { font-size: var(--text-lg); color: var(--text); line-height: 1.5; margin: 0; }
+
+.ucot__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.ucot__panel { border: 1px solid var(--edge); border-radius: var(--radius); background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.ucot__panel-head { display: flex; flex-direction: column; gap: 3px; }
+.ucot__panel-title { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal-3); }
+.ucot__panel-sub { font-size: var(--text-xs); color: var(--faint); line-height: 1.5; }
+
+.ucot__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ucot__opt { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 8px; padding: 7px 10px; border: 1px solid var(--edge); border-radius: var(--radius-sm); font-size: var(--text-sm); color: var(--dim); }
+.ucot__opt-letter { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); }
+.ucot__opt--correct { border-color: var(--signal-2); background: var(--signal-soft); }
+.ucot__opt--pick-ok { box-shadow: inset 0 0 0 1px var(--signal-2); }
+.ucot__opt--pick-bad { border-color: #B4342A; background: #FBEBE9; color: #7d2620; }
+.ucot__opt--pick-bad .ucot__opt-letter { color: #B4342A; }
+.ucot__tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
+.ucot__tag--correct { color: var(--signal-3); background: #fff; border: 1px solid var(--signal-2); }
+.ucot__tag--pick { color: #7d2620; background: #fff; border: 1px solid #E4B7B1; }
+.ucot__opt--pick-ok .ucot__tag--pick { color: var(--signal-3); border-color: var(--signal-2); }
+.ucot__opt-mark { display: flex; gap: 4px; justify-content: flex-end; }
+
+.ucot__verdict { font-size: var(--text-sm); color: var(--dim); }
+.ucot__ok { color: var(--signal-3); }
+.ucot__bad { color: #B4342A; }
+
+.ucot__cot { border-top: 1px solid var(--edge); padding-top: 10px; }
+.ucot__cot summary { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.03em; color: var(--faint); cursor: pointer; }
+.ucot__cot pre { margin: 10px 0 0; white-space: pre-wrap; word-break: break-word; font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--dim); background: var(--well); border: 1px solid var(--edge); border-radius: var(--radius-sm); padding: 12px; max-height: 340px; overflow: auto; }
+
+.ucot__read { font-size: var(--text-sm); color: var(--dim); line-height: 1.6; border-left: 2px solid var(--signal); padding-left: 14px; margin: 0; }
+
+@media (max-width: 720px) {
+  .ucot__metrics { grid-template-columns: 1fr; }
+  .ucot__grid { grid-template-columns: 1fr; }
+}
+
+.lab__panel--full { max-width: none; }

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'The Lab: seven security & ML tools you can use · Yulan Galagoda',
+  title: 'The Lab: eight security, ML & AI tools you can use · Yulan Galagoda',
   description:
     'A workbench of small, working security and machine-learning tools by Yulan Galagoda, a live view of global attack traffic, an adversarial-ML playground, an IOC extractor, a CAN-bus decoder, a phishing URL inspector and more. Each runs entirely in your browser; nothing you type is sent anywhere.',
   alternates: { canonical: `${SITE}/lab` },
@@ -27,6 +27,14 @@ const INSTRUMENTS: Instrument[] = [
     href: '/lab/adversarial/',
     tags: 'FGSM · PGD · neural nets',
     featured: true,
+  },
+  {
+    ch: 'CH-8',
+    title: 'Unfaithful reasoning',
+    blurb:
+      'Add a bias a model is never told about and its answer moves, but its chain of thought never admits why. An interactive reproduction of a known result: stated reasoning is not the same as actual cause.',
+    href: '/lab/reasoning/',
+    tags: 'CoT · faithfulness · LLMs',
   },
   {
     ch: 'CH-1',
@@ -121,10 +129,10 @@ export default function LabPage() {
           <span className="eyebrow">The Lab</span>
           <h1 className="lab__intro-title">Small tools that do something real.</h1>
           <p className="lab__intro-lede">
-            Seven working instruments across security and machine learning, not screenshots or
+            Eight working instruments across security, machine learning and AI, not screenshots or
             slideware. Paste something in and watch it happen: an attack fooling a neural network, a
-            phishing link unmasked, a log stripped for indicators. Every one runs entirely in your
-            browser.
+            phishing link unmasked, a log stripped for indicators, a model rationalising a biased
+            answer. Every one runs entirely in your browser.
           </p>
           <ul className="lab__principles" aria-label="How these tools work">
             <li>Runs in your browser</li>
