@@ -469,6 +469,18 @@ section.band { background: var(--surface); }
 .detail__list li { position: relative; padding-left: 20px; color: var(--dim); font-size: var(--text-sm); margin-bottom: 8px; }
 .detail__list li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 8px; height: 1px; background: var(--signal); }
 .detail__links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(2rem, 4vw, 2.5rem); }
+.detail__cite {
+  margin-top: clamp(2rem, 4vw, 2.5rem);
+  padding-top: 16px;
+  border-top: 1px solid var(--edge);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  color: var(--faint);
+  max-width: 72ch;
+}
+.detail__cite em { font-style: italic; color: var(--dim); }
+.detail__cite a { color: var(--signal); word-break: break-word; }
 
 /* Project detail: two-column case-study layout (narrative left, sticky meta sidebar right). */
 .detail__container { max-width: var(--container); }

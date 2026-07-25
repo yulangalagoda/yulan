@@ -5,6 +5,8 @@ export const dynamic = 'force-static';
 const SITE = 'https://yulan.me';
 const BOOK_URL = 'https://yulangalagoda.github.io/nothing-is-magic/';
 const REPO_URL = 'https://github.com/yulangalagoda/nothing-is-magic';
+const DOI = '10.5281/zenodo.21541212';
+const DOI_URL = `https://doi.org/${DOI}`;
 
 export const metadata: Metadata = {
   title: 'Nothing Is Magic: a book on the mathematics of machine learning · Yulan Galagoda',
@@ -63,7 +65,8 @@ const jsonLd = {
       author: { '@type': 'Person', name: 'Yulan Galagoda', url: SITE, '@id': `${SITE}/#person` },
       inLanguage: 'en',
       url: BOOK_URL,
-      sameAs: REPO_URL,
+      sameAs: [REPO_URL, DOI_URL],
+      identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: DOI, url: DOI_URL },
       bookFormat: 'https://schema.org/EBook',
       isAccessibleForFree: true,
       about: ['Machine learning', 'Mathematics', 'Linear algebra', 'Deep learning'],
@@ -145,6 +148,12 @@ export default function WritingPage() {
             Source on GitHub ↗
           </a>
         </div>
+
+        <p className="detail__cite">
+          Cite this book: Galagoda, Y. (2026). <em>Nothing Is Magic: Machine Learning Mathematics</em>.
+          Zenodo.{' '}
+          <a href={DOI_URL} target="_blank" rel="noopener noreferrer">{DOI_URL}</a>
+        </p>
       </div>
     </main>
   );
