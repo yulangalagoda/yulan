@@ -1412,3 +1412,32 @@ section.band { background: var(--surface); }
 .lb__chip--flip.is-active { background: #FBEBE9; }
 
 .lb__filler { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--faint); font-style: italic; background: var(--well); border: 1px solid var(--edge); border-radius: var(--radius-sm); padding: 12px; margin: 0; }
+
+/* ═══ CH-10 · Explanation faithfulness (live ranking + narration) ═══════════ */
+.nf__intro { font-size: var(--text-sm); color: var(--dim); line-height: 1.6; margin: 0; }
+.nf__rank { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.nf__rowbtn { display: grid; grid-template-columns: 22px 1fr 90px 26px; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 8px 10px; border: 1px solid var(--edge); border-radius: var(--radius-sm); background: var(--surface); cursor: pointer; font-size: var(--text-sm); color: var(--dim); }
+.nf__rowbtn.is-focus { border-color: var(--signal-2); background: var(--signal-soft); }
+.nf__rank-n { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); }
+.nf__host { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nf__bar { height: 8px; border-radius: 4px; background: var(--well); overflow: hidden; }
+.nf__bar span { display: block; height: 100%; background: var(--signal); border-radius: 4px; transition: width var(--dur-fast) var(--ease-out); }
+.nf__score { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--signal-3); text-align: right; }
+
+.nf__toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 4px; }
+.nf__toggle { display: flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid var(--edge); border-radius: var(--radius-sm); font-size: var(--text-xs); color: var(--dim); cursor: pointer; }
+.nf__toggle.is-on { border-color: var(--signal-2); background: var(--signal-soft); color: var(--signal-3); }
+.nf__toggle input { accent-color: var(--signal); }
+.nf__toggle span:first-of-type { flex: 1; }
+.nf__w { font-family: var(--font-mono); color: var(--faint); }
+
+.nf__narration { font-size: var(--text-sm); line-height: 1.6; color: var(--text); background: var(--well); border: 1px solid var(--edge); border-left: 2px solid var(--signal); border-radius: var(--radius-sm); padding: 12px; margin: 0; }
+.nf__note { font-size: var(--text-sm); color: var(--faint); font-style: italic; margin: 0; }
+.nf__analysis { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.nf__arow { display: flex; align-items: center; gap: 8px; font-size: var(--text-xs); color: var(--dim); flex-wrap: wrap; }
+.nf__dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--edge-2); background: transparent; flex: none; }
+.nf__dot--on { background: var(--signal); border-color: var(--signal); }
+.nf__aname { font-weight: 500; color: var(--text); }
+.nf__astate { color: var(--faint); font-family: var(--font-mono); }
+
+@media (max-width: 720px) { .nf__toggles { grid-template-columns: 1fr; } }

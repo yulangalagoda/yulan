@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 const SITE = 'https://yulan.me';
 
 export const metadata: Metadata = {
-  title: 'The Lab: nine security, ML & AI tools you can use · Yulan Galagoda',
+  title: 'The Lab: ten security, ML & AI tools you can use · Yulan Galagoda',
   description:
     'A workbench of small, working security and machine-learning tools by Yulan Galagoda, a live view of global attack traffic, an adversarial-ML playground, an IOC extractor, a CAN-bus decoder, a phishing URL inspector and more. Each runs entirely in your browser; nothing you type is sent anywhere.',
   alternates: { canonical: `${SITE}/lab` },
@@ -43,6 +43,14 @@ const INSTRUMENTS: Instrument[] = [
       'Break a model’s chain of thought, truncate it, corrupt a step, or swap it for filler, and see whether the answer moves. Often it does not: the reasoning was decoration. A reproduction of the chain-of-thought perturbation tests.',
     href: '/lab/reasoning-load/',
     tags: 'CoT · perturbation · LLMs',
+  },
+  {
+    ch: 'CH-10',
+    title: 'Faithfulness, answer key held',
+    blurb:
+      'A deterministic scorer ranks OSINT findings and an LLM only narrates, so the true cause is known exactly. Toggle a signal and watch whether the explanation tracks it, confabulates, or omits. Built on Glean’s design.',
+    href: '/lab/narration/',
+    tags: 'faithfulness · OSINT · LLMs',
   },
   {
     ch: 'CH-1',
@@ -137,10 +145,11 @@ export default function LabPage() {
           <span className="eyebrow">The Lab</span>
           <h1 className="lab__intro-title">Small tools that do something real.</h1>
           <p className="lab__intro-lede">
-            Nine working instruments across security, machine learning and AI, not screenshots or
+            Ten working instruments across security, machine learning and AI, not screenshots or
             slideware. Paste something in and watch it happen: an attack fooling a neural network, a
             phishing link unmasked, a log stripped for indicators, a model rationalising a biased
-            answer or ignoring its own reasoning. Every one runs entirely in your browser.
+            answer, ignoring its own reasoning, or narrating a cause you can check. Every one runs
+            entirely in your browser.
           </p>
           <ul className="lab__principles" aria-label="How these tools work">
             <li>Runs in your browser</li>
