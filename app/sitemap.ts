@@ -28,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/lab/password/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE}/lab/adversarial/`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE}/lab/reasoning/`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITE}/lab/reasoning-load/`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE}/lab/ioc/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE}/lab/can/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE}/lab/workbench/`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },

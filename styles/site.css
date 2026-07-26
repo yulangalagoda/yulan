@@ -1395,3 +1395,20 @@ section.band { background: var(--surface); }
 }
 
 .lab__panel--full { max-width: none; }
+
+/* ═══ CH-9 · Load-bearing reasoning (steps + per-step sensitivity) ══════════ */
+.lb__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+.lb__step { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; font-size: var(--text-sm); color: var(--dim); line-height: 1.5; padding: 7px 10px; border: 1px solid var(--edge); border-radius: var(--radius-sm); background: var(--surface); }
+.lb__step-n { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); background: var(--well); border-radius: 4px; text-align: center; padding: 2px 0; }
+.lb__step--dropped { opacity: 0.4; text-decoration: line-through; text-decoration-color: var(--edge-2); }
+.lb__step--corrupt { border-color: #B4342A; background: #FBEBE9; color: #7d2620; }
+.lb__step--corrupt .lb__step-n { color: #B4342A; background: #fff; }
+
+.lb__chips { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 4px; }
+.lb__chips-label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); letter-spacing: 0.04em; margin-right: 2px; }
+.lb__chip { font-family: var(--font-mono); font-size: var(--text-xs); min-width: 28px; padding: 4px 8px; border: 1px solid var(--edge-2); border-radius: var(--radius-sm); background: var(--surface); color: var(--dim); cursor: pointer; }
+.lb__chip.is-active { border-color: var(--signal-2); background: var(--signal-soft); color: var(--signal-3); }
+.lb__chip--flip { border-color: #B4342A; color: #B4342A; }
+.lb__chip--flip.is-active { background: #FBEBE9; }
+
+.lb__filler { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--faint); font-style: italic; background: var(--well); border: 1px solid var(--edge); border-radius: var(--radius-sm); padding: 12px; margin: 0; }
