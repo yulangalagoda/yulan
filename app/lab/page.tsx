@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import SiteChrome from '@/components/SiteChrome';
-import LabRail from '@/components/LabRail';
 
 const SITE = 'https://yulan.me';
 
@@ -176,8 +175,6 @@ export default function LabPage() {
             <span className="lab__hero-digit lab__hero-digit--wrong">1</span>
           </div>
         </a>
-
-        <LabRail />
 
         <ul className="lab__cards">
           {rest.map((it) => (

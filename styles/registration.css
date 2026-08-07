@@ -475,3 +475,68 @@ a.rg-pill:hover { background: color-mix(in srgb, var(--signal) 14%, transparent)
   .rg-fact { padding-left: 0; border-left: 0; }
   .rg-fact:nth-child(n+2) { border-top: 1px solid var(--edge); padding-top: 16px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Legibility pass.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Descenders were being clipped by the reveal mask: `overflow: hidden` cuts a
+   "g" or "y" on the last line. Give the mask room below the baseline and pull
+   it back with a negative margin so layout is unchanged, then start the hidden
+   state further down so the extra room does not expose the glyph early. */
+.rg-lift { padding-bottom: .18em; margin-bottom: -.18em; }
+html.js .rg-lift > * { transform: translateY(135%); }
+
+/* Raise the type floor. The mono micro-labels and secondary copy were sitting
+   at 10 to 13.5px, which reads as fine print next to display type this large. */
+.rg-hero__avail { font-size: 12.5px; }
+.rg-hero__line { font-size: clamp(1.05rem, 1.6vw, 1.25rem); }
+.rg-head__meta { font-size: 12px; }
+.eyebrow { font-size: 12px; }
+
+.rg-fact dt { font-size: 11.5px; }
+.rg-fact dd { font-size: 1.08rem; }
+.rg-fact dd span { font-size: 13.5px; }
+
+.rg-split__pin p { font-size: 15.5px; }
+.rg-row p { font-size: 15.5px; }
+.rg-row__tags { font-size: 11.5px; }
+.rg-row h3 { font-size: 1.28rem; }
+
+.rg-exp__when { font-size: 12px; }
+.rg-exp__org { font-size: 13.5px; }
+.rg-exp__r { font-size: 1.2rem; }
+.rg-exp__p { font-size: 15px; }
+.rg-exp__pts li { font-size: 14.5px; }
+.rg-exp__w span { font-size: 11px; }
+
+.rg-skl__cat { font-size: 11.5px; }
+.rg-sk { font-size: 14px; padding: 8px 12px; }
+.rg-legend { font-size: 11px; }
+.rg-cert__n { font-size: 15px; }
+.rg-cert__i { font-size: 13.5px; }
+.rg-cert__m { font-size: 11px; }
+
+.rg-prow__k { font-size: 11.5px; }
+.rg-prow__tag { font-size: 16px; }
+.rg-prow__d { font-size: 14.8px; }
+.rg-prow__w span { font-size: 11px; }
+.rg-prow__links { font-size: 12px; }
+
+.rg-card p { font-size: 14.5px; }
+.rg-card__k, .rg-card__f { font-size: 11.5px; }
+.rg-lab__intro p { font-size: 15.5px; }
+.rg-lab__rest { font-size: 14.5px; }
+
+.rg-res__y { font-size: 12.5px; }
+.rg-res__t { font-size: 1.12rem; }
+.rg-res__s { font-size: 14.5px; }
+.rg-res__d { font-size: 11.5px; }
+
+.rg-nav a { font-size: 14px; }
+.rg-kbd { font-size: 12px; }
+.rg-hdr__logo { font-size: 15.5px; }
+.rg-rail button { font-size: 11px; }
+.rg-pal li { font-size: 15px; }
+.rg-pal li .rg-pal__t { font-size: 11px; }
+.rg-contact__avail { font-size: 12.5px; }
