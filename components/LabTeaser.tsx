@@ -1,51 +1,77 @@
-// The Lab: ten working instruments. As a vertical stack this would be a wall of
-// cards, so the section pins and vertical scroll drives the rail sideways: the
-// whole set becomes one gesture. Below 900px it falls back to a swipeable
-// scroller, which is the right interaction on a touch screen anyway.
-const INSTRUMENTS = [
-  ['CH-1', 'Live global attack traffic', 'The ports the internet is attacking right now, from a worldwide honeypot network.', 'SANS ISC · live', '/lab/live/'],
-  ['CH-2', 'Password strength lab', 'Real entropy math, pattern detection and honest crack times. Not a colour bar.', 'entropy · HIBP', '/lab/password/'],
-  ['CH-3', 'Adversarial examples playground', 'Draw a digit, add an imperceptible perturbation, watch the classifier flip.', 'FGSM · PGD', '/lab/adversarial/'],
-  ['CH-4', 'IOC extractor', 'Pull IPs, domains, hashes and CVEs out of a log, defanged and ready for a ticket.', 'SOC triage', '/lab/ioc/'],
-  ['CH-5', 'CAN frame decoder', 'Decode a raw automotive CAN frame into ID, type, length and a per-byte view.', 'automotive · IoV', '/lab/can/'],
-  ['CH-6', 'Hash & encoding workbench', 'SHA, Base64, hex, URL and a JWT decoder, without pasting secrets into a random site.', 'SHA · JWT', '/lab/workbench/'],
-  ['CH-7', 'Phishing URL inspector', 'Paste a link and see where it truly points. Lookalikes, typosquats, homoglyphs.', 'homoglyphs', '/lab/phish/'],
-  ['CH-8', 'Unfaithful reasoning', 'Bias a model invisibly: the answer moves, the explanation never admits why.', 'Turpin 2023', '/lab/reasoning/'],
-  ['CH-9', 'Load-bearing reasoning', 'Break the chain of thought and see whether the answer even notices.', 'Lanham 2023', '/lab/reasoning-load/'],
-  ['CH-10', 'Faithfulness, answer key held', 'A deterministic scorer decides and the model narrates. Now grade the explanation.', 'original', '/lab/narration/'],
-] as const;
+// The Lab on the homepage is a taste, not the whole shelf. Ten instruments in a
+// pinned horizontal rail cost several screens of scrolling before a visitor
+// could reach anything below, which is a toll gate in the middle of the page.
+// Three representatives and a way in works better; the full rail now lives on
+// /lab, where a visitor has already chosen to browse tools.
+const FEATURED = [
+  {
+    ch: 'CH-3',
+    title: 'Adversarial examples playground',
+    body: 'Draw a digit, add an imperceptible perturbation, and watch the classifier flip. Real FGSM and PGD, computed in your browser. The attack at the centre of my research, made visible.',
+    tags: 'FGSM · PGD · MNIST',
+    href: '/lab/adversarial/',
+  },
+  {
+    ch: 'CH-1',
+    title: 'Live global attack traffic',
+    body: 'A live read of the internet’s background attack noise from the SANS Internet Storm Center honeypot network: the most-attacked ports right now, and what each attack actually is.',
+    tags: 'SANS ISC · live telemetry',
+    href: '/lab/live/',
+  },
+  {
+    ch: 'CH-8',
+    title: 'Unfaithful reasoning',
+    body: 'Bias a model invisibly and its answer moves, but its chain of thought never admits why. An interactive reproduction of a known result about what explanations are worth.',
+    tags: 'CoT · faithfulness',
+    href: '/lab/reasoning/',
+  },
+];
 
 export default function LabTeaser() {
   return (
-    <section className="rg-lab" id="lab" data-rg-lab>
-      <div className="rg-lab__pin">
-        <div className="rg-lab__head reveal">
-          <header className="rg-head">
-            <span className="eyebrow">The Lab</span>
-            <span className="rg-head__rule" aria-hidden="true"></span>
-            <span className="rg-head__meta">{INSTRUMENTS.length} instruments</span>
-          </header>
-          <h2 className="rg-up" style={{ fontSize: 'clamp(1.6rem,3.4vw,2.3rem)', letterSpacing: '-.03em', margin: '0 0 .5rem' }}>
-            Things I built to think with.
+    <section className="rg-sec" id="lab">
+      <div className="container reveal">
+        <header className="rg-head">
+          <span className="eyebrow">The Lab</span>
+          <span className="rg-head__rule" aria-hidden="true"></span>
+          <span className="rg-head__meta">10 instruments</span>
+        </header>
+
+        <div className="rg-lab__intro">
+          <h2 className="rg-up">
+            <span className="rg-lift rg-d1"><span>Things I built to think with.</span></span>
           </h2>
-          <p className="rg-up rg-d2" style={{ color: 'var(--dim)', fontSize: '14.5px', maxWidth: '54ch', margin: 0 }}>
-            Small, working instruments, no slideware. Each runs entirely in your browser and shows its
-            own maths.
+          <p className="rg-up rg-d2">
+            Small, working instruments, no slideware. Each runs entirely in your browser and shows
+            its own maths.
           </p>
         </div>
 
-        <div className="rg-track" data-rg-track>
-          {INSTRUMENTS.map(([ch, title, body, tags, href]) => (
-            <a className="rg-chip" href={href} key={ch}>
-              <span className="rg-chip__n">{ch}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-              <span className="rg-chip__t">{tags}</span>
+        <div className="rg-cards">
+          {FEATURED.map((it, i) => (
+            <a className={`rg-card rg-up${i ? ` rg-d${i + 1}` : ''}`} href={it.href} key={it.ch}>
+              <span className="rg-x rg-x--1" aria-hidden="true"></span>
+              <span className="rg-x rg-x--2" aria-hidden="true"></span>
+              <span className="rg-x rg-x--3" aria-hidden="true"></span>
+              <span className="rg-x rg-x--4" aria-hidden="true"></span>
+              <span className="rg-card__k"><b>{it.ch}</b></span>
+              <h3>{it.title}</h3>
+              <p>{it.body}</p>
+              <span className="rg-card__f">
+                <span>{it.tags}</span>
+                <span className="rg-card__go" aria-hidden="true">→</span>
+              </span>
             </a>
           ))}
         </div>
 
-        <div className="rg-prog" aria-hidden="true"><i data-rg-prog></i></div>
+        <div className="rg-lab__foot rg-up">
+          <a className="rg-btn rg-btn--p" href="/lab/"><span>Enter the Lab</span></a>
+          <span className="rg-lab__rest">
+            and seven more: passwords, IOCs, CAN frames, hashing, phishing URLs, load-bearing
+            reasoning, and faithfulness with the answer key held.
+          </span>
+        </div>
       </div>
     </section>
   );

@@ -3,7 +3,7 @@ const DOI = '10.5281/zenodo.21541212';
 
 export default function Writing() {
   return (
-    <section className="rg-sec" id="writing">
+    <section className="rg-sec rg-sec--air" id="writing">
       <div className="container rg-book reveal">
         <div>
           <span className="eyebrow rg-up">Writing</span>

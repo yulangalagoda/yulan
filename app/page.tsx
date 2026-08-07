@@ -7,7 +7,6 @@ import PaperGrid from '@/components/PaperGrid';
 import SectionRail from '@/components/SectionRail';
 import Hairline from '@/components/Hairline';
 import Hero from '@/components/Hero';
-import StatsStrip from '@/components/StatsStrip';
 import WhatIDo from '@/components/WhatIDo';
 import Experience from '@/components/Experience';
 import SkillsCerts from '@/components/SkillsCerts';
@@ -17,6 +16,7 @@ import Writing from '@/components/Writing';
 import Research from '@/components/Research';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
+import BadgeWall from '@/components/BadgeWall';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
 import RegistrationMotion from '@/components/RegistrationMotion';
@@ -83,9 +83,9 @@ export default async function Page() {
       <Header paletteItems={paletteItems} />
       <SectionRail />
 
+      {/* claim, capability, proof, verification, artifacts, depth, person, ask */}
       <main id="main" className="rg-main">
-        <Hero hero={data.profile.hero} cvPath={data.cvPath} />
-        <StatsStrip education={data.education} />
+        <Hero hero={data.profile.hero} education={data.education} cvPath={data.cvPath} />
         <WhatIDo />
         <Hairline />
         <Experience experience={data.experience} />
@@ -93,6 +93,7 @@ export default async function Page() {
         <SkillsCerts skills={data.skills} certifications={data.certifications} />
         <Hairline />
         <Projects projects={data.projects} />
+        <Hairline />
         <LabTeaser />
         <Writing />
         <Hairline />
@@ -102,6 +103,7 @@ export default async function Page() {
       </main>
 
       <BackToTop />
+      <BadgeWall badges={data.badges} />
       <Footer />
       <RegistrationMotion />
       <WebMCP

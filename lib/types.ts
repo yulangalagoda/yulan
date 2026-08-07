@@ -62,6 +62,8 @@ export interface CertificationRow {
   id: string;
   name: string;
   issuer?: string;
+  /** Issuer badge from the Notion Logo property, downloaded at build time. */
+  logoPath?: string | null;
   category?: string;
   issued?: string;
   expires?: string;

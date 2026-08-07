@@ -7,7 +7,7 @@ interface Props {
 
 // Recruiter-relevant groups lead. Anything in a category not listed here still
 // renders, appended in Notion order, so a new category never silently vanishes.
-const ORDER = [
+const SKILL_ORDER = [
   'Cybersecurity',
   'AI & Machine Learning',
   'Cloud & Networking',
@@ -18,8 +18,7 @@ const ORDER = [
 ];
 
 // Certifications are ordered by relevance to the roles this page is aimed at,
-// so the security credentials lead and the general ones follow, rather than
-// arriving in whatever order Notion holds them.
+// so the security credentials lead and the general ones follow.
 const CERT_ORDER = [
   'Cybersecurity',
   'AI & Machine Learning',
@@ -42,6 +41,8 @@ function year(iso?: string): string {
   return isNaN(d.getTime()) ? '' : String(d.getFullYear());
 }
 
+const rank = (order: string[], cat?: string) => (order.indexOf(cat || 'Other') + 1) || 99;
+
 export default function SkillsCerts({ skills, certifications }: Props) {
   const visible = skills.filter((s) => s.visible !== false);
   if (!visible.length && !certifications.length) return null;
@@ -52,19 +53,55 @@ export default function SkillsCerts({ skills, certifications }: Props) {
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key)!.push(s);
   });
-
   const ordered = [...groups.entries()].sort(
-    (a, b) => (ORDER.indexOf(a[0]) + 1 || 99) - (ORDER.indexOf(b[0]) + 1 || 99)
+    (a, b) => rank(SKILL_ORDER, a[0]) - rank(SKILL_ORDER, b[0])
   );
 
+  const certs = certifications
+    .slice()
+    .sort((a, b) => rank(CERT_ORDER, a.category) - rank(CERT_ORDER, b.category) || a.order - b.order);
+
   return (
-    <section className="rg-sec" id="skills">
+    <section className="rg-sec rg-sec--tight" id="skills">
       <div className="container reveal">
         <header className="rg-head">
-          <span className="eyebrow">Skills &amp; certifications</span>
+          <span className="eyebrow">Certifications &amp; skills</span>
           <span className="rg-head__rule" aria-hidden="true"></span>
-          <span className="rg-head__meta">{visible.length} skills · {certifications.length} certifications</span>
+          <span className="rg-head__meta">{certs.length} certifications · {visible.length} skills</span>
         </header>
+
+        {/* Verified credentials lead; the skill list supports them. */}
+        {certs.length > 0 && (
+          <div className="rg-certs">
+            {certs.map((c, i) => {
+              const inner = (
+                <>
+                  {/* Only shown when an issuer badge is actually uploaded in
+                      Notion; an empty placeholder would be worse than none. */}
+                  {c.logoPath && (
+                    <img className="rg-cert__logo" src={c.logoPath} alt="" loading="lazy" decoding="async" />
+                  )}
+                  <span className="rg-cert__body">
+                    <span className="rg-cert__n">{c.name}</span>
+                    {c.issuer && <span className="rg-cert__i">{c.issuer}</span>}
+                    <span className="rg-cert__m">
+                      <span>{year(c.issued)}</span>
+                      {c.verifyUrl && <span className="rg-cert__v">Verify ↗</span>}
+                    </span>
+                  </span>
+                </>
+              );
+              const cls = `rg-cert rg-up${i ? ` rg-d${Math.min(i, 5)}` : ''}`;
+              return c.verifyUrl ? (
+                <a className={cls} key={c.id} href={c.verifyUrl} target="_blank" rel="noopener noreferrer">
+                  {inner}
+                </a>
+              ) : (
+                <div className={cls} key={c.id}>{inner}</div>
+              );
+            })}
+          </div>
+        )}
 
         {ordered.length > 0 && (
           <>
@@ -95,39 +132,6 @@ export default function SkillsCerts({ skills, certifications }: Props) {
               <span><i aria-hidden="true"></i>Familiar</span>
             </div>
           </>
-        )}
-
-        {certifications.length > 0 && (
-          <div className="rg-certs">
-            {certifications
-              .slice()
-              .sort(
-                (a, b) =>
-                  ((CERT_ORDER.indexOf(a.category || 'Other') + 1) || 99) -
-                    ((CERT_ORDER.indexOf(b.category || 'Other') + 1) || 99) ||
-                  a.order - b.order
-              )
-              .map((c, i) => {
-              const inner = (
-                <>
-                  <div className="rg-cert__n">{c.name}</div>
-                  {c.issuer && <span className="rg-cert__i">{c.issuer}</span>}
-                  <div className="rg-cert__m">
-                    <span>{year(c.issued)}</span>
-                    {c.verifyUrl && <span className="rg-cert__v">Verify ↗</span>}
-                  </div>
-                </>
-              );
-              const cls = `rg-cert rg-up${i ? ` rg-d${Math.min(i, 5)}` : ''}`;
-              return c.verifyUrl ? (
-                <a className={cls} key={c.id} href={c.verifyUrl} target="_blank" rel="noopener noreferrer">
-                  {inner}
-                </a>
-              ) : (
-                <div className={cls} key={c.id}>{inner}</div>
-              );
-            })}
-          </div>
         )}
       </div>
     </section>

@@ -354,12 +354,20 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
   });
 
   // ── Certifications ───────────────────────────────────────
-  const certifications: CertificationRow[] = certificationsRaw.map((page: any) => {
+  const certifications: CertificationRow[] = await Promise.all(
+    certificationsRaw.map(async (page: any) => {
     const props = page.properties;
+    // The issuer badge is worth showing: a recognised mark (ISC2, Microsoft)
+    // carries more weight at a glance than the issuer's name in text.
+    const logoFiles = getFiles(props, 'Logo');
+    const logoPath = logoFiles.length > 0
+      ? await downloadNotionImage(page.id, logoFiles[0].url)
+      : null;
     return {
       id: page.id,
       name: getTitle(props, 'Name'),
       issuer: flexValue(props, 'Issuer') || undefined,
+      logoPath,
       category: getSelect(props, 'Category') || undefined,
       issued: getDate(props, 'Issued').start,
       expires: getDate(props, 'Expires').start,
@@ -368,7 +376,8 @@ async function fetchSiteDataUncached(): Promise<SiteData> {
       verifyUrl: getUrl(props, 'Verify URL') || undefined,
       order: getNumber(props, 'Order'),
     };
-  });
+    })
+  );
 
   // ── Projects ─────────────────────────────────────────────
   const projects: ProjectRow[] = await Promise.all(projectsRaw.map(async (page: any) => {

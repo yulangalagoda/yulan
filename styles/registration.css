@@ -379,3 +379,99 @@ a.rg-pill:hover { background: color-mix(in srgb, var(--signal) 14%, transparent)
 
 /* citation line and prose keep the homepage's measure */
 .detail__cite, .lab__foot-note { max-width: 72ch; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Revision pass: hero baseline, mirrored work split, compact Lab, badges,
+   contact fix, and a varied vertical rhythm.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Rhythm: dense sections breathe less, moments breathe more ───────────── */
+.rg-sec { padding: clamp(4rem, 8vh, 6rem) 0; }
+.rg-sec--tight { padding: clamp(3rem, 6vh, 4.25rem) 0; }
+.rg-sec--air { padding: clamp(5.5rem, 12vh, 8.5rem) 0; }
+
+/* ── Hero: content above, credentials on the baseline ───────────────────── */
+.rg-hero { min-height: 88svh; align-items: stretch; padding-top: 58px; padding-bottom: clamp(1.5rem, 4vh, 2.5rem); }
+.rg-hero__inner { display: flex; flex-direction: column; justify-content: center; gap: clamp(2rem, 6vh, 4rem); width: 100%; }
+.rg-hero h1 { margin: .22em 0 .1em; }
+
+.rg-facts {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--edge); background: transparent;
+  border-left: 0; border-right: 0; border-bottom: 0; border-radius: 0;
+}
+.rg-fact { padding: 18px 22px 0; border-left: 1px solid var(--edge); }
+.rg-fact:first-child { padding-left: 0; }
+.rg-fact .rg-x { top: -7px; left: -7px; }
+
+/* ── Mirrored split for Selected work ───────────────────────────────────── */
+.rg-split--mirror { grid-template-columns: 1.35fr .65fr; }
+.rg-split--mirror .rg-rows { order: 1; }
+.rg-split--mirror .rg-split__pin { order: 2; }
+.rg-split__count { margin-top: 18px; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--faint); letter-spacing: .06em; }
+
+.rg-rows { display: flex; flex-direction: column; }
+.rg-prow { position: relative; padding: 26px 0; border-top: 1px solid var(--edge); }
+.rg-prow:last-child { border-bottom: 1px solid var(--edge); }
+.rg-prow::before { content: ""; position: absolute; left: 0; top: -1px; height: 1px; width: 0; background: var(--signal); transition: width .6s var(--ease-out); }
+.rg-prow:hover::before { width: 100%; }
+.rg-prow .rg-x { opacity: 0; transform: scale(.5) rotate(-25deg); transition: opacity .45s var(--ease-out), transform .45s var(--ease-out); color: var(--signal); }
+.rg-prow:hover .rg-x { opacity: .85; transform: none; }
+.rg-prow .rg-x--1 { top: -7px; left: -7px; } .rg-prow .rg-x--4 { bottom: -7px; right: -7px; }
+.rg-prow__k { display: flex; flex-wrap: wrap; gap: 14px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--faint); }
+.rg-prow__k b { color: var(--signal); font-weight: 500; }
+.rg-prow__t { font-size: clamp(1.3rem, 2.4vw, 1.7rem); letter-spacing: -.03em; margin: 12px 0 6px; }
+.rg-prow__t a { color: var(--text); transition: color .25s; }
+.rg-prow:hover .rg-prow__t a { color: var(--signal-3); }
+.rg-prow__tag { color: var(--dim); font-size: 15px; margin: 0; max-width: 62ch; }
+.rg-prow__d { color: var(--faint); font-size: 13.8px; line-height: 1.6; margin: 10px 0 0; max-width: 72ch; }
+.rg-prow__w { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.rg-prow__w span { font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; color: var(--faint); border: 1px solid var(--edge); border-radius: 4px; padding: 3px 7px; }
+.rg-prow__links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; }
+.rg-prow__links a { color: var(--faint); transition: color .25s; }
+.rg-prow__links a:hover { color: var(--signal); }
+.rg-prow__go { color: var(--signal) !important; }
+
+/* ── Lab teaser ─────────────────────────────────────────────────────────── */
+.rg-lab__intro { margin-bottom: clamp(1.5rem, 3vw, 2rem); }
+.rg-lab__intro h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: -.03em; margin: 0 0 .6rem; }
+.rg-lab__intro p { color: var(--dim); font-size: 14.5px; max-width: 54ch; margin: 0; }
+.rg-lab__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: clamp(1.5rem, 3vw, 2rem); }
+.rg-lab__rest { font-size: 13.5px; color: var(--faint); max-width: 58ch; }
+
+/* ── Certifications with issuer badges ──────────────────────────────────── */
+.rg-certs { grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); margin-top: 0; margin-bottom: clamp(1.75rem, 4vw, 2.5rem); }
+.rg-cert { display: flex; gap: 14px; align-items: flex-start; }
+.rg-cert__logo { width: 40px; height: 40px; object-fit: contain; border-radius: 7px; background: var(--well); padding: 4px; flex: none; }
+.rg-cert__logo--none { background: var(--well); border: 1px solid var(--edge); }
+.rg-cert__body { display: flex; flex-direction: column; min-width: 0; }
+.rg-cert__n { font-size: 14.5px; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+.rg-cert__m { margin-top: 10px; }
+
+/* ── Badge wall above the footer ────────────────────────────────────────── */
+.rg-badges { position: relative; z-index: 1; padding: clamp(2rem, 5vh, 3rem) 0; border-top: 1px solid var(--edge); }
+.rg-badges__row { display: flex; flex-wrap: wrap; gap: clamp(18px, 3vw, 32px); align-items: center; justify-content: center; }
+.rg-badge { height: clamp(52px, 7vw, 74px); width: auto; object-fit: contain; opacity: .78; filter: saturate(.9); transition: opacity .3s var(--ease-out), transform .3s var(--ease-out); }
+.rg-badge:hover { opacity: 1; transform: translateY(-2px); }
+
+/* ── Contact: the address gets its own line ─────────────────────────────── */
+.rg-mail-line { margin: 1.6rem 0 0; }
+.rg-mail { margin-top: 0; font-size: clamp(1.4rem, 4vw, 2.5rem); }
+.rg-contact__avail { margin-top: 1.1rem; }
+
+/* ── Responsive for the revisions ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .rg-hero { min-height: auto; }
+  .rg-facts { grid-template-columns: 1fr 1fr; }
+  .rg-fact { padding: 16px 16px 0; }
+  .rg-fact:nth-child(3) { padding-left: 0; border-left: 0; }
+  .rg-fact:nth-child(n+3) { border-top: 1px solid var(--edge); padding-top: 16px; }
+  .rg-split--mirror { grid-template-columns: 1fr; }
+  .rg-split--mirror .rg-rows { order: 2; }
+  .rg-split--mirror .rg-split__pin { order: 1; }
+}
+@media (max-width: 520px) {
+  .rg-facts { grid-template-columns: 1fr; }
+  .rg-fact { padding-left: 0; border-left: 0; }
+  .rg-fact:nth-child(n+2) { border-top: 1px solid var(--edge); padding-top: 16px; }
+}

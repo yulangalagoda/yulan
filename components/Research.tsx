@@ -21,7 +21,7 @@ export default function Research({ research, orcid }: Props) {
   if (!research.length) return null;
 
   return (
-    <section className="rg-sec" id="research">
+    <section className="rg-sec rg-sec--tight" id="research">
       <div className="container reveal">
         <header className="rg-head">
           <span className="eyebrow">Research</span>
