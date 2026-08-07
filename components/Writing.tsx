@@ -1,37 +1,36 @@
-// Homepage feature for the book. Editorial (not Notion-driven); the full
-// "jacket" lives on /writing and the book itself is hosted separately.
+const BOOK_URL = 'https://yulangalagoda.github.io/nothing-is-magic/';
+const DOI = '10.5281/zenodo.21541212';
+
 export default function Writing() {
   return (
-    <section id="writing">
-      <div className="container">
-        <header className="section-head reveal">
-          <span className="eyebrow">Writing</span>
-          <h2 className="section-head__title">A book on the mathematics behind the machines.</h2>
-          <p className="section-head__sub">
-            The clearest test of understanding is whether you can teach it from first principles.
+    <section className="rg-sec" id="writing">
+      <div className="container rg-book reveal">
+        <div>
+          <span className="eyebrow rg-up">Writing</span>
+          <h2 className="rg-up rg-d1" style={{ fontSize: 'clamp(1.7rem,3.6vw,2.5rem)', letterSpacing: '-.03em', margin: '.5rem 0 1rem' }}>
+            Nothing Is <span className="rg-soak" data-t="Magic">Magic</span>
+          </h2>
+          <p className="rg-up rg-d2" style={{ color: 'var(--dim)', maxWidth: '44ch', margin: 0 }}>
+            A book on the mathematics behind machine learning, rebuilt from first principles for
+            anyone shut out by the notation. Part 1, linear algebra, is complete at 12 chapters.
           </p>
-        </header>
-
-        <a className="book reveal" href="/writing/" aria-label="Nothing Is Magic: read about the book">
-          <div className="book__body">
-            <p className="book__title">Nothing Is Magic</p>
-            <p className="book__sub">Machine learning mathematics, from first principles</p>
-            <p className="book__desc">
-              Most people never meet the mathematics behind machine learning; they meet its symbols.
-              This is the book I wish I&rsquo;d had: linear algebra, calculus and probability rebuilt
-              from pictures and problems you can feel, written for anyone shut out by the notation.
-            </p>
-            <p className="book__status">
-              Part 1 (linear algebra) complete · 12 chapters. Calculus, probability and learning
-              theory in progress.
-            </p>
-            <span className="book__open">Read about the book →</span>
+          <div className="rg-pills rg-up rg-d3">
+            <span className="rg-pill">Book</span>
+            <span className="rg-pill">DOI {DOI}</span>
+            <span className="rg-pill">In progress</span>
           </div>
-          <blockquote className="book__quote">
-            &ldquo;Before a symbol appears, there is a picture. Before the picture, there is a problem
-            you can actually feel.&rdquo;
-          </blockquote>
-        </a>
+          <div className="rg-cta rg-up rg-d4" style={{ marginTop: '1.5rem' }}>
+            <a className="rg-btn rg-btn--p" href="/writing/"><span>About the book</span></a>
+            <a className="rg-btn rg-btn--g" href={BOOK_URL} target="_blank" rel="noopener noreferrer">
+              Read it ↗
+            </a>
+          </div>
+        </div>
+
+        <blockquote className="rg-quote rg-bleed">
+          &ldquo;Before a symbol appears, there is a picture. Before the picture, there is a problem
+          you can actually feel.&rdquo;
+        </blockquote>
       </div>
     </section>
   );

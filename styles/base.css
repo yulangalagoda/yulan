@@ -89,11 +89,15 @@ section {
   padding: var(--section-y) 0;
 }
 
-/* Quiet scroll-fade animation utility — applied via JS observer */
+/* Quiet scroll-fade animation utility, applied via JS observer. The hidden
+   state is scoped to html.js (set by the observer itself) so a script failure
+   or a slow connection can never leave the page blank. */
 .reveal {
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+html.js .reveal {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
 }
 .reveal.in-view {
   opacity: 1;

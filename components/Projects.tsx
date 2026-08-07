@@ -7,41 +7,48 @@ interface Props {
 function yr(iso?: string): string {
   if (!iso) return '';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return iso;
-  return String(d.getFullYear());
-}
-
-function ProjectCard({ p }: { p: ProjectRow }) {
-  return (
-    <a className="card" href={`/work/${p.slug}/`}>
-      <div className="card__head">
-        <span className="card__kind">{p.type || 'Project'}</span>
-        {p.year && <span className="card__yr">{yr(p.year)}</span>}
-      </div>
-      <h3 className="card__name">{p.name}</h3>
-      {(p.tagline || p.description) && <p className="card__desc">{p.tagline || p.description}</p>}
-      {p.technologies.length > 0 && (
-        <div className="card__tags">
-          {p.technologies.slice(0, 3).map((t) => <span className="tag" key={t}>{t}</span>)}
-        </div>
-      )}
-      <span className="card__more">View case study →</span>
-    </a>
-  );
+  return isNaN(d.getTime()) ? iso : String(d.getFullYear());
 }
 
 export default function Projects({ projects }: Props) {
+  const shown = projects.filter((p) => p.featured).length
+    ? projects.filter((p) => p.featured)
+    : projects;
+  if (!shown.length) return null;
+
   return (
-    <section id="work">
-      <div className="container">
-        <header className="section-head reveal">
-          <span className="eyebrow">Work</span>
-          <h2 className="section-head__title">Selected projects.</h2>
+    <section className="rg-sec" id="work">
+      <div className="container reveal">
+        <header className="rg-head">
+          <span className="eyebrow">Selected work</span>
+          <span className="rg-head__rule" aria-hidden="true"></span>
+          <span className="rg-head__meta">{shown.length} projects</span>
         </header>
 
-        <div className="work-grid">
-          {projects.map((p) => (
-            <ProjectCard key={p.id} p={p} />
+        <div className="rg-cards">
+          {shown.map((p, i) => (
+            <a
+              className={`rg-card rg-up${i ? ` rg-d${Math.min(i, 5)}` : ''}`}
+              href={`/work/${p.slug}/`}
+              key={p.id}
+            >
+              {/* registration marks land on the corners on hover */}
+              <span className="rg-x rg-x--1" aria-hidden="true"></span>
+              <span className="rg-x rg-x--2" aria-hidden="true"></span>
+              <span className="rg-x rg-x--3" aria-hidden="true"></span>
+              <span className="rg-x rg-x--4" aria-hidden="true"></span>
+
+              <span className="rg-card__k">
+                <b>{p.type || 'Project'}</b>
+                <span>{yr(p.year)}</span>
+              </span>
+              <h3>{p.name}</h3>
+              <p>{p.tagline || p.description}</p>
+              <span className="rg-card__f">
+                <span>{p.technologies.slice(0, 3).join(' · ')}</span>
+                <span className="rg-card__go" aria-hidden="true">→</span>
+              </span>
+            </a>
           ))}
         </div>
       </div>

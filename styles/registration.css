@@ -1,0 +1,325 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   "Registration" — the homepage design layer.
+
+   Concept: the brand is one ink on warm paper and the Lab is a set of
+   instruments, so the structural device is the printer's registration cross
+   (the mark used to align colour plates), reveals are ink soaking into paper,
+   and the page advances through pinned stages like a press indexing forward.
+
+   All classes are prefixed `rg-` so this layer cannot collide with site.css,
+   which still styles the inner pages. Reveal states key off `.in-view`, the
+   same signal the rest of the site already uses.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Motion primitives ──────────────────────────────────────────────────── */
+/* Hidden-before-reveal states apply only once JS is confirmed running, so a
+   script failure or a slow connection can never leave the page blank. */
+.rg-up { transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
+html.js .rg-up { opacity: 0; transform: translateY(22px); }
+.rg-up.in-view, .in-view .rg-up { opacity: 1; transform: none; }
+
+.rg-lift { display: block; overflow: hidden; }
+.rg-lift > * { display: block; transition: transform .9s var(--ease-out), opacity .7s var(--ease-out); }
+html.js .rg-lift > * { transform: translateY(105%); opacity: 0; }
+.rg-lift.in-view > *, .in-view .rg-lift > * { transform: none; opacity: 1; }
+
+.rg-bleed { transition: opacity 1.1s var(--ease-out), filter 1.2s var(--ease-out), transform 1.2s var(--ease-out); }
+html.js .rg-bleed { opacity: 0; filter: blur(9px); transform: scale(1.012); }
+.rg-bleed.in-view, .in-view .rg-bleed { opacity: 1; filter: blur(0); transform: none; }
+
+.rg-d1 { transition-delay: .06s; } .rg-d2 { transition-delay: .12s; }
+.rg-d3 { transition-delay: .18s; } .rg-d4 { transition-delay: .24s; }
+.rg-d5 { transition-delay: .30s; }
+.rg-d1 > *, .rg-lift.rg-d1 > * { transition-delay: .06s; }
+.rg-d2 > *, .rg-lift.rg-d2 > * { transition-delay: .12s; }
+
+/* the registration cross */
+.rg-x { position: absolute; width: 13px; height: 13px; color: var(--edge-2); pointer-events: none; }
+.rg-x::before, .rg-x::after { content: ""; position: absolute; background: currentColor; }
+.rg-x::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-.5px); }
+.rg-x::after { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-.5px); }
+
+/* ── The paper: a slowly drifting measured grid ─────────────────────────── */
+.rg-paper { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.rg-paper__grid {
+  position: absolute; inset: -60px;
+  background-image: linear-gradient(var(--edge) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--edge) 1px, transparent 1px);
+  background-size: 96px 96px; opacity: .5;
+  animation: rg-drift 60s linear infinite;
+}
+@keyframes rg-drift { to { transform: translate3d(96px, 96px, 0); } }
+.rg-paper__vig { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 0%, transparent 40%, var(--bg) 100%); }
+
+/* ── Crossing hairline divider ──────────────────────────────────────────── */
+.rg-hair { position: relative; height: 1px; background: var(--edge); transform-origin: left; transition: transform 1.2s var(--ease-out); }
+html.js .rg-hair { transform: scaleX(0); }
+.rg-hair.in-view { transform: scaleX(1); }
+.rg-hair .rg-x { top: 50%; margin-top: -6.5px; transition: opacity .5s var(--ease-out) .5s; }
+html.js .rg-hair .rg-x { opacity: 0; }
+.rg-hair.in-view .rg-x { opacity: 1; }
+.rg-hair .rg-x--l { left: -6px; } .rg-hair .rg-x--c { left: 50%; margin-left: -6.5px; } .rg-hair .rg-x--r { right: -6px; }
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.rg-hdr {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px); border-bottom: 1px solid transparent;
+  transition: transform .45s var(--ease-out), border-color .3s;
+}
+.rg-hdr--hidden { transform: translateY(-101%); }
+.rg-hdr--stuck { border-bottom-color: var(--edge); }
+.rg-hdr__in { display: flex; align-items: center; gap: 20px; height: 58px; }
+.rg-hdr__logo { display: flex; align-items: center; gap: 9px; font-weight: 650; letter-spacing: -.02em; font-size: 15px; color: var(--text); }
+.rg-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); position: relative; flex: none; }
+.rg-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--signal); animation: rg-breathe 2.8s var(--ease-out) infinite; }
+@keyframes rg-breathe { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(3.2); opacity: 0; } }
+.rg-nav { display: flex; gap: 2px; margin-left: auto; }
+.rg-nav a { position: relative; font-size: 13.5px; color: var(--dim); padding: 7px 11px; border-radius: 6px; transition: color .2s; }
+.rg-nav a::after {
+  content: ""; position: absolute; left: 11px; right: 11px; bottom: 3px; height: 1px;
+  background: var(--signal); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease-out);
+}
+.rg-nav a:hover { color: var(--text); }
+.rg-nav a:hover::after, .rg-nav a[aria-current="true"]::after { transform: scaleX(1); }
+.rg-nav a[aria-current="true"] { color: var(--text); }
+.rg-kbd {
+  display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--faint); border: 1px solid var(--edge-2); border-radius: 7px; padding: 5px 9px;
+  background: var(--surface); cursor: pointer; transition: border-color .2s, color .2s;
+}
+.rg-kbd:hover { border-color: var(--faint); color: var(--dim); }
+
+/* ── Right-edge section scrubber ────────────────────────────────────────── */
+.rg-rail { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 55; display: flex; flex-direction: column; gap: 13px; align-items: flex-end; }
+.rg-rail button { display: flex; align-items: center; gap: 9px; background: none; border: 0; cursor: pointer; padding: 0; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+.rg-rail i { display: block; width: 16px; height: 1px; background: var(--edge-2); transition: width .35s var(--ease-out), background .35s var(--ease-out); }
+.rg-rail span { opacity: 0; transform: translateX(6px); transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); white-space: nowrap; }
+.rg-rail button:hover span, .rg-rail button.is-on span { opacity: 1; transform: none; }
+.rg-rail button.is-on i { width: 30px; background: var(--signal); }
+.rg-rail button.is-on { color: var(--signal); }
+
+/* ── Command palette ────────────────────────────────────────────────────── */
+.rg-pal { position: fixed; inset: 0; z-index: 90; display: grid; place-items: start center; padding-top: 14vh; }
+.rg-pal__scrim { position: absolute; inset: 0; background: color-mix(in srgb, var(--text) 22%, transparent); backdrop-filter: blur(3px); border: 0; padding: 0; cursor: default; }
+.rg-pal__box {
+  position: relative; width: min(560px, 92vw); background: var(--surface); border: 1px solid var(--edge-2);
+  border-radius: 12px; overflow: hidden; box-shadow: 0 24px 70px -20px color-mix(in srgb, var(--text) 30%, transparent);
+  animation: rg-palIn .3s var(--ease-out);
+}
+@keyframes rg-palIn { from { opacity: 0; transform: translateY(-10px) scale(.985); } }
+.rg-pal input { width: 100%; border: 0; border-bottom: 1px solid var(--edge); padding: 15px 17px; font-family: var(--font-body); font-size: 15px; color: var(--text); background: none; outline: none; }
+.rg-pal ul { list-style: none; margin: 0; padding: 6px; max-height: 44vh; overflow: auto; }
+.rg-pal li { display: flex; align-items: center; gap: 11px; padding: 9px 11px; border-radius: 7px; font-size: 14px; color: var(--dim); cursor: pointer; }
+.rg-pal li.is-sel { background: var(--signal-soft); color: var(--signal-3); }
+.rg-pal li b { font-weight: 600; color: var(--text); }
+.rg-pal li.is-sel b { color: var(--signal-3); }
+.rg-pal li .rg-pal__t { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--faint); letter-spacing: .08em; text-transform: uppercase; }
+
+/* ── Shared section furniture ───────────────────────────────────────────── */
+.rg-main { position: relative; z-index: 1; }
+.rg-sec { position: relative; padding: clamp(4.5rem, 10vh, 7rem) 0; }
+.rg-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+.rg-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: -.03em; margin: 0; }
+.rg-head__rule { flex: 1; height: 1px; background: var(--edge); position: relative; top: -6px; }
+.rg-head__meta { font-family: var(--font-mono); font-size: 11px; color: var(--faint); }
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+.rg-hero { min-height: 100svh; display: flex; align-items: center; padding-top: 58px; position: relative; }
+.rg-hero__grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.rg-hero__avail { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 11.5px; color: var(--dim); letter-spacing: .03em; }
+.rg-hero h1 { font-size: clamp(3rem, 8.4vw, 6.6rem); letter-spacing: -.045em; margin: .28em 0 .12em; line-height: 1.02; }
+.rg-hero__role { font-size: clamp(1.05rem, 2.1vw, 1.45rem); color: var(--signal); font-weight: 600; letter-spacing: -.015em; }
+.rg-hero__line { font-size: clamp(1rem, 1.5vw, 1.12rem); color: var(--dim); max-width: 34ch; margin-top: .9rem; }
+.rg-cta { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 1.9rem; }
+.rg-btn { position: relative; display: inline-flex; align-items: center; gap: 9px; padding: 11px 21px; border-radius: 9px; font-size: 14.5px; font-weight: 550; overflow: hidden; transition: transform .3s var(--ease-out); }
+.rg-btn:active { transform: translateY(1px); }
+.rg-btn--p { background: var(--signal); color: var(--on-signal); }
+.rg-btn--p > span { position: relative; z-index: 1; }
+.rg-btn--p::before { content: ""; position: absolute; inset: 0; background: var(--signal-3); transform: translateY(101%); transition: transform .4s var(--ease-out); }
+.rg-btn--p:hover::before { transform: none; }
+.rg-btn--g { border: 1px solid var(--edge-2); color: var(--text); }
+.rg-btn--g:hover { border-color: var(--faint); }
+
+/* hero instrument card */
+.rg-instr {
+  position: relative; display: block; background: var(--surface); border: 1px solid var(--edge);
+  border-radius: 14px; padding: 22px; overflow: hidden;
+  box-shadow: 0 18px 50px -32px color-mix(in srgb, var(--text) 42%, transparent);
+}
+.rg-instr__bar { display: flex; align-items: center; justify-content: space-between; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 20px; }
+.rg-instr__tag { color: var(--signal); background: var(--signal-soft); padding: 3px 8px; border-radius: 5px; }
+.rg-flip { display: flex; align-items: center; justify-content: center; gap: clamp(10px, 3vw, 26px); }
+.rg-flip__cell { text-align: center; }
+.rg-flip__n { display: block; font-size: clamp(2.6rem, 7vw, 4rem); font-weight: 700; letter-spacing: -.05em; line-height: 1; }
+.rg-flip__cell small { font-family: var(--font-mono); font-size: 10px; color: var(--faint); letter-spacing: .06em; }
+.rg-flip__cell--bad .rg-flip__n { color: var(--signal); }
+.rg-flip__mid { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--signal); }
+.rg-flip__eps { font-family: var(--font-mono); font-size: 11px; }
+.rg-instr__note { margin-top: 20px; font-size: 12.5px; color: var(--faint); text-align: center; }
+.rg-instr__cta { display: block; margin-top: 13px; text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--signal); letter-spacing: .05em; }
+.rg-instr__x { opacity: 0; transition: opacity .3s; color: var(--signal); }
+.rg-instr:hover .rg-instr__x { opacity: .5; }
+
+/* ── Credentials strip ──────────────────────────────────────────────────── */
+.rg-facts-sec { padding: 0; position: relative; z-index: 1; }
+.rg-facts { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--edge); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.rg-fact { padding: 20px 22px; border-left: 1px solid var(--edge); position: relative; }
+.rg-fact:first-child { border-left: 0; }
+.rg-fact dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.rg-fact dd { margin: 9px 0 0; font-size: 1.02rem; letter-spacing: -.02em; font-weight: 600; }
+.rg-fact dd span { display: block; font-size: 12.5px; color: var(--faint); line-height: 1.45; font-weight: 400; margin-top: 3px; }
+.rg-fact .rg-x { top: -7px; left: -7px; }
+.rg-fact:first-child .rg-x { display: none; }
+
+/* ── Pinned split ("What I do") ─────────────────────────────────────────── */
+.rg-split { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.rg-split__pin { position: sticky; top: 120px; }
+.rg-split__pin h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); margin: .5rem 0 .8rem; letter-spacing: -.03em; }
+.rg-split__pin p { color: var(--dim); font-size: 14.5px; max-width: 30ch; }
+.rg-stack { display: flex; flex-direction: column; }
+.rg-row { position: relative; padding: 26px 0 26px 60px; border-top: 1px solid var(--edge); transition: padding-left .45s var(--ease-out); }
+.rg-row:last-child { border-bottom: 1px solid var(--edge); }
+.rg-row__n { position: absolute; left: 0; top: 28px; font-family: var(--font-mono); font-size: 11px; color: var(--faint); transition: color .3s; }
+.rg-row h3 { font-size: 1.22rem; letter-spacing: -.02em; margin: 0 0 7px; }
+.rg-row p { color: var(--dim); font-size: 14.5px; max-width: 46ch; margin: 0; }
+.rg-row__tags { margin-top: 11px; font-family: var(--font-mono); font-size: 10.5px; color: var(--faint); letter-spacing: .07em; }
+.rg-row::before { content: ""; position: absolute; left: 0; top: -1px; height: 1px; width: 0; background: var(--signal); transition: width .55s var(--ease-out); }
+.rg-row:hover { padding-left: 70px; }
+.rg-row:hover::before { width: 100%; }
+.rg-row:hover .rg-row__n { color: var(--signal); }
+
+/* ── Experience ─────────────────────────────────────────────────────────── */
+.rg-exp { display: flex; flex-direction: column; }
+.rg-exp__i { display: grid; grid-template-columns: 190px 1fr; gap: clamp(1rem, 3vw, 2.5rem); padding: 26px 0; border-top: 1px solid var(--edge); position: relative; }
+.rg-exp__i:last-child { border-bottom: 1px solid var(--edge); }
+.rg-exp__i::before { content: ""; position: absolute; left: 0; top: -1px; height: 1px; width: 0; background: var(--signal); transition: width .6s var(--ease-out); }
+.rg-exp__i:hover::before { width: 100%; }
+.rg-exp__when { font-family: var(--font-mono); font-size: 11px; color: var(--faint); letter-spacing: .04em; }
+.rg-exp__org { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 12.5px; color: var(--dim); }
+.rg-exp__logo { width: 22px; height: 22px; border-radius: 4px; object-fit: contain; background: var(--surface); border: 1px solid var(--edge); padding: 2px; flex: none; }
+.rg-exp__r { font-size: 1.15rem; font-weight: 650; letter-spacing: -.02em; margin: 0; }
+.rg-exp__p { color: var(--dim); font-size: 14px; margin: 7px 0 0; max-width: 60ch; }
+.rg-exp__pts { list-style: none; margin: 11px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.rg-exp__pts li { position: relative; padding-left: 18px; font-size: 13.5px; color: var(--dim); max-width: 62ch; }
+.rg-exp__pts li::before { content: ""; position: absolute; left: 2px; top: 9px; width: 8px; height: 1px; background: var(--signal); }
+.rg-exp__w { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.rg-exp__w span { font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; color: var(--faint); border: 1px solid var(--edge); border-radius: 4px; padding: 3px 7px; }
+
+/* ── Skills & certifications ────────────────────────────────────────────── */
+.rg-skl { display: flex; flex-direction: column; }
+.rg-skl__g { display: grid; grid-template-columns: 190px 1fr; gap: clamp(1rem, 3vw, 2.5rem); padding: 18px 0; border-top: 1px solid var(--edge); }
+.rg-skl__g:last-child { border-bottom: 1px solid var(--edge); }
+.rg-skl__cat { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--signal); padding-top: 3px; }
+.rg-skl__l { display: flex; flex-wrap: wrap; gap: 7px; }
+.rg-sk { font-size: 13px; line-height: 1; padding: 7px 11px; border-radius: 6px; border: 1px solid var(--edge); color: var(--dim); background: var(--surface); transition: border-color .25s, transform .25s var(--ease-out); }
+.rg-sk:hover { border-color: var(--edge-2); transform: translateY(-1px); }
+.rg-sk--adv { border-color: color-mix(in srgb, var(--signal) 34%, transparent); background: var(--signal-soft); color: var(--signal-3); font-weight: 500; }
+.rg-sk--fam { color: var(--faint); background: transparent; }
+.rg-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; font-family: var(--font-mono); font-size: 10px; color: var(--faint); letter-spacing: .06em; }
+.rg-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; border: 1px solid var(--edge); }
+.rg-legend .rg-l-a { background: var(--signal-soft); border-color: color-mix(in srgb, var(--signal) 34%, transparent); }
+.rg-legend .rg-l-i { background: var(--surface); }
+
+.rg-certs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: clamp(1.75rem, 4vw, 2.5rem); }
+.rg-cert { position: relative; border: 1px solid var(--edge); border-radius: 10px; padding: 16px 17px; background: var(--surface); transition: border-color .3s, transform .35s var(--ease-out); }
+.rg-cert:hover { border-color: var(--edge-2); transform: translateY(-2px); }
+.rg-cert__n { font-size: 14.5px; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+.rg-cert__i { display: block; margin-top: 6px; font-size: 12.5px; color: var(--dim); }
+.rg-cert__m { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-family: var(--font-mono); font-size: 10px; color: var(--faint); letter-spacing: .05em; }
+.rg-cert__v { color: var(--signal); }
+
+/* ── Work cards ─────────────────────────────────────────────────────────── */
+.rg-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 14px; }
+.rg-card { position: relative; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--edge); border-radius: 12px; padding: 22px; transition: transform .45s var(--ease-out), border-color .35s, box-shadow .45s var(--ease-out); }
+.rg-card:hover { transform: translateY(-4px); border-color: var(--edge-2); box-shadow: 0 22px 44px -30px color-mix(in srgb, var(--text) 45%, transparent); }
+.rg-card .rg-x { opacity: 0; transform: scale(.5) rotate(-25deg); transition: opacity .45s var(--ease-out), transform .45s var(--ease-out); color: var(--signal); }
+.rg-card:hover .rg-x { opacity: .85; transform: none; }
+.rg-card .rg-x--1 { top: -7px; left: -7px; } .rg-card .rg-x--2 { top: -7px; right: -7px; }
+.rg-card .rg-x--3 { bottom: -7px; left: -7px; } .rg-card .rg-x--4 { bottom: -7px; right: -7px; }
+.rg-card__k { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--faint); }
+.rg-card__k b { color: var(--signal); font-weight: 500; }
+.rg-card h3 { font-size: 1.3rem; margin: 14px 0 8px; letter-spacing: -.025em; }
+.rg-card p { color: var(--dim); font-size: 14px; margin: 0; }
+.rg-card__f { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 18px; font-family: var(--font-mono); font-size: 10.5px; color: var(--faint); gap: 12px; }
+.rg-card__go { color: var(--signal); transition: transform .35s var(--ease-out); display: inline-block; flex: none; }
+.rg-card:hover .rg-card__go { transform: translateX(5px); }
+
+/* ── The Lab: pinned horizontal rail ────────────────────────────────────── */
+.rg-lab { height: 340vh; position: relative; }
+.rg-lab__pin { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.rg-lab__head { max-width: var(--container); margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 2rem); width: 100%; }
+.rg-track { display: flex; gap: 16px; padding: 26px clamp(1.5rem, 4vw, 2rem); will-change: transform; }
+.rg-chip { flex: none; width: min(310px, 74vw); display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--edge); border-radius: 12px; padding: 20px; transition: border-color .3s, transform .4s var(--ease-out); }
+.rg-chip:hover { border-color: var(--signal-2); transform: translateY(-3px); }
+.rg-chip__n { font-family: var(--font-mono); font-size: 10.5px; color: var(--signal); letter-spacing: .1em; }
+.rg-chip h3 { font-size: 1.08rem; margin: 11px 0 7px; letter-spacing: -.02em; }
+.rg-chip p { font-size: 13.3px; color: var(--dim); margin: 0; }
+.rg-chip__t { margin-top: auto; padding-top: 15px; font-family: var(--font-mono); font-size: 10px; color: var(--faint); letter-spacing: .06em; }
+.rg-prog { height: 2px; background: var(--edge); max-width: var(--container); margin: 0 auto; width: calc(100% - 2 * clamp(1.5rem, 4vw, 2rem)); position: relative; }
+.rg-prog i { position: absolute; inset: 0; background: var(--signal); transform-origin: left; transform: scaleX(0); }
+
+/* ── Writing ────────────────────────────────────────────────────────────── */
+.rg-book { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.rg-quote { font-size: clamp(1.3rem, 2.7vw, 1.95rem); line-height: 1.35; letter-spacing: -.025em; border-left: 2px solid var(--signal); padding-left: clamp(1rem, 2.5vw, 1.6rem); margin: 0; font-style: normal; }
+.rg-soak { position: relative; display: inline-block; color: var(--signal); }
+.rg-soak::before { content: attr(data-t); position: absolute; inset: 0; color: var(--signal); filter: blur(11px); opacity: .42; transform: scale(1.06); }
+.rg-pills { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+.rg-pill { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--signal-3); background: var(--signal-soft); border: 1px solid color-mix(in srgb, var(--signal) 22%, transparent); padding: 5px 10px; border-radius: 20px; }
+
+/* ── Research ───────────────────────────────────────────────────────────── */
+.rg-res { display: flex; flex-direction: column; }
+.rg-res__i { display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: baseline; padding: 20px 0; border-top: 1px solid var(--edge); }
+.rg-res__i:last-child { border-bottom: 1px solid var(--edge); }
+.rg-res__y { font-family: var(--font-mono); font-size: 11.5px; color: var(--faint); }
+.rg-res__t { font-size: 1.05rem; font-weight: 600; letter-spacing: -.015em; }
+.rg-res__s { font-size: 13.5px; color: var(--dim); margin-top: 4px; }
+.rg-res__d { font-family: var(--font-mono); font-size: 10.5px; color: var(--signal); white-space: nowrap; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rg-dissolve { animation: rg-dissolve linear both; animation-timeline: view(); animation-range: exit -10% cover 100%; }
+    @keyframes rg-dissolve { to { opacity: 0; filter: blur(6px); transform: translateY(-26px) scale(.985); } }
+  }
+}
+
+/* ── Contact ────────────────────────────────────────────────────────────── */
+.rg-contact { text-align: center; padding-bottom: clamp(6rem, 12vh, 9rem); }
+.rg-contact h2 { font-size: clamp(2.1rem, 6vw, 4rem); letter-spacing: -.04em; margin: .6rem 0 0; }
+.rg-contact__lead { margin: 1.1rem auto 0; max-width: 46ch; color: var(--dim); font-size: clamp(.95rem, 1.6vw, 1.08rem); }
+.rg-mail { display: inline-block; margin-top: 1.6rem; color: var(--signal); position: relative; font-size: clamp(1.5rem, 4.6vw, 2.9rem); font-weight: 650; letter-spacing: -.035em; }
+.rg-mail::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--signal); transform: scaleX(0); transform-origin: right; transition: transform .45s var(--ease-out); }
+.rg-mail:hover::after { transform: scaleX(1); transform-origin: left; }
+.rg-contact__avail { display: inline-flex; align-items: center; gap: 9px; margin-top: 1.5rem; font-family: var(--font-mono); font-size: 11.5px; color: var(--dim); letter-spacing: .03em; }
+.rg-contact .rg-pills { justify-content: center; }
+.rg-contact .rg-pill { text-transform: none; letter-spacing: .04em; font-size: 11px; }
+a.rg-pill { transition: background .25s, border-color .25s; }
+a.rg-pill:hover { background: color-mix(in srgb, var(--signal) 14%, transparent); border-color: var(--signal-2); }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .rg-hero__grid, .rg-split, .rg-book { grid-template-columns: 1fr; }
+  .rg-hero { min-height: auto; padding-top: 96px; padding-bottom: 3rem; }
+  .rg-split__pin { position: static; }
+  .rg-rail, .rg-nav { display: none; }
+  .rg-lab { height: auto; }
+  .rg-lab__pin { position: static; height: auto; display: block; padding: 1rem 0; }
+  .rg-track { transform: none !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; -webkit-overflow-scrolling: touch; }
+  .rg-chip { scroll-snap-align: start; }
+  .rg-res__i { grid-template-columns: 1fr; gap: 6px; }
+  .rg-facts { grid-template-columns: 1fr 1fr; }
+  .rg-fact:nth-child(3) { border-left: 0; }
+  .rg-fact:nth-child(n+3) { border-top: 1px solid var(--edge); }
+  .rg-exp__i, .rg-skl__g { grid-template-columns: 1fr; gap: 10px; }
+}
+@media (max-width: 520px) {
+  .rg-facts { grid-template-columns: 1fr; }
+  .rg-fact { border-left: 0; }
+  .rg-fact:nth-child(n+2) { border-top: 1px solid var(--edge); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rg-paper__grid, .rg-dot::after { animation: none; }
+  .rg-up, .rg-lift > *, .rg-bleed, .rg-hair { transition: none !important; }
+  html.js .rg-up, html.js .rg-lift > *, html.js .rg-bleed { opacity: 1 !important; transform: none !important; filter: none !important; }
+  html.js .rg-hair { transform: scaleX(1) !important; }
+  html.js .rg-hair .rg-x { opacity: 1 !important; }
+}

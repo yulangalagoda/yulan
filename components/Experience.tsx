@@ -1,9 +1,11 @@
 import type { ExperienceRow } from '@/lib/types';
-import { anchorList } from '@/lib/anchors';
 
 interface Props {
   experience: ExperienceRow[];
 }
+
+/** Show the strongest few points per role; the CV carries the full detail. */
+const MAX_POINTS = 3;
 
 function fmtMonth(iso?: string): string {
   if (!iso) return '';
@@ -22,40 +24,50 @@ function dateRange(row: ExperienceRow): string {
 export default function Experience({ experience }: Props) {
   if (!experience.length) return null;
 
-  const anchors = anchorList(experience, 'exp', (r) => r.role || r.organisation || 'role');
-
   return (
-    <section id="experience" className="band">
-      <div className="container">
-        <header className="section-head reveal">
+    <section className="rg-sec" id="experience">
+      <div className="container reveal">
+        <header className="rg-head">
           <span className="eyebrow">Experience</span>
-          <h2 className="section-head__title">Where I&rsquo;ve worked.</h2>
+          <span className="rg-head__rule" aria-hidden="true"></span>
+          <span className="rg-head__meta">Sri Lanka · United Kingdom</span>
         </header>
 
-        <div className="timeline">
+        <div className="rg-exp">
           {experience.map((row, i) => (
-            <div className="exp__row" id={anchors[i]} key={row.id}>
-              {row.logoPath ? (
-                <span className="exp__logo" aria-hidden="true">
-                  <img src={row.logoPath} alt="" loading="lazy" decoding="async" />
-                </span>
-              ) : (
-                <span className="exp__dot" aria-hidden="true"></span>
-              )}
-              <div className="exp__when">{dateRange(row)}</div>
-              <h3 className="exp__role">{row.role}</h3>
-              {(row.organisation || row.location) && (
-                <div className="exp__org">
-                  {[row.organisation, row.location].filter(Boolean).join(' · ')}
-                </div>
-              )}
-              {row.description && <p className="exp__desc">{row.description}</p>}
-              {row.highlights.length > 0 && (
-                <ul className="exp__pts">
-                  {row.highlights.map((h, i) => <li key={i}>{h}</li>)}
-                </ul>
-              )}
-            </div>
+            <article className={`rg-exp__i rg-up${i ? ` rg-d${Math.min(i * 2, 5)}` : ''}`} key={row.id}>
+              <div>
+                <div className="rg-exp__when">{dateRange(row)}</div>
+                {row.organisation && (
+                  <div className="rg-exp__org">
+                    {row.logoPath && (
+                      <img className="rg-exp__logo" src={row.logoPath} alt="" loading="lazy" decoding="async" />
+                    )}
+                    <span>{row.organisation}</span>
+                  </div>
+                )}
+                {row.location && <div className="rg-exp__when" style={{ marginTop: 6 }}>{row.location}</div>}
+              </div>
+
+              <div>
+                <h3 className="rg-exp__r">{row.role}</h3>
+                {row.description && <p className="rg-exp__p">{row.description}</p>}
+                {row.highlights.length > 0 && (
+                  <ul className="rg-exp__pts">
+                    {row.highlights.slice(0, MAX_POINTS).map((h, j) => (
+                      <li key={j}>{h}</li>
+                    ))}
+                  </ul>
+                )}
+                {row.technologies.length > 0 && (
+                  <div className="rg-exp__w">
+                    {row.technologies.slice(0, 8).map((t) => (
+                      <span key={t}>{t}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
           ))}
         </div>
       </div>
