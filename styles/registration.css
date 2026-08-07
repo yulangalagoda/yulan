@@ -16,16 +16,16 @@
    script failure or a slow connection can never leave the page blank. */
 .rg-up { transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
 html.js .rg-up { opacity: 0; transform: translateY(22px); }
-.rg-up.in-view, .in-view .rg-up { opacity: 1; transform: none; }
+html.js .rg-up.in-view, html.js .in-view .rg-up { opacity: 1; transform: none; }
 
 .rg-lift { display: block; overflow: hidden; }
 .rg-lift > * { display: block; transition: transform .9s var(--ease-out), opacity .7s var(--ease-out); }
 html.js .rg-lift > * { transform: translateY(105%); opacity: 0; }
-.rg-lift.in-view > *, .in-view .rg-lift > * { transform: none; opacity: 1; }
+html.js .rg-lift.in-view > *, html.js .in-view .rg-lift > * { transform: none; opacity: 1; }
 
 .rg-bleed { transition: opacity 1.1s var(--ease-out), filter 1.2s var(--ease-out), transform 1.2s var(--ease-out); }
 html.js .rg-bleed { opacity: 0; filter: blur(9px); transform: scale(1.012); }
-.rg-bleed.in-view, .in-view .rg-bleed { opacity: 1; filter: blur(0); transform: none; }
+html.js .rg-bleed.in-view, html.js .in-view .rg-bleed { opacity: 1; filter: blur(0); transform: none; }
 
 .rg-d1 { transition-delay: .06s; } .rg-d2 { transition-delay: .12s; }
 .rg-d3 { transition-delay: .18s; } .rg-d4 { transition-delay: .24s; }
@@ -54,10 +54,10 @@ html.js .rg-bleed { opacity: 0; filter: blur(9px); transform: scale(1.012); }
 /* ── Crossing hairline divider ──────────────────────────────────────────── */
 .rg-hair { position: relative; height: 1px; background: var(--edge); transform-origin: left; transition: transform 1.2s var(--ease-out); }
 html.js .rg-hair { transform: scaleX(0); }
-.rg-hair.in-view { transform: scaleX(1); }
+html.js .rg-hair.in-view { transform: scaleX(1); }
 .rg-hair .rg-x { top: 50%; margin-top: -6.5px; transition: opacity .5s var(--ease-out) .5s; }
 html.js .rg-hair .rg-x { opacity: 0; }
-.rg-hair.in-view .rg-x { opacity: 1; }
+html.js .rg-hair.in-view .rg-x { opacity: 1; }
 .rg-hair .rg-x--l { left: -6px; } .rg-hair .rg-x--c { left: 50%; margin-left: -6.5px; } .rg-hair .rg-x--r { right: -6px; }
 
 /* ── Header ─────────────────────────────────────────────────────────────── */

@@ -99,7 +99,7 @@ html.js .reveal {
   opacity: 0;
   transform: translateY(14px);
 }
-.reveal.in-view {
+html.js .reveal.in-view {
   opacity: 1;
   transform: translateY(0);
 }
