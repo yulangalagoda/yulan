@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   "Registration" — the homepage design layer.
+   "Registration": the homepage design layer.
 
    Concept: the brand is one ink on warm paper and the Lab is a set of
    instruments, so the structural device is the printer's registration cross
@@ -323,3 +323,59 @@ a.rg-pill:hover { background: color-mix(in srgb, var(--signal) 14%, transparent)
   html.js .rg-hair { transform: scaleX(1) !important; }
   html.js .rg-hair .rg-x { opacity: 1 !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Inner pages.
+
+   Every page other than the homepage uses one of two shells, `.lab` or
+   `.detail`, so restyling those two carries the design language across all
+   fourteen of them. This layer loads after site.css and only adjusts what the
+   redesign changes: room for the now-fixed header, the paper ground showing
+   through, sharper display type, and the registration marks.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.lab, .detail { position: relative; z-index: 1; padding-top: calc(58px + clamp(2rem, 5vw, 3.5rem)); }
+
+/* back link: the arrow leads */
+.lab__back, .detail__back { display: inline-flex; align-items: center; gap: 8px; transition: color .25s; }
+.lab__back:hover, .detail__back:hover { color: var(--signal); }
+
+/* display type, matched to the homepage scale */
+.lab__title, .detail__title { letter-spacing: -.035em; line-height: 1.04; }
+.lab__lede, .detail__tagline { max-width: 56ch; }
+
+/* section heads pick up the homepage's rule */
+.lab__prose h2, .detail__h2 { letter-spacing: -.025em; }
+
+/* Lab index cards: registration marks land on the corners on hover, matching
+   the work cards on the homepage. The markup has no spare elements, so the
+   marks are drawn with pseudo-elements. */
+.lab__card2 { position: relative; transition: transform .45s var(--ease-out), border-color .35s, box-shadow .45s var(--ease-out); }
+.lab__card2::before, .lab__card2::after {
+  content: ""; position: absolute; width: 11px; height: 11px; opacity: 0;
+  background:
+    linear-gradient(var(--signal), var(--signal)) center/1px 100% no-repeat,
+    linear-gradient(var(--signal), var(--signal)) center/100% 1px no-repeat;
+  transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
+  transform: scale(.5) rotate(-25deg); pointer-events: none;
+}
+.lab__card2::before { top: -6px; left: -6px; }
+.lab__card2::after { bottom: -6px; right: -6px; }
+.lab__card2:hover { transform: translateY(-4px); }
+.lab__card2:hover::before, .lab__card2:hover::after { opacity: .85; transform: none; }
+
+/* the instrument panel and the project sidebar sit on paper, so lift them */
+.lab__panel, .detail__aside .detail__section {
+  background: var(--surface);
+}
+.lab__panel {
+  border: 1px solid var(--edge); border-radius: 14px; padding: clamp(1rem, 3vw, 1.6rem);
+  box-shadow: 0 18px 50px -34px color-mix(in srgb, var(--text) 40%, transparent);
+}
+
+/* project detail: the sticky sidebar gets the same quiet card treatment */
+.detail__aside { padding-left: clamp(0px, 1.5vw, 18px); border-left: 1px solid var(--edge); }
+@media (max-width: 879px) { .detail__aside { padding-left: 0; border-left: 0; } }
+
+/* citation line and prose keep the homepage's measure */
+.detail__cite, .lab__foot-note { max-width: 72ch; }

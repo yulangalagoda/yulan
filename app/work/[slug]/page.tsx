@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { fetchSiteData } from '@/lib/notion';
 import type { ProjectRow } from '@/lib/types';
+import SiteChrome from '@/components/SiteChrome';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -82,7 +83,9 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   };
 
   return (
-    <main className="detail" id="main">
+    <>
+      <SiteChrome />
+      <main className="detail" id="main">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="container detail__container">
         <a href="/#work" className="detail__back">&larr; All work</a>
@@ -163,5 +166,6 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         </div>
       </div>
     </main>
+    </>
   );
 }

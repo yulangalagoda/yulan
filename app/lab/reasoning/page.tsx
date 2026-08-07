@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import UnfaithfulCoT from '@/components/UnfaithfulCoT';
+import SiteChrome from '@/components/SiteChrome';
 
 const SITE = 'https://yulan.me';
 
@@ -45,7 +46,9 @@ const jsonLd = {
 
 export default function ReasoningLabPage() {
   return (
-    <main className="lab" id="main">
+    <>
+      <SiteChrome />
+      <main className="lab" id="main">
       <div className="container">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <a href="/lab" className="lab__back">&larr; Lab</a>
@@ -110,5 +113,6 @@ export default function ReasoningLabPage() {
         </section>
       </div>
     </main>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import LoadBearingCoT from '@/components/LoadBearingCoT';
+import SiteChrome from '@/components/SiteChrome';
 
 const SITE = 'https://yulan.me';
 
@@ -45,7 +46,9 @@ const jsonLd = {
 
 export default function ReasoningLoadPage() {
   return (
-    <main className="lab" id="main">
+    <>
+      <SiteChrome />
+      <main className="lab" id="main">
       <div className="container">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <a href="/lab" className="lab__back">&larr; Lab</a>
@@ -107,5 +110,6 @@ export default function ReasoningLoadPage() {
         </section>
       </div>
     </main>
+    </>
   );
 }

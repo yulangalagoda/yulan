@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import SiteChrome from '@/components/SiteChrome';
 
 export const dynamic = 'force-static';
 
@@ -84,7 +85,9 @@ const jsonLd = {
 
 export default function WritingPage() {
   return (
-    <main className="detail" id="main">
+    <>
+      <SiteChrome />
+      <main className="detail" id="main">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="container container--narrow">
         <a href="/" className="detail__back">&larr; Yulan Galagoda</a>
@@ -156,5 +159,6 @@ export default function WritingPage() {
         </p>
       </div>
     </main>
+    </>
   );
 }

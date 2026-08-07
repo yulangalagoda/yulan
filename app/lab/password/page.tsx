@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PasswordLab from '@/components/PasswordLab';
+import SiteChrome from '@/components/SiteChrome';
 
 const SITE = 'https://yulan.me';
 
@@ -44,7 +45,9 @@ const jsonLd = {
 
 export default function PasswordLabPage() {
   return (
-    <main className="lab" id="main">
+    <>
+      <SiteChrome />
+      <main className="lab" id="main">
       <div className="container container--narrow">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <a href="/lab" className="lab__back">&larr; Lab</a>
@@ -100,5 +103,6 @@ export default function PasswordLabPage() {
         </section>
       </div>
     </main>
+    </>
   );
 }

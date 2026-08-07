@@ -50,7 +50,7 @@ export default function NarrationFaithfulness() {
 
   return (
     <div className="ucot">
-      {DATA.meta.status !== 'recorded' && <p className="ucot__sample">Sample data — awaiting the real generation run.</p>}
+      {DATA.meta.status !== 'recorded' && <p className="ucot__sample">Sample data, awaiting the real generation run.</p>}
 
       <div className="ucot__metrics">
         <div className="ucot__metric ucot__metric--punch"><b>{pct(m.causalTrackingScore)}</b><span>the explanation changes when the true cause changes</span></div>
@@ -59,7 +59,7 @@ export default function NarrationFaithfulness() {
       </div>
 
       <p className="nf__intro">
-        The ranking below is computed by <b>deterministic code</b> (a weighted sum of the signals) — so
+        The ranking below is computed by <b>deterministic code</b> (a weighted sum of the signals), so
         the true cause of every position is known exactly. The LLM only writes the explanation. Toggle
         the focus host&rsquo;s signals: the ranking recomputes live, and its recorded explanation updates
         beside it. Because the answer key is held, you can grade the explanation instead of trusting it.

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import SiteChrome from '@/components/SiteChrome';
 
 const SITE = 'https://yulan.me';
 
@@ -136,7 +137,9 @@ const [featured, ...rest] = INSTRUMENTS;
 
 export default function LabPage() {
   return (
-    <main className="lab" id="main">
+    <>
+      <SiteChrome />
+      <main className="lab" id="main">
       <div className="container">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <a href="/" className="lab__back">&larr; Yulan Galagoda</a>
@@ -195,5 +198,6 @@ export default function LabPage() {
         </p>
       </div>
     </main>
+    </>
   );
 }

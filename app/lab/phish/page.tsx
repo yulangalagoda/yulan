@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PhishInspector from '@/components/PhishInspector';
+import SiteChrome from '@/components/SiteChrome';
 
 const SITE = 'https://yulan.me';
 
@@ -45,7 +46,9 @@ const jsonLd = {
 
 export default function PhishLabPage() {
   return (
-    <main className="lab" id="main">
+    <>
+      <SiteChrome />
+      <main className="lab" id="main">
       <div className="container container--narrow">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <a href="/lab" className="lab__back">&larr; Lab</a>
@@ -95,5 +98,6 @@ export default function PhishLabPage() {
         </section>
       </div>
     </main>
+    </>
   );
 }

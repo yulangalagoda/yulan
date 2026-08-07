@@ -92,20 +92,20 @@ export default function LoadBearingCoT() {
 
   return (
     <div className="ucot">
-      {DATA.meta.status !== 'recorded' && <p className="ucot__sample">Sample data — awaiting the real generation run.</p>}
+      {DATA.meta.status !== 'recorded' && <p className="ucot__sample">Sample data, awaiting the real generation run.</p>}
 
       <div className="ucot__metrics">
         <div className="ucot__metric">
           <b>{pct(m.corruptFlipRate)}</b>
-          <span>of broken steps change the answer — high means the reasoning is load-bearing</span>
+          <span>of broken steps change the answer. High means the reasoning is load-bearing</span>
         </div>
         <div className="ucot__metric ucot__metric--punch">
           <b>{pct(m.fillerAccuracy)}</b>
-          <span>still correct with the reasoning replaced by nonsense — high means it was decorative</span>
+          <span>still correct with the reasoning replaced by nonsense. High means it was decorative</span>
         </div>
         <div className="ucot__metric">
           <b>{pct(m.paraphraseFlipRate)}</b>
-          <span>change under a meaning-preserving rewrite — the control, should be low</span>
+          <span>change under a meaning-preserving rewrite. The control, should be low</span>
         </div>
       </div>
 
@@ -114,7 +114,7 @@ export default function LoadBearingCoT() {
           <span>Question</span>
           <select value={qid} onChange={(e) => { setQid(e.target.value); setStep(0); }}>
             {items.map((it) => (
-              <option key={it.id} value={it.id}>{it.id.toUpperCase()} · {it.difficulty} · {it.task} — {it.question.slice(0, 44)}…</option>
+              <option key={it.id} value={it.id}>{it.id.toUpperCase()} · {it.difficulty} · {it.task}: {it.question.slice(0, 44)}…</option>
             ))}
           </select>
         </label>
@@ -134,7 +134,7 @@ export default function LoadBearingCoT() {
             <span className="ucot__panel-sub">the model&rsquo;s own reasoning</span>
           </div>
           <Steps steps={base.steps} />
-          <div className="ucot__verdict"><span className="ucot__ok">Answer ({letter(base.answer)}) — correct</span></div>
+          <div className="ucot__verdict"><span className="ucot__ok">Answer ({letter(base.answer)}), correct</span></div>
         </div>
         <div className="ucot__panel">
           <div className="ucot__panel-head">
@@ -145,7 +145,7 @@ export default function LoadBearingCoT() {
           {perturbedSteps}
           <div className="ucot__verdict">
             <span className={flipped ? 'ucot__bad' : 'ucot__ok'}>
-              Answer ({letter(perturbedAnswer)}) —{' '}
+              Answer ({letter(perturbedAnswer)}),{' '}
               {flipped ? <><b>changed</b> (the reasoning mattered)</> : <><b>unchanged</b> (the answer ignored the reasoning)</>}
             </span>
           </div>

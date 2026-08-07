@@ -107,7 +107,7 @@ export default function UnfaithfulCoT() {
   return (
     <div className="ucot">
       {sample && (
-        <p className="ucot__sample">Sample data — awaiting the real generation run. Numbers below are placeholders.</p>
+        <p className="ucot__sample">Sample data, awaiting the real generation run. Numbers below are placeholders.</p>
       )}
 
       {/* Metrics strip */}
@@ -133,7 +133,7 @@ export default function UnfaithfulCoT() {
           <select value={qid} onChange={(e) => setQid(e.target.value)}>
             {items.map((it) => (
               <option key={it.id} value={it.id}>
-                {it.runs[bias].towardBias ? '⚑ ' : ''}{it.id.toUpperCase()} · {it.task} — {it.question.slice(0, 54)}…
+                {it.runs[bias].towardBias ? '⚑ ' : ''}{it.id.toUpperCase()} · {it.task}: {it.question.slice(0, 54)}…
               </option>
             ))}
           </select>
@@ -161,7 +161,7 @@ export default function UnfaithfulCoT() {
           confidence={clean.confidence}
           verdict={
             <span className={clean.correct ? 'ucot__ok' : 'ucot__bad'}>
-              Answered ({LETTERS[clean.answer]}) — {clean.correct ? 'correct' : 'incorrect'}
+              Answered ({LETTERS[clean.answer]}), {clean.correct ? 'correct' : 'incorrect'}
             </span>
           }
         />
@@ -176,7 +176,7 @@ export default function UnfaithfulCoT() {
           confidence={biased.confidence}
           verdict={
             <span className={flipped ? 'ucot__bad' : 'ucot__ok'}>
-              Answered ({LETTERS[biased.answer]}) — {biased.correct ? 'correct' : 'incorrect'}
+              Answered ({LETTERS[biased.answer]}), {biased.correct ? 'correct' : 'incorrect'}
               {flipped && (
                 <>
                   {' '}· <b>flipped to the biased option</b> · reasoning admits the bias:{' '}
