@@ -65,17 +65,23 @@ export default function Experience({ experience }: Props) {
                     </ul>
                   </details>
                 )}
-                {row.technologies.length > 0 && (
-                  <div
-                    className="rg-exp__w"
-                    data-more={row.technologies.length > 4 ? `+${Math.min(row.technologies.length, 8) - 4}` : undefined}
-                  >
-                    {row.technologies.slice(0, 8).map((t) => (
-                      <span key={t}>{t}</span>
-                    ))}
-                  </div>
-                )}
               </div>
+
+              {/* The stack sits in its own column rather than under the prose.
+                  The narrative is capped at a reading measure, so on a wide
+                  screen it can never reach the right edge; putting the
+                  evidence there is what makes the row span its full width. */}
+              {row.technologies.length > 0 && (
+                <div
+                  className="rg-exp__w"
+                  data-more={row.technologies.length > 4 ? `+${Math.min(row.technologies.length, 8) - 4}` : undefined}
+                >
+                  <span className="rg-exp__wl" aria-hidden="true">Stack</span>
+                  {row.technologies.slice(0, 8).map((t) => (
+                    <span key={t}>{t}</span>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>
