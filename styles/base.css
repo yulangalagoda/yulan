@@ -6,6 +6,10 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Deliberately a fixed 16px. The root must not take `--u`, or `rem` scales
+     too and anything sized from the type tokens grows twice: once through the
+     token and again through the unit it is expressed in. Large-screen growth
+     belongs to the tokens and to `--u`, never here. */
   font-size: 16px;
 }
 

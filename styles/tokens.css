@@ -29,7 +29,11 @@
   --font-display: var(--font-body);
   --font-mono: var(--font-jetbrains-mono, "JetBrains Mono"), ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  /* Type scale */
+  /* Type scale.
+     Every clamp below tops out by roughly 1070px of viewport, so from a laptop
+     up to a 27in display the type never grew while the screen did: at 2560 the
+     column used 40% of the width and the copy read as tiny against it. The
+     large-screen half of the ramp lives in the min-width block further down. */
   --text-xs:    clamp(0.6875rem, 0.65rem + 0.15vw, 0.75rem);   /* 11-12px */
   --text-sm:    clamp(0.8125rem, 0.78rem + 0.2vw, 0.875rem);   /* 13-14px */
   --text-base:  clamp(0.9375rem, 0.9rem + 0.25vw, 1rem);       /* 15-16px */
@@ -37,6 +41,15 @@
   --text-xl:    clamp(1.25rem, 1.15rem + 0.7vw, 1.5rem);       /* 20-24px */
   --text-2xl:   clamp(1.5rem, 1.25rem + 1.4vw, 2rem);          /* 24-32px */
   --text-hero:  clamp(2.75rem, 1.9rem + 4.2vw, 4.25rem);       /* 44-68px */
+
+  /* The type unit for the many hardcoded px sizes across the sheets. Those are
+     written `calc(14.5 * var(--u))` rather than a clamp each, so one token
+     drives all of them. It is exactly 1px at and below 1280 and rises to
+     1.18px by 2240, which leaves laptops untouched and lets big displays grow
+     by 18%, matching the ramp the rem-based tokens take above. The root
+     font-size must stay a literal 16px (see base.css) so the two ramps stay
+     parallel instead of compounding. */
+  --u: clamp(1px, 0.76px + 0.01875vw, 1.18px);
 
   /* Line heights & tracking */
   --lh-tight:   1.02;
@@ -61,7 +74,11 @@
   --space-24: 6rem;
 
   --section-y:  clamp(3.5rem, 6vw, 4.5rem);
-  --container:  67.5rem;   /* 1080px */
+  /* Held at 1080px through 1280 so laptops render exactly as before, then it
+     tracks the viewport at 55% and settles at 1680. Prose keeps its own `ch`
+     caps, so widening the shell stretches the structural layouts (splits,
+     project rows, the certificate grid) without running body copy long. */
+  --container:  clamp(67.5rem, 67.5rem + (100vw - 80rem) * 0.55, 105rem);
   --container-narrow: 44rem;
 
   /* ── Shape ──────────────────────────────────────────────── */
@@ -85,5 +102,22 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ── Large displays ───────────────────────────────────────────────────────
+   The second half of the type ramp. Each clamp below is tuned so its value at
+   exactly 1280 equals the maximum of its counterpart above, which makes this
+   block a no-op at laptop widths and a continuous curve past them. Growth runs
+   out at 2240, about 18% up, past which more size stops helping. */
+@media (min-width: 80rem) {
+  :root {
+    --text-xs:   clamp(0.75rem,   0.57rem   + 0.225vw,  0.885rem);   /* 12-14px */
+    --text-sm:   clamp(0.875rem,  0.665rem  + 0.2625vw, 1.0325rem);  /* 14-16.5px */
+    --text-base: clamp(1rem,      0.76rem   + 0.3vw,    1.18rem);    /* 16-19px */
+    --text-lg:   clamp(1.1875rem, 0.9025rem + 0.356vw,  1.401rem);   /* 19-22px */
+    --text-xl:   clamp(1.5rem,    1.14rem   + 0.45vw,   1.77rem);    /* 24-28px */
+    --text-2xl:  clamp(2rem,      1.52rem   + 0.6vw,    2.36rem);    /* 32-38px */
+    --text-hero: clamp(4.25rem,   3.23rem   + 1.275vw,  5.015rem);   /* 68-80px */
   }
 }
