@@ -108,6 +108,7 @@ html.js .rg-hair.in-view .rg-x { opacity: 1; }
   animation: rg-palIn .3s var(--ease-out);
 }
 @keyframes rg-palIn { from { opacity: 0; transform: translateY(-10px) scale(.985); } }
+@keyframes rg-sheetIn { from { opacity: 0; transform: translateY(16px); } }
 .rg-pal input { width: 100%; border: 0; border-bottom: 1px solid var(--edge); padding: 15px 17px; font-family: var(--font-body); font-size: 15px; color: var(--text); background: none; outline: none; }
 .rg-pal ul { list-style: none; margin: 0; padding: 6px; max-height: 44vh; overflow: auto; }
 .rg-pal li { display: flex; align-items: center; gap: 11px; padding: 9px 11px; border-radius: 7px; font-size: 14px; color: var(--dim); cursor: pointer; }
@@ -540,3 +541,208 @@ html.js .rg-lift > * { transform: translateY(135%); }
 .rg-pal li { font-size: 15px; }
 .rg-pal li .rg-pal__t { font-size: 11px; }
 .rg-contact__avail { font-size: 12.5px; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Phone.
+
+   The one-column collapse was already correct: nothing overflowed. The problem
+   was volume, 19.5 screens of it. This layer cuts, collapses and compresses,
+   adds the navigation the phone never had, and switches off the effects a
+   finger cannot perceive.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── "Show all" control, shared by the clipped lists ─────────────────────── */
+.rg-more { display: none; }
+.rg-more [data-more-b] { display: none; }
+.rg-more.is-open [data-more-a] { display: none; }
+.rg-more.is-open [data-more-b] { display: inline; }
+
+/* ── Collapsible detail blocks ──────────────────────────────────────────── */
+.rg-exp__more > summary { display: none; }          /* desktop: always open */
+.rg-exp__more[open] > summary { display: none; }
+
+@media (max-width: 900px) {
+  /* ── Type: narrow the range. A 48px headline over 13px labels reads as
+        two unrelated designs on a 327px column. ─────────────────────────── */
+  .rg-hero h1 { font-size: 40px; letter-spacing: -1.6px; }
+  .rg-hero__role { font-size: 17px; }
+  .rg-hero__line { font-size: 16.5px; line-height: 1.6; }
+  .rg-head h2, .rg-split__pin h2, .rg-lab__intro h2 { font-size: 26px; }
+  .rg-contact h2 { font-size: 34px; }
+  body { font-size: 16px; }
+  .rg-row p, .rg-split__pin p, .rg-exp__p, .rg-prow__tag,
+  .rg-lab__intro p, .rg-card p, .rg-res__s { font-size: 15.5px; line-height: 1.65; }
+
+  /* ── Rhythm: less padding around sections, more air inside them ───────── */
+  .rg-sec { padding: 44px 0; }
+  .rg-sec--tight { padding: 36px 0; }
+  .rg-sec--air { padding: 56px 0; }
+  .rg-head { margin-bottom: 20px; }
+  .rg-head__rule { display: none; }
+  .rg-head__meta { margin-left: auto; }
+
+  /* ── Touch: nothing interactive below 44px ───────────────────────────── */
+  .rg-sk { font-size: 14.5px; padding: 11px 14px; }
+  .rg-pill, .rg-contact .rg-pill { font-size: 13px; padding: 12px 16px; }
+  .rg-prow__links { gap: 8px 24px; font-size: 13px; }
+  .rg-prow__links a { padding: 12px 0; }
+  .rg-btn { padding: 14px 22px; font-size: 15.5px; }
+  .rg-cert { padding: 16px; }
+
+  /* ── EXPERIENCE: bullets collapse, tags cap at four ───────────────────── */
+  .rg-exp__i { padding: 22px 0; }
+  .rg-exp__more > summary {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 12px;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .05em;
+    color: var(--signal); cursor: pointer; list-style: none; padding: 10px 0;
+  }
+  .rg-exp__more > summary::-webkit-details-marker { display: none; }
+  .rg-exp__more > summary::after { content: "+"; font-size: 15px; line-height: 1; }
+  .rg-exp__more[open] > summary::after { content: "−"; }
+  .rg-exp__more[open] > summary { color: var(--faint); }
+  .rg-exp__pts { margin-top: 6px; }
+  .rg-exp__w span:nth-child(n+5) { display: none; }
+  .rg-exp__w[data-more]::after {
+    content: attr(data-more); font-family: var(--font-mono); font-size: 11px;
+    color: var(--faint); border: 1px dashed var(--edge-2); border-radius: 4px; padding: 3px 7px;
+  }
+
+  /* ── CERTS + SKILLS: open clipped, with a way to see the rest ─────────── */
+  .rg-more {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; margin-top: 14px; padding: 0 18px;
+    font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .04em;
+    color: var(--signal); background: var(--surface);
+    border: 1px solid var(--edge-2); border-radius: 8px; cursor: pointer;
+  }
+  .rg-certs { grid-template-columns: 1fr; gap: 10px; margin-bottom: 0; }
+  .rg-certs--clipped .rg-cert:nth-child(n+4) { display: none; }
+  /* Advanced only by default: the honest proficiency encoding makes that a
+     real summary rather than an arbitrary truncation. */
+  .rg-skl--clipped .rg-sk:not(.rg-sk--adv) { display: none; }
+  .rg-skl--clipped .rg-skl__g:not(:has(.rg-sk--adv)) { display: none; }
+  .rg-skl__g { padding: 14px 0; gap: 8px; }
+  .rg-legend { margin-top: 14px; }
+
+  /* ── WORK: the row is one tap target, detail lives on the case study ──── */
+  .rg-prow { padding: 20px 0; }
+  .rg-prow__d { display: none; }
+  .rg-prow__w span:nth-child(n+4) { display: none; }
+  .rg-prow__w[data-more]::after {
+    content: attr(data-more); font-family: var(--font-mono); font-size: 11px;
+    color: var(--faint); border: 1px dashed var(--edge-2); border-radius: 4px; padding: 3px 7px;
+  }
+  .rg-prow__t { font-size: 22px; margin: 10px 0 4px; }
+  .rg-prow__links a:not(.rg-prow__go) { display: none; }
+
+  /* ── Ground and marks: texture, not graph paper ───────────────────────── */
+  .rg-paper__grid { background-size: 128px 128px; opacity: .22; animation: none; }
+  .rg-card .rg-x, .rg-prow .rg-x, .rg-fact .rg-x { display: none; }
+  .rg-instr__x { display: none; }
+
+  /* ── Reveals: shorter, because thumbs scroll faster than mice ─────────── */
+  .rg-up, .rg-bleed { transition-duration: .45s; }
+  .rg-lift > * { transition-duration: .5s; }
+  .rg-d1, .rg-d2, .rg-d3, .rg-d4, .rg-d5 { transition-delay: 0s; }
+  .rg-d1 > *, .rg-d2 > * { transition-delay: 0s; }
+
+  /* ── Navigation: a real menu, and a full-screen palette ───────────────── */
+  .rg-hdr__in { height: 54px; gap: 12px; }
+  .rg-kbd {
+    margin-left: auto; min-width: 44px; min-height: 44px;
+    padding: 0 14px; font-size: 13px; gap: 8px;
+  }
+  .rg-kbd [data-kbd-key] { display: none; }        /* no keyboard on a phone */
+  /* An explicit 1fr row: `height: 100%` against an auto-sized grid row would
+     resolve to the content height and the sheet would collapse. */
+  .rg-pal { padding-top: 0; place-items: stretch; grid-template: 1fr / 1fr; }
+  .rg-pal__box {
+    width: 100%; height: 100%; max-height: none; border-radius: 0; border: 0;
+    display: flex; flex-direction: column;
+    /* A full-screen sheet rises; the desktop drop-and-scale reads as a glitch
+       at this size because there is no edge left to scale against. */
+    animation: rg-sheetIn .26s var(--ease-out);
+  }
+  .rg-pal input { font-size: 16px; padding: 18px 20px; }  /* 16px stops iOS zoom */
+  .rg-pal ul { max-height: none; flex: 1; padding: 8px; }
+  .rg-pal li { padding: 14px 12px; font-size: 16px; min-height: 48px; }
+
+  /* ── The action bar ───────────────────────────────────────────────────── */
+  .rg-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 58;
+    display: flex; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px); border-top: 1px solid var(--edge);
+    transform: translateY(110%); transition: transform .4s var(--ease-out);
+  }
+  .rg-bar.is-on { transform: none; }
+  .rg-bar__btn {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; border-radius: 10px; font-size: 15px; font-weight: 550;
+    border: 1px solid var(--edge-2); color: var(--text); background: var(--surface);
+  }
+  .rg-bar__btn--p { background: var(--signal); border-color: var(--signal); color: var(--on-signal); }
+  /* keep the bar clear of the page end and of the back-to-top control */
+  .rg-badges { padding-bottom: 88px; }
+}
+
+/* The bar is phone-only. */
+.rg-bar { display: none; }
+@media (max-width: 900px) { .rg-bar { display: flex; } }
+
+/* Long unbreakable strings (DOIs, ORCID, URLs) must never widen the page. */
+.rg-pill, .rg-res__t, .rg-res__s, .rg-cert__n, .rg-mail, .rg-head__meta {
+  overflow-wrap: anywhere;
+}
+
+/* Palette button: keyboard shortcut on desktop, menu affordance on a phone. */
+.rg-kbd [data-kbd-icon], .rg-kbd [data-kbd-b] { display: none; }
+@media (max-width: 900px) {
+  .rg-kbd [data-kbd-a] { display: none; }
+  .rg-kbd [data-kbd-icon] { display: block; }
+  .rg-kbd [data-kbd-b] { display: inline; }
+}
+
+/* ── Phone, second pass: the sections the first pass did not reach ──────── */
+@media (max-width: 900px) {
+  /* Hero credentials as a 2x2 block rather than four stacked cards: same
+     information, half the height, still scannable. */
+  .rg-facts { grid-template-columns: 1fr 1fr; }
+  .rg-fact { padding: 14px 14px 0; }
+  .rg-fact:nth-child(3) { padding-left: 14px; border-left: 1px solid var(--edge); }
+  .rg-fact:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .rg-fact:nth-child(n+3) { border-top: 1px solid var(--edge); padding-top: 14px; }
+  .rg-fact dd { font-size: 15px; }
+  .rg-fact dd span { font-size: 12.5px; }
+  .rg-hero__inner { gap: 28px; }
+
+  /* Work: the tagline is the pitch, two lines of it is enough on a phone. */
+  .rg-prow { padding: 16px 0; }
+  .rg-prow__tag {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; font-size: 15px; line-height: 1.5;
+  }
+  .rg-prow__w { margin-top: 10px; }
+  .rg-prow__links { margin-top: 8px; }
+
+  /* Lab: three cards, three lines of blurb each. */
+  .rg-card { padding: 18px; }
+  .rg-card p {
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden; font-size: 14.5px;
+  }
+  .rg-cards { gap: 10px; }
+  .rg-lab__foot { margin-top: 18px; gap: 12px; }
+  .rg-lab__rest { font-size: 13.5px; }
+
+  /* About: the portrait should introduce, not dominate. */
+  .about__grid { gap: 20px; }
+  .about__photo { max-height: 260px; overflow: hidden; border-radius: 12px; }
+  .about__photo img { height: 100%; object-fit: cover; object-position: center 25%; }
+  .about__para { font-size: 15.5px; line-height: 1.65; }
+
+  /* What I do: the pinned column is just a heading here. */
+  .rg-split { gap: 22px; }
+  .rg-row { padding: 18px 0 18px 46px; }
+  .rg-row__n { top: 20px; }
+}

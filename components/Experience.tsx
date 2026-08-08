@@ -52,15 +52,24 @@ export default function Experience({ experience }: Props) {
               <div>
                 <h3 className="rg-exp__r">{row.role}</h3>
                 {row.description && <p className="rg-exp__p">{row.description}</p>}
+                {/* Open by default, so the page is complete without JS and for
+                    search engines. On a phone the motion script closes these,
+                    where four roles of bullets would otherwise be four screens. */}
                 {row.highlights.length > 0 && (
-                  <ul className="rg-exp__pts">
-                    {row.highlights.slice(0, MAX_POINTS).map((h, j) => (
-                      <li key={j}>{h}</li>
-                    ))}
-                  </ul>
+                  <details className="rg-exp__more" open>
+                    <summary>What that involved</summary>
+                    <ul className="rg-exp__pts">
+                      {row.highlights.slice(0, MAX_POINTS).map((h, j) => (
+                        <li key={j}>{h}</li>
+                      ))}
+                    </ul>
+                  </details>
                 )}
                 {row.technologies.length > 0 && (
-                  <div className="rg-exp__w">
+                  <div
+                    className="rg-exp__w"
+                    data-more={row.technologies.length > 4 ? `+${Math.min(row.technologies.length, 8) - 4}` : undefined}
+                  >
                     {row.technologies.slice(0, 8).map((t) => (
                       <span key={t}>{t}</span>
                     ))}

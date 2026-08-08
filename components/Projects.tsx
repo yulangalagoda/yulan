@@ -51,7 +51,10 @@ export default function Projects({ projects }: Props) {
               {summary(p) && <p className="rg-prow__d">{summary(p)}</p>}
 
               {p.technologies.length > 0 && (
-                <div className="rg-prow__w">
+                <div
+                  className="rg-prow__w"
+                  data-more={p.technologies.length > 3 ? `+${Math.min(p.technologies.length, 6) - 3}` : undefined}
+                >
                   {p.technologies.slice(0, 6).map((t) => <span key={t}>{t}</span>)}
                 </div>
               )}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export interface PaletteItem {
   label: string;
@@ -82,8 +83,12 @@ export default function CommandPalette({ items }: Props) {
     if (open) {
       setQ('');
       setSel(0);
-      const t = setTimeout(() => inputRef.current?.focus(), 20);
-      return () => clearTimeout(t);
+      // Do not focus on a touch device: it summons the keyboard and swallows
+      // most of the screen before the reader has seen a single destination.
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const t = setTimeout(() => inputRef.current?.focus(), 20);
+        return () => clearTimeout(t);
+      }
     }
   }, [open]);
 
@@ -93,21 +98,23 @@ export default function CommandPalette({ items }: Props) {
     listRef.current?.querySelector('.is-sel')?.scrollIntoView({ block: 'nearest' });
   }, [sel, open]);
 
-  if (!open) {
-    return (
-      <button className="rg-kbd" onClick={() => setOpen(true)} aria-label="Open the jump-to menu">
-        <span aria-hidden="true">⌘K</span>
-        <span>Jump to</span>
-      </button>
-    );
-  }
+  const trigger = (
+    <button className="rg-kbd" onClick={() => setOpen(true)} aria-label="Open the menu">
+      <span data-kbd-key aria-hidden="true">⌘K</span>
+      <svg data-kbd-icon width="15" height="11" viewBox="0 0 15 11" aria-hidden="true">
+        <path d="M0 1h15M0 5.5h15M0 10h15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      </svg>
+      <span data-kbd-a>Jump to</span>
+      <span data-kbd-b>Menu</span>
+    </button>
+  );
 
-  return (
-    <>
-      <button className="rg-kbd" onClick={() => setOpen(true)} aria-label="Open the jump-to menu">
-        <span aria-hidden="true">⌘K</span>
-        <span>Jump to</span>
-      </button>
+  if (!open) return trigger;
+
+  // The header sets `backdrop-filter`, which makes it the containing block for
+  // any fixed-position descendant. Rendered in place the dialog would size
+  // itself to the 55px header instead of the viewport, so it goes to the body.
+  const dialog = (
       <div
         className="rg-pal"
         role="dialog"
@@ -146,6 +153,12 @@ export default function CommandPalette({ items }: Props) {
           </ul>
         </div>
       </div>
+  );
+
+  return (
+    <>
+      {trigger}
+      {createPortal(dialog, document.body)}
     </>
   );
 }

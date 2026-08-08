@@ -17,6 +17,7 @@ import Research from '@/components/Research';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import BadgeWall from '@/components/BadgeWall';
+import MobileBar from '@/components/MobileBar';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
 import RegistrationMotion from '@/components/RegistrationMotion';
@@ -102,6 +103,7 @@ export default async function Page() {
         <Contact contact={data.profile.contact} socials={data.socials} cvPath={data.cvPath} />
       </main>
 
+      <MobileBar cvPath={data.cvPath} />
       <BackToTop />
       <BadgeWall badges={data.badges} />
       <Footer />

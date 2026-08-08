@@ -71,8 +71,12 @@ export default function SkillsCerts({ skills, certifications }: Props) {
         </header>
 
         {/* Verified credentials lead; the skill list supports them. */}
+        {/* On a phone these two lists are three and a half screens on their own,
+            so they open clipped: the strongest credentials, then a way to see
+            the rest. The clip is mobile-only CSS, so desktop is unaffected and
+            nothing is hidden from search engines. */}
         {certs.length > 0 && (
-          <div className="rg-certs">
+          <div className="rg-certs rg-certs--clipped">
             {certs.map((c, i) => {
               const inner = (
                 <>
@@ -102,10 +106,16 @@ export default function SkillsCerts({ skills, certifications }: Props) {
             })}
           </div>
         )}
+        {certs.length > 3 && (
+          <button className="rg-more" type="button" data-rg-more=".rg-certs" data-rg-clip="rg-certs--clipped">
+            <span data-more-a>Show all {certs.length} certifications</span>
+            <span data-more-b>Show fewer</span>
+          </button>
+        )}
 
         {ordered.length > 0 && (
           <>
-            <div className="rg-skl rg-up">
+            <div className="rg-skl rg-up rg-skl--clipped">
               {ordered.map(([cat, list]) => (
                 <div className="rg-skl__g" key={cat}>
                   <div className="rg-skl__cat">{cat}</div>
@@ -126,6 +136,10 @@ export default function SkillsCerts({ skills, certifications }: Props) {
                 </div>
               ))}
             </div>
+            <button className="rg-more" type="button" data-rg-more=".rg-skl" data-rg-clip="rg-skl--clipped">
+              <span data-more-a>Show all {visible.length} skills</span>
+              <span data-more-b>Show fewer</span>
+            </button>
             <div className="rg-legend rg-up rg-d2">
               <span><i className="rg-l-a" aria-hidden="true"></i>Advanced</span>
               <span><i className="rg-l-i" aria-hidden="true"></i>Intermediate</span>

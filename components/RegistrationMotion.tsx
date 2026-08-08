@@ -19,6 +19,10 @@ export default function RegistrationMotion() {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const root = document.documentElement;
+    const isPhone = window.matchMedia('(max-width: 900px)').matches;
+    // Coarse pointers get no parallax and no cursor crosshair: both cost work
+    // and neither can be perceived without a mouse.
+    const touch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
     // Only now do the hidden-before-reveal styles apply: if this script never
     // runs, the page renders fully readable instead of blank.
@@ -54,8 +58,31 @@ export default function RegistrationMotion() {
       fallback = window.setTimeout(() => { if (!delivered) showAll(); }, 3000);
     }
 
+    // ── phone: collapse the long detail blocks ───────────────────────────
+    // They ship open so the page is complete without JS; on a phone four roles
+    // of bullets is four screens, so close them and let the reader choose.
+    if (isPhone) {
+      document.querySelectorAll<HTMLDetailsElement>('details.rg-exp__more[open]')
+        .forEach((d) => d.removeAttribute('open'));
+    }
+
+    // ── "show all" toggles for the clipped lists ─────────────────────────
+    const onMore = (e: MouseEvent) => {
+      const btn = (e.target as HTMLElement)?.closest<HTMLElement>('[data-rg-more]');
+      if (!btn) return;
+      const target = document.querySelector(btn.dataset.rgMore!);
+      const clip = btn.dataset.rgClip;
+      if (!target || !clip) return;
+      const nowOpen = target.classList.toggle(clip) === false;
+      btn.classList.toggle('is-open', nowOpen);
+      btn.setAttribute('aria-expanded', String(nowOpen));
+    };
+    document.addEventListener('click', onMore);
+    document.querySelectorAll('[data-rg-more]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+
     // ── elements ─────────────────────────────────────────────────────────
     const hdr = document.querySelector<HTMLElement>('[data-rg-hdr]');
+    const bar = document.querySelector<HTMLElement>('[data-rg-bar]');
     const parallax = document.querySelector<HTMLElement>('[data-rg-parallax]');
     const lab = document.querySelector<HTMLElement>('[data-rg-lab]');
     const track = document.querySelector<HTMLElement>('[data-rg-track]');
@@ -77,8 +104,13 @@ export default function RegistrationMotion() {
       }
       last = y;
 
+      // The action bar appears once the hero (and its own CTAs) are past.
+      if (bar) bar.classList.toggle('is-on', y > window.innerHeight * 0.7);
+
       if (!reduced) {
-        if (parallax && y < window.innerHeight * 1.3) {
+        // Parallax only where a pointer can perceive it; on a phone it is a
+        // repaint per frame for nothing.
+        if (!touch && parallax && y < window.innerHeight * 1.3) {
           parallax.style.transform = `translateY(${y * -0.055}px)`;
         }
         if (lab && track && window.innerWidth > 900) {
@@ -153,7 +185,7 @@ export default function RegistrationMotion() {
       const r = xhHost.getBoundingClientRect();
       xh.style.transform = `translate(${e.clientX - r.left - 6}px, ${e.clientY - r.top - 6}px)`;
     };
-    if (xhHost && xh && !reduced) xhHost.addEventListener('pointermove', onMove);
+    if (xhHost && xh && !reduced && !touch) xhHost.addEventListener('pointermove', onMove);
 
     return () => {
       io?.disconnect();
@@ -162,6 +194,7 @@ export default function RegistrationMotion() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       document.removeEventListener('click', onClick);
+      document.removeEventListener('click', onMore);
       xhHost?.removeEventListener('pointermove', onMove);
     };
   }, []);
