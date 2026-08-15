@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdverSec — Yulan Galagoda</title>
+<meta name="description" content="Hardening neural intrusion detection against FGSM and PGD attacks on the CAN bus.">
+  <link rel="canonical" href="https://yulan.me/work/adversec/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/adversec.css">
+</head>
+<body>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+<div data-sentinel style="height:1px;margin-bottom:-1px;pointer-events:none"></div>
+
+<header style="position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(14px);background:color-mix(in srgb, var(--paper) 86%, transparent);border-bottom:1px solid var(--rule)">
+<div style="max-width:var(--caseShell);margin:0 auto;padding:14px clamp(18px,4vw,52px);display:flex;align-items:center;gap:10px 22px">
+<a href="/" style="display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:650;font-size:14px;margin-right:auto"><span style="font-family:'JetBrains Mono',monospace;color:var(--inkFaint)">&larr;</span>yulan.me</a>
+<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim)">All work</a>
+</div>
+</header>
+
+<section style="background:#191D21;color:#F5F3EE;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 88% 10%, rgba(49,181,135,.13) 0%, transparent 60%);pointer-events:none"></div>
+<div style="position:relative;max-width:var(--caseShell);margin:0 auto;padding:clamp(48px,8vw,96px) clamp(18px,4vw,52px) clamp(36px,5vw,60px)">
+<div style="display:flex;flex-wrap:wrap;gap:8px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase">
+<span style="color:var(--signalOnDark);background:rgba(92,207,165,.12);padding:5px 10px;border-radius:5px">Research · in progress</span>
+<span style="color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:5px">2025 —</span>
+</div>
+<h1 style="margin-top:clamp(20px,3vw,30px);font-size:clamp(40px,8vw,92px);line-height:.95;letter-spacing:-.04em;font-weight:700">AdverSec</h1>
+<p style="margin-top:16px;font-size:clamp(18px,2.4vw,27px);line-height:1.35;letter-spacing:-.02em;color:rgba(255,255,255,.82);max-width:30ch;text-wrap:pretty">Hardening neural IDS against FGSM and PGD attacks on the CAN bus.</p>
+<canvas data-fig style="display:block;width:100%;height:clamp(150px,20vw,220px);margin-top:clamp(32px,5vw,56px);border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)"></canvas>
+</div>
+</section>
+
+<main data-r="casemain" style="flex:1;max-width:var(--caseShell);width:100%;margin:0 auto;padding:clamp(44px,7vw,88px) clamp(18px,4vw,52px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,5vw,72px);align-items:start">
+
+<div data-r="span2" style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:clamp(38px,5vw,60px)">
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The problem</h2>
+<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">Modern vehicles run on the Controller Area Network (CAN) bus, a protocol built for reliability, not security, with no native encryption or authentication. Deep-learning intrusion detection is the leading defence, but it inherits two crippling weaknesses. It is fragile under adversarial attack: imperceptible noise added to network traffic can flip a malicious packet to "benign". And it is data-hungry: recent work showed that once the CICIoV2024 benchmark is stripped of its ~99.75% duplicate records to reflect realistic forensic conditions, a 1D-CNN collapses to F1 &lt; 0.55 while a lightweight Random Forest stays stable.</p>
+</div>
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The question</h2>
+<blockquote style="margin:16px 0 0;padding-left:clamp(16px,2vw,22px);border-left:2px solid var(--signal);font-size:clamp(19px,2.2vw,25px);line-height:1.45;letter-spacing:-.02em;font-weight:500;max-width:34ch;text-wrap:pretty">Can the very technique used to attack these models be repurposed to fix them?</blockquote>
+<p style="margin-top:20px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">The hypothesis is that adversarial training, folding FGSM- and PGD-crafted examples back into the training set, acts as a targeted data-augmentation strategy, manufacturing the "hard" unique examples that strict de-duplication removes, and finally letting a deep model outperform the Random Forest baseline in realistic, data-scarce conditions.</p>
+</div>
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The pipeline</h2>
+<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">The pipeline processes CICIoV2024 with strict de-duplication, trains a 1D-CNN against a Random Forest baseline, and stress-tests both with FGSM and PGD evasion attacks generated through the Adversarial Robustness Toolbox (ART). A Multi-Strategy Adversarial Training regime is then evaluated across attack budgets on four axes — clean accuracy, adversarial accuracy, false-positive rate, and computational cost — with stratified K-fold cross-validation to keep rare attack classes represented.</p>
+</div>
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">Why it matters</h2>
+<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">Beyond vehicles, a positive result offers a blueprint for deep learning in any data-sensitive domain where privacy law forces strict de-duplication, such as medical and financial forensics, and it speaks to automotive standards like UN Regulation No. 155. The work forms the basis of my MSc dissertation; the code and findings are to be open-sourced and submitted to peer-reviewed venues.</p>
+</div>
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">What the work involves</h2>
+<ol style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden">
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">01</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Strict data hygiene.</strong> De-duplicate CICIoV2024 down to unique CAN-bus attack signatures, recreating the realistic, data-scarce regime where deep models are known to fail (F1 &lt; 0.55).</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">02</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Baselines.</strong> Quantify how far a 1D-CNN degrades against a Random Forest once denied redundant training data.</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">03</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Adversarial stress tests.</strong> Generate FGSM and PGD evasion attacks with the Adversarial Robustness Toolbox.</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">04</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Adversarial augmentation.</strong> A Multi-Strategy Adversarial Training framework that reuses the attacks as "hard" training examples.</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">05</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Robustness and superiority.</strong> Measure clean accuracy, adversarial accuracy, false-positive rate and compute cost to test whether the defence restores deep learning's edge.</span></li>
+</ol>
+</div>
+
+</div>
+
+<aside data-reveal data-r="caseaside" style="min-width:0;position:sticky;top:88px;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)">
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Role</div><div style="margin-top:8px;font-size:15px;line-height:1.5">Sole researcher</div><div style="margin-top:4px;font-size:13.5px;color:var(--inkDim);line-height:1.5">MSc dissertation, supervised by Dr. Shaymaa Al-Juboori</div></div>
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Status</div><div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:14px">In progress · since Sep 2025</div></div>
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Stack</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px">
+<span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Python</span>
+<span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">PyTorch</span>
+<span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">scikit-learn</span>
+<span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">ART</span>
+<span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">CICIoV2024</span>
+<span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">1D-CNN</span>
+</div></div>
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Output</div><div style="margin-top:8px;font-size:14.5px;line-height:1.6;color:var(--inkDim);text-wrap:pretty">Research proposal complete. Code and findings to be open-sourced.</div></div>
+</aside>
+
+</main>
+
+<nav style="border-top:1px solid var(--rule);background:var(--well)">
+<div style="max-width:var(--caseShell);margin:0 auto;padding:clamp(28px,4vw,44px) clamp(18px,4vw,52px);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center">
+<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim);margin-right:auto">&larr; All work</a>
+<a href="/work/glean/" style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--ink)">Next · Glean <span style="color:var(--signalText)">&rarr;</span></a>
+</div>
+</nav>
+
+<button data-top type="button" aria-label="Back to top" style="position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:60;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid var(--ruleStrong);border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .35s,transform .35s,border-color .25s,color .25s" data-h="adversec1">
+<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+
+</div>
+<script src="/adversec.js" defer></script>
+</body>
+</html>

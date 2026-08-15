@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Domain hygiene audit — Yulan Galagoda</title>
+<meta name="description" content="A passive Certificate Transparency audit of my own domain.">
+  <link rel="canonical" href="https://yulan.me/work/domain-hygiene-audit/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/domain-hygiene-audit.css">
+</head>
+<body>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+<div data-sentinel style="height:1px;margin-bottom:-1px;pointer-events:none"></div>
+
+<header style="position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(14px);background:color-mix(in srgb, var(--paper) 86%, transparent);border-bottom:1px solid var(--rule)">
+<div style="max-width:var(--caseShell);margin:0 auto;padding:14px clamp(18px,4vw,52px);display:flex;align-items:center;gap:10px 22px">
+<a href="/" style="display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:650;font-size:14px;margin-right:auto"><span style="font-family:'JetBrains Mono',monospace;color:var(--inkFaint)">&larr;</span>yulan.me</a>
+<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim)">All work</a>
+</div>
+</header>
+
+<section style="background:#191D21;color:#F5F3EE;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 88% 10%, rgba(49,181,135,.13) 0%, transparent 60%);pointer-events:none"></div>
+<div style="position:relative;max-width:var(--caseShell);margin:0 auto;padding:clamp(48px,8vw,96px) clamp(18px,4vw,52px) clamp(36px,5vw,60px)">
+<div style="display:flex;flex-wrap:wrap;gap:8px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase">
+<span style="color:var(--signalOnDark);background:rgba(92,207,165,.12);padding:5px 10px;border-radius:5px">Personal · in progress</span>
+<span style="color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:5px">2026</span>
+</div>
+<h1 style="margin-top:clamp(20px,3vw,30px);font-size:clamp(40px,6vw,66px);line-height:.95;letter-spacing:-.04em;font-weight:700">Domain hygiene audit</h1>
+<p style="margin-top:16px;font-size:clamp(18px,2.4vw,27px);line-height:1.35;letter-spacing:-.02em;color:rgba(255,255,255,.82);max-width:32ch;text-wrap:pretty">A passive Certificate Transparency audit of my own domain.</p>
+<canvas data-fig="domain" style="display:block;width:100%;height:clamp(150px,20vw,220px);margin-top:clamp(32px,5vw,56px);border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)"></canvas>
+</div>
+</section>
+
+<main data-r="casemain" style="flex:1;max-width:var(--caseShell);width:100%;margin:0 auto;padding:clamp(44px,7vw,88px) clamp(18px,4vw,52px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,5vw,72px);align-items:start">
+
+<div data-r="span2" style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:clamp(38px,5vw,60px)">
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">What I did</h2>
+
+<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">As part of auditing my own domain’s security posture, I ran a passive Certificate Transparency query against yulan.me, pulling every certificate ever logged for the domain — a fully public and non-intrusive data source.</p>
+</div>
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">What came back</h2>
+
+<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">The query returned over 600 historical certificate records. The overwhelming majority had nothing to do with my own infrastructure: certificates issued, in bursts over many months, for subdomains carrying clear spam and pirated-content naming patterns — the kind of footprint left by an ad-arbitrage or SEO-spam operation exploiting a previous registration of the domain. Certificate Transparency logs are permanent and publicly auditable by design, so that record persists regardless of who owned the domain at the time.</p>
+</div>
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">Verification</h2>
+<blockquote style="margin:16px 0 0;padding-left:clamp(16px,2vw,22px);border-left:2px solid var(--signal);font-size:clamp(19px,2.2vw,25px);line-height:1.45;letter-spacing:-.02em;font-weight:500;max-width:34ch;text-wrap:pretty">Collection is trivial. The work was separating the one actionable line from the noise, and confirming the noise really was just noise.</blockquote>
+<p style="margin-top:20px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">I verified the finding with passive DNS lookups: none of the flagged subdomains currently resolve, and the zone carries no live wildcard record today. Cross-referencing issuance dates against my own ownership window showed a clean boundary — nothing matching the historical spam pattern has been issued since I acquired the domain, only routine automatic renewals from my own hosting setup.</p>
+</div>
+
+<div data-reveal>
+<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The audit trail</h2>
+<ol style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden">
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">01</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Queried the public logs.</strong> Certificate Transparency records pulled for a domain I own, passively and non-intrusively.</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">02</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">600+ records surfaced.</strong> Historical certificates spanning several years.</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">03</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">A pattern predating ownership.</strong> Spam issuance peaking months before I acquired the domain.</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">04</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Verified as inert.</strong> Passive DNS confirms no flagged subdomain resolves, and no live wildcard exists.</span></li>
+<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">05</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">The one action.</strong> Ongoing CT-log monitoring, so any future unexpected issuance is caught rather than discovered.</span></li>
+</ol>
+</div>
+
+</div>
+
+<aside data-reveal data-r="caseaside" style="min-width:0;position:sticky;top:88px;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)">
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Role</div><div style="margin-top:8px;font-size:15px;line-height:1.5">Sole researcher and operator</div></div>
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Status</div><div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:14px">In progress · since Jul 2026</div></div>
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Stack</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px"><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Certificate Transparency</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">crt.sh</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">DNS</span></div></div>
+<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Links</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px"><a href="https://crt.sh/?q=yulan.me" style="display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--inkDim);transition:border-color .25s,color .25s,transform .25s" data-h="domainhygieneaudit1">crt.sh</a></div></div>
+</aside>
+
+</main>
+
+<nav style="border-top:1px solid var(--rule);background:var(--well)">
+<div style="max-width:var(--caseShell);margin:0 auto;padding:clamp(28px,4vw,44px) clamp(18px,4vw,52px);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center">
+<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim);margin-right:auto">&larr; All work</a>
+<a href="/work/the-meridian/" style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--ink)">Next · The Meridian <span style="color:var(--signalText)">&rarr;</span></a>
+</div>
+</nav>
+
+<button data-top type="button" aria-label="Back to top" style="position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:60;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid var(--ruleStrong);border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .35s,transform .35s,border-color .25s,color .25s" data-h="domainhygieneaudit2">
+<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+
+</div>
+<script src="/domain-hygiene-audit.js" defer></script>
+</body>
+</html>

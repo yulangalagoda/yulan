@@ -1,0 +1,118 @@
+:root{
+--paper:#FBFAF7;--surface:#FFFFFF;--well:#F2F0EB;--rule:#E5E1D9;--ruleStrong:#D3CDC1;
+--ink:#12151A;--inkDim:#454B55;--inkFaint:#656C78;
+--signal:#0E8A5F;--signalDeep:#0A6B4A;--signalSoft:#E3F0EA;--warn:#8A5A08;
+--signalText:#0A6B4A;--signalOnDark:#5CCFA5;--warnText:#7A4F07;
+--shadow:0 1px 2px rgba(18,21,26,.04),0 8px 24px -12px rgba(18,21,26,.10);
+--shadowLift:0 2px 4px rgba(18,21,26,.05),0 18px 44px -16px rgba(18,21,26,.18);
+--shell:1200px;
+}
+[data-theme="dark"]{
+--paper:#0C0E10;--surface:#141719;--well:#1A1E21;--rule:#262B30;--ruleStrong:#394046;
+--ink:#F1EFEA;--inkDim:#A9B0B8;--inkFaint:#8B939C;
+--signal:#31B587;--signalDeep:#5CCFA5;--signalSoft:#12261F;--warn:#D69A2E;
+--signalText:#5CCFA5;--signalOnDark:#5CCFA5;--warnText:#E0AC4E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+--shadowLift:0 2px 4px rgba(0,0,0,.45),0 18px 44px -16px rgba(0,0,0,.75);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+*{box-sizing:border-box}
+a{color:var(--signalText);text-decoration:none}
+a:hover{color:var(--signalDeep)}
+@keyframes ygPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.82)}}
+@keyframes ygRing{0%{opacity:.5;transform:scale(1)}70%,100%{opacity:0;transform:scale(2.6)}}
+@keyframes ygCue{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(7px);opacity:.9}}
+@keyframes ygVeil{0%,52%{opacity:1}100%{opacity:0;visibility:hidden}}
+@keyframes ygScan{0%{transform:translateY(-52vh);opacity:0}18%{opacity:1}82%{opacity:1}100%{transform:translateY(52vh);opacity:0}}
+@keyframes ygMono{0%{opacity:0;letter-spacing:.72em}22%{opacity:1}78%{opacity:1;letter-spacing:.2em}100%{opacity:0;letter-spacing:.16em}}
+@keyframes ygPanel{0%{opacity:0;clip-path:inset(47% 0 47% 0);transform:scale(.985)}100%{opacity:1;clip-path:inset(0 0 0 0);transform:none}}
+@keyframes ygLine{0%{transform:translateY(108%)}100%{transform:translateY(0)}}
+@keyframes ygRise{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+@keyframes ygGrow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes ygBlink{0%,46%{opacity:1}54%,100%{opacity:.1}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}[data-yg-intro]{display:none}[data-yg-anim]{animation:none!important;opacity:1!important;transform:none!important;clip-path:none!important}}
+
+/* ---------- adaptive tiers ---------- */
+
+/* auto-fit grids resolve to one column long before the `span 2` children do,
+   which silently invents a second implicit column. Reset the spans first. */
+@media (max-width:860px){
+[data-r="span2"]{grid-column:auto!important}
+[data-r="herogrid"],[data-r="exprow"]{grid-template-columns:1fr!important}
+[data-r="writing-col"]{text-align:left!important}
+[data-r="writing-col"] [data-yg-reveal]{justify-content:flex-start!important}
+[data-r="quote"]{margin-left:0!important;margin-right:auto!important;padding:0 0 0 clamp(14px,2vw,20px)!important;border-right:0!important;border-left:2px solid var(--signal)!important}
+[data-r="wtext"]{margin-left:0!important;margin-right:auto!important}
+[data-r="sticky"]{position:static!important}
+[data-r="pubwrap"]{margin-left:0!important;margin-right:0!important}
+[data-r="pubrow"]{margin:0!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}
+}
+
+/* Phone: the argument survives, the decorative layer does not. Every figure
+   dropped here is one that reads as a smudge under 340px and costs a rAF loop
+   on the slowest device. The six spotlight panels repeat the six cards below
+   verbatim, so the carousel is pure duplication once it can't sit side-by-side. */
+@media (max-width:700px){
+[data-r="navlink"]{display:none}
+[data-yg-intro]{display:none}
+[data-yg-spot]{display:none!important}
+[data-yg-mini]{display:none!important}
+[data-r="cue"]{display:none}
+[data-r="hero-fig"]{height:248px!important}
+[data-yg-top]{width:46px;height:46px}
+}
+/* Phone in landscape: viewport height is the scarce axis, not width. */
+@media (max-height:520px) and (orientation:landscape){
+[data-r="hero-fig"]{height:190px!important}
+[data-yg-intro]{display:none}
+}
+
+/* Touch: nothing may depend on a cursor that will never arrive. */
+@media (hover:none){
+[data-yg-card]:active{transform:translateY(-2px)}
+[data-yg-spot-panel]{padding:clamp(20px,3vw,32px)!important}
+}
+
+/* Wide: the 1200px column stops floating in empty margin, the hero figure gets
+   the room it was drawn for, and the section rail moves into the gutter. */
+@media (min-width:1600px){
+:root{--shell:1320px}
+[data-r="hero-fig"]{height:clamp(400px,46vh,500px)!important}
+}
+@media (min-width:1700px){
+[data-r="rail"]{display:flex!important}
+}
+@media (min-width:1920px){
+:root{--shell:1440px}
+[data-r="workgrid"]{grid-template-columns:repeat(3,1fr)!important}
+}
+
+
+/* hover states */
+[data-h="index1"]:hover{color:var(--ink) !important}
+[data-h="index2"]:hover{color:var(--ink) !important}
+[data-h="index3"]:hover{color:var(--ink) !important}
+[data-h="index4"]:hover{color:var(--ink) !important}
+[data-h="index5"]:hover{border-color:var(--ruleStrong) !important;color:var(--ink) !important}
+[data-h="index6"]:hover{background:var(--signalDeep) !important;color:#fff !important}
+[data-h="index7"]:hover{background:var(--signal) !important;color:#04120C !important}
+[data-h="index8"]:hover{border-color:var(--signalOnDark) !important;color:var(--signalOnDark) !important}
+[data-h="index9"]:hover{color:var(--signalText) !important}
+[data-h="index10"]:hover{color:var(--signalText) !important}
+[data-h="index11"]:hover{transform:translateX(6px) !important}
+[data-h="index12"]:hover{transform:translateX(6px) !important}
+[data-h="index13"]:hover{transform:translateX(6px) !important}
+[data-h="index14"]:hover{border-color:var(--signalOnDark) !important;color:var(--signalOnDark) !important}
+[data-h="index15"]:hover{background:var(--signalDeep) !important;color:#fff !important}
+[data-h="index16"]:hover{border-color:var(--ink) !important}
+[data-h="index17"]:hover{border-color:var(--ink) !important}
+[data-h="index18"]:hover{border-color:var(--signalText) !important;color:var(--signalText) !important;transform:translateY(-2px) !important}
+[data-h="index19"]:hover{border-color:var(--signalText) !important;color:var(--signalText) !important;transform:translateY(-2px) !important}
+[data-h="index20"]:hover{border-color:var(--signalText) !important;color:var(--signalText) !important;transform:translateY(-2px) !important}
+[data-h="index21"]:hover{border-color:var(--signalText) !important;color:var(--signalText) !important;transform:translateY(-2px) !important}
+[data-h="index22"]:hover{color:var(--signalText) !important}
+[data-h="index23"]:hover{color:var(--signalText) !important}
+[data-h="index24"]:hover{color:var(--signalText) !important}
+[data-h="index25"]:hover{color:var(--signalText) !important}
+[data-h="index26"]:hover{border-color:var(--signalText) !important;color:var(--signalText) !important}
