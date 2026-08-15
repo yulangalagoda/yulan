@@ -28,9 +28,11 @@
   <meta name="author" content="Yulan Galagoda">
   <meta name="robots" content="index, follow">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yulan.me"}, {"@type": "ListItem", "position": 2, "name": "Work", "item": "https://yulan.me/#work"}, {"@type": "ListItem", "position": 3, "name": "NetEAGLE", "item": "https://yulan.me/work/neteagle/"}]}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Self-hosted: no third-party origin, and the CSP can stay same-origin.
+       One preload for the Inter latin subset, which serves both body and
+       heading weights, so the hero does not swap after first paint. -->
+  <link rel="preload" href="/fonts/inter-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
 <link rel="stylesheet" href="/neteagle.css">
 </head>
 <body>
