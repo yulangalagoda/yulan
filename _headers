@@ -22,3 +22,8 @@
 
 /apple-touch-icon_180.png
   Cache-Control: public, max-age=604800
+
+# Font filenames carry a content hash from upstream, so a new file means a new
+# name. They can be cached hard and never revalidated.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
