@@ -5,3 +5,20 @@
   X-Frame-Options: DENY
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+# Content is edited by redeploy, so HTML stays fresh while the immutable
+# assets beside it are allowed to sit in the cache.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/og/*
+  Cache-Control: public, max-age=604800
+
+/portrait.webp
+  Cache-Control: public, max-age=604800
+
+/favicon*
+  Cache-Control: public, max-age=604800
+
+/apple-touch-icon_180.png
+  Cache-Control: public, max-age=604800
