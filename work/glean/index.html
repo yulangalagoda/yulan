@@ -3,18 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Glean — Yulan Galagoda</title>
+<title>Glean · Yulan Galagoda</title>
 <meta name="description" content="A local-LLM OSINT pipeline that turns scattered recon into one prioritised, provenance-tracked brief.">
   <link rel="canonical" href="https://yulan.me/work/glean/">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon_180.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFAF7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0C0E10">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Yulan Galagoda">
   <meta property="og:locale" content="en_GB">
   <meta property="og:url" content="https://yulan.me/work/glean/">
-  <meta property="og:title" content="Glean — Yulan Galagoda">
+  <meta property="og:title" content="Glean · Yulan Galagoda">
   <meta property="og:description" content="A local-LLM OSINT pipeline that turns scattered recon into one prioritised, provenance-tracked brief.">
   <meta property="og:image" content="https://yulan.me/og/glean.png">
   <meta property="og:image:width" content="1200">
@@ -22,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@YulanGalagoda">
   <meta name="twitter:creator" content="@YulanGalagoda">
-  <meta name="twitter:title" content="Glean — Yulan Galagoda">
+  <meta name="twitter:title" content="Glean · Yulan Galagoda">
   <meta name="twitter:description" content="A local-LLM OSINT pipeline that turns scattered recon into one prioritised, provenance-tracked brief.">
   <meta name="twitter:image" content="https://yulan.me/og/glean.png">
   <meta name="author" content="Yulan Galagoda">
@@ -33,97 +35,123 @@
        heading weights, so the hero does not swap after first paint. -->
   <link rel="preload" href="/fonts/inter-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/fonts.css">
-<link rel="stylesheet" href="/glean.css">
+  <link rel="stylesheet" href="/case.css">
+  <!-- Blocking, so the theme is right before the first paint. -->
+  <script src="/theme.js"></script>
 </head>
 <body>
-<div style="min-height:100vh;display:flex;flex-direction:column">
 <div data-sentinel style="height:1px;margin-bottom:-1px;pointer-events:none"></div>
 
-<header style="position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(14px);background:color-mix(in srgb, var(--paper) 86%, transparent);border-bottom:1px solid var(--rule)">
-<div style="max-width:var(--caseShell);margin:0 auto;padding:14px clamp(18px,4vw,52px);display:flex;align-items:center;gap:10px 22px">
-<a href="/" style="display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:650;font-size:14px;margin-right:auto"><span style="font-family:'JetBrains Mono',monospace;color:var(--inkFaint)">&larr;</span>yulan.me</a>
-<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim)">All work</a>
-</div>
+<header class="chdr">
+  <div class="shell chdr__in">
+    <a href="/" class="chdr__home"><span>&larr;</span>yulan.me</a>
+    <div class="chdr__right">
+      <a href="/#work" class="chdr__all">All work</a>
+      <button data-theme-btn type="button" class="themeBtn" aria-label="Switch theme">&#9790;</button>
+    </div>
+  </div>
 </header>
 
-<section style="background:#191D21;color:#F5F3EE;position:relative;overflow:hidden">
-<div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 88% 10%, rgba(49,181,135,.13) 0%, transparent 60%);pointer-events:none"></div>
-<div style="position:relative;max-width:var(--caseShell);margin:0 auto;padding:clamp(48px,8vw,96px) clamp(18px,4vw,52px) clamp(36px,5vw,60px)">
-<div style="display:flex;flex-wrap:wrap;gap:8px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase">
-<span style="color:var(--signalOnDark);background:rgba(92,207,165,.12);padding:5px 10px;border-radius:5px">Research · in progress</span>
-<span style="color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:5px">2026</span>
-</div>
-<h1 style="margin-top:clamp(20px,3vw,30px);font-size:clamp(40px,8vw,92px);line-height:.95;letter-spacing:-.04em;font-weight:700">Glean</h1>
-<p style="margin-top:16px;font-size:clamp(18px,2.4vw,27px);line-height:1.35;letter-spacing:-.02em;color:rgba(255,255,255,.82);max-width:32ch;text-wrap:pretty">A local-LLM OSINT pipeline that turns scattered recon into one prioritised, provenance-tracked brief.</p>
-<canvas data-fig="glean" style="display:block;width:100%;height:clamp(150px,20vw,220px);margin-top:clamp(32px,5vw,56px);border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)"></canvas>
-</div>
+<section class="chero">
+  <div class="chero__glow"></div>
+  <div class="shell chero__in">
+    <div class="chero__tags">
+      <span class="chero__tag">Research · in progress</span>
+      <span class="chero__tag chero__tag--plain">2026</span>
+    </div>
+    <h1 class="chero__title">Glean</h1>
+    <p class="chero__sub">A local-LLM OSINT pipeline that turns scattered recon into one prioritised, provenance-tracked brief.</p>
+    <canvas data-fig="glean" class="chero__fig" aria-hidden="true"></canvas>
+  </div>
 </section>
 
-<main data-r="casemain" style="flex:1;max-width:var(--caseShell);width:100%;margin:0 auto;padding:clamp(44px,7vw,88px) clamp(18px,4vw,52px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,5vw,72px);align-items:start">
+<main>
 
-<div data-r="span2" style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:clamp(38px,5vw,60px)">
+<section class="shell cbody">
+  <div class="metastrip" data-reveal>
+      <div class="meta"><div class="meta__k">Role</div><div class="meta__v">Sole researcher and developer</div><p class="meta__s">Independent project</p></div>
+      <div class="meta"><div class="meta__k">Status</div><div class="meta__v">In progress</div><div class="meta__mono">Since Jul 2026</div></div>
+      <div class="meta"><div class="meta__k">Stack</div><div class="chips"><span class="chip">Python</span><span class="chip">Ollama</span><span class="chip">Local LLMs</span><span class="chip">OSINT</span><span class="chip">Entity resolution</span><span class="chip">Provenance</span><span class="chip">CLI</span></div></div>
+      <div class="meta"><div class="meta__k">Links</div><div class="meta__links"><a class="meta__link" href="https://github.com/yulangalagoda">GitHub &rarr;</a><a class="meta__link" href="https://pypi.org/project/glean-osint/">PyPI · glean-osint &rarr;</a></div></div>
+  </div>
+</section>
 
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The problem</h2>
+<section class="band">
+  <div class="shell">
+    <div class="blk__head narrow" data-reveal>
+      <div class="kick">The problem</div>
+      <h2 class="blk__title">Collection succeeds. Judgment does not.</h2>
+    </div>
+    <div class="narrow" data-reveal>
+      <p class="prose">Open-source OSINT automation is strong at collection and weak at judgment. Tools like SpiderFoot, Amass and theHarvester can gather thousands of reconnaissance findings, but they arrive as a flat pile: no reliable prioritisation, no provenance surfaced to the analyst, and no synthesis into something a human can act on.</p>
+    </div>
+    <div class="bignum" data-reveal style="margin-top:clamp(24px,4vw,36px)">
+      <div class="bignum__v">960</div>
+      <div class="bignum__c">
+        <div class="card__k">Findings from one scan of one low-value domain</div>
+        <p class="bignum__p">Whose headline correlations were a handful of low-priority notes about unrelated shared-hosting neighbours. The pile is the product; the judgment is missing.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">Open-source OSINT automation is strong at collection and weak at judgment. Tools like SpiderFoot, Amass, and theHarvester can gather thousands of reconnaissance findings, but they arrive as a flat pile: no reliable prioritisation, no provenance surfaced to the analyst, and no synthesis into something a human can act on. A single scan of one low-value domain can return around 960 findings whose headline correlations are a handful of low-priority notes about unrelated shared-hosting neighbours. Collection succeeds; judgment does not.</p>
-</div>
+<section class="band band--well">
+  <div class="shell">
+    <div class="turn" data-reveal>
+      <div class="turn__k">The research question</div>
+      <p class="turn__q">Can small local models faithfully prioritise and preserve provenance when synthesising structured, multi-tool intelligence?</p>
+      <p class="turn__p">Glean runs a curated set of maintained FOSS tools, normalises their output into a single provenance-tracked entity model, and correlates entities deterministically in code rather than in the model. A small, locally-run LLM through Ollama then produces a one-page prioritised brief a human can action in under two minutes.</p>
+    </div>
+  </div>
+</section>
 
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The approach</h2>
-<blockquote style="margin:16px 0 0;padding-left:clamp(16px,2vw,22px);border-left:2px solid var(--signal);font-size:clamp(19px,2.2vw,25px);line-height:1.45;letter-spacing:-.02em;font-weight:500;max-width:34ch;text-wrap:pretty">Can small local models faithfully prioritise and preserve provenance when synthesising structured, multi-tool intelligence?</blockquote>
-<p style="margin-top:20px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">Glean closes that gap. It runs a curated set of maintained FOSS tools, normalises their output into a single provenance-tracked entity model, and correlates entities deterministically in code rather than in the model. A small, locally-run LLM through Ollama then produces a one-page prioritised brief a human can action in under two minutes.</p>
-</div>
+<section class="band">
+  <div class="shell">
+    <div class="blk__head narrow" data-reveal>
+      <div class="kick">The gap it measures</div>
+      <h2 class="blk__title">The evaluation is the research.</h2>
+    </div>
+    <div class="narrow" data-reveal>
+      <p class="prose">That question is largely unmeasured. Existing security-LLM faithfulness work, from CTIBench and RAGIntel to general frameworks like RAGAS and FaithBench, evaluates text-to-text tasks over prose.</p>
+      <p class="prose">Glean&rsquo;s input is not prose but normalised entity records, and its output is not an answer but a ranked judgment with provenance. Measuring faithfulness, prioritisation quality and provenance retention over that structured artifact is the gap the project is built to close.</p>
+    </div>
+    <div class="stages" data-reveal style="margin-top:clamp(28px,4vw,44px)">
+      <div class="stage"><div class="stage__n">01</div><h3 class="stage__t">Unified entity model</h3><p class="stage__p">Findings from multiple FOSS recon tools normalised into one schema, with the source tool preserved as a first-class provenance field.</p></div>
+      <div class="stage"><div class="stage__n">02</div><h3 class="stage__t">Deterministic correlation</h3><p class="stage__p">Dedup and entity-linking handled in code, never delegated to the LLM.</p></div>
+      <div class="stage"><div class="stage__n">03</div><h3 class="stage__t">Local-LLM synthesis</h3><p class="stage__p">A small model through Ollama produces a prioritised, one-page brief a human can action in under two minutes.</p></div>
+      <div class="stage"><div class="stage__n">04</div><h3 class="stage__t">Evaluation as the research</h3><p class="stage__p">A harness that measures faithfulness, prioritisation quality and provenance retention against a hand-built ground-truth set.</p></div>
+      <div class="stage"><div class="stage__n">05</div><h3 class="stage__t">Scoped and ethical</h3><p class="stage__p">Infrastructure OSINT first, authorised targets only, with passive and active reconnaissance clearly separated.</p></div>
+    </div>
+  </div>
+</section>
 
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The gap it measures</h2>
-
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">That question is largely unmeasured. Existing security-LLM faithfulness work, from CTIBench and RAGIntel to general frameworks like RAGAS and FaithBench, evaluates text-to-text tasks over prose. Glean’s input is not prose but normalised entity records, and its output is not an answer but a ranked judgment with provenance. Measuring faithfulness, prioritisation quality, and provenance retention over that structured artifact is the gap the project is built to close.</p>
-</div>
-
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">Scope</h2>
-
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">Version one is deliberately narrow: one entity domain (infrastructure and domain reconnaissance), four to six curated tools, deterministic correlation, and an evaluation harness that reports three numbers against a hand-built ground-truth set. It is CLI-first and for authorised research only, with passive and active reconnaissance clearly separated and every claim traceable to its source tool. The package name is reserved on PyPI as glean-osint, and the project is in early development.</p>
-</div>
-
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">How it works</h2>
-<ol style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden">
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">01</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Unified entity model.</strong> Findings from multiple FOSS recon tools normalised into one schema, with the source tool preserved as a first-class provenance field.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">02</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Deterministic correlation.</strong> Dedup and entity-linking handled in code, never delegated to the LLM.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">03</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Local-LLM synthesis.</strong> A small model through Ollama produces a prioritised, one-page brief a human can action in under two minutes.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">04</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Evaluation as the research.</strong> A harness that measures faithfulness, prioritisation quality, and provenance retention against a hand-built ground-truth set.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">05</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Scoped and ethical.</strong> Infrastructure OSINT first, authorised targets only, with passive and active reconnaissance clearly separated.</span></li>
-</ol>
-</div>
-
-</div>
-
-<aside data-reveal data-r="caseaside" style="min-width:0;position:sticky;top:88px;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)">
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Role</div><div style="margin-top:8px;font-size:15px;line-height:1.5">Sole researcher and developer</div><div style="margin-top:4px;font-size:13.5px;color:var(--inkDim);line-height:1.5">Independent project</div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Status</div><div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:14px">In progress · since Jul 2026</div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Stack</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px"><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Python</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Ollama</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Local LLMs</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">OSINT</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Entity Resolution</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Provenance</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">CLI</span></div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Links</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px"><a href="https://github.com/yulangalagoda/glean" style="display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--inkDim);transition:border-color .25s,color .25s,transform .25s" data-h="glean1">GitHub</a><a href="https://pypi.org/project/glean-osint/" style="display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--inkDim);transition:border-color .25s,color .25s,transform .25s" data-h="glean2">PyPI · glean-osint</a></div></div>
-</aside>
+<section class="band">
+  <div class="shell twoup" data-reveal>
+    <div>
+      <div class="kick kick--mute">Scope, deliberately narrow</div>
+      <p class="twoup__p">Version one covers one entity domain, infrastructure and domain reconnaissance, with four to six curated tools, deterministic correlation, and an evaluation harness reporting three numbers against a hand-built ground-truth set.</p>
+    </div>
+    <div>
+      <div class="kick kick--mute">The limit</div>
+      <p class="twoup__p">CLI-first and for authorised research only, with every claim traceable to its source tool. The package name is reserved on PyPI as <code>glean-osint</code>, and the project is in early development.</p>
+    </div>
+  </div>
+</section>
 
 </main>
 
-<nav style="border-top:1px solid var(--rule);background:var(--well)">
-<div style="max-width:var(--caseShell);margin:0 auto;padding:clamp(28px,4vw,44px) clamp(18px,4vw,52px);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center">
-<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim);margin-right:auto">&larr; All work</a>
-<a href="/work/neteagle/" style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--ink)">Next · NetEAGLE <span style="color:var(--signalText)">&rarr;</span></a>
-</div>
+<nav class="cnav">
+  <div class="shell cnav__in">
+    <a href="/#work" class="cnav__all">&larr; All work</a>
+    <a href="/work/neteagle/" class="cnav__next">Next · NetEAGLE <span>&rarr;</span></a>
+  </div>
 </nav>
 
-<button data-top type="button" aria-label="Back to top" style="position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:60;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid var(--ruleStrong);border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .35s,transform .35s,border-color .25s,color .25s" data-h="glean3">
-<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<button data-top type="button" class="toTop" aria-label="Back to top">
+  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </button>
 
-</div>
-<script src="/glean.js" defer></script>
-  <!-- Cloudflare Web Analytics: cookieless, no personal data. Deferred, so
-       it cannot delay rendering. Token is a public site identifier. -->
+<script src="/case.js" defer></script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14d488ac60b7471a95918e542f8d2485"}'></script>
 </body>
 </html>

@@ -3,27 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NetEAGLE — Yulan Galagoda</title>
-<meta name="description" content="Raspberry Pi network security gateway with a mobile control plane.">
+<title>NetEAGLE · Yulan Galagoda</title>
+<meta name="description" content="A Raspberry Pi network security gateway with a mobile control plane, putting enterprise-grade network defence in a home.">
   <link rel="canonical" href="https://yulan.me/work/neteagle/">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon_180.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFAF7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0C0E10">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Yulan Galagoda">
   <meta property="og:locale" content="en_GB">
   <meta property="og:url" content="https://yulan.me/work/neteagle/">
-  <meta property="og:title" content="NetEAGLE — Yulan Galagoda">
-  <meta property="og:description" content="Raspberry Pi network security gateway with a mobile control plane.">
+  <meta property="og:title" content="NetEAGLE · Yulan Galagoda">
+  <meta property="og:description" content="A Raspberry Pi network security gateway with a mobile control plane, putting enterprise-grade network defence in a home.">
   <meta property="og:image" content="https://yulan.me/og/portfolio.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@YulanGalagoda">
   <meta name="twitter:creator" content="@YulanGalagoda">
-  <meta name="twitter:title" content="NetEAGLE — Yulan Galagoda">
-  <meta name="twitter:description" content="Raspberry Pi network security gateway with a mobile control plane.">
+  <meta name="twitter:title" content="NetEAGLE · Yulan Galagoda">
+  <meta name="twitter:description" content="A Raspberry Pi network security gateway with a mobile control plane, putting enterprise-grade network defence in a home.">
   <meta name="twitter:image" content="https://yulan.me/og/portfolio.png">
   <meta name="author" content="Yulan Galagoda">
   <meta name="robots" content="index, follow">
@@ -33,96 +35,123 @@
        heading weights, so the hero does not swap after first paint. -->
   <link rel="preload" href="/fonts/inter-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/fonts.css">
-<link rel="stylesheet" href="/neteagle.css">
+  <link rel="stylesheet" href="/case.css">
+  <!-- Blocking, so the theme is right before the first paint. -->
+  <script src="/theme.js"></script>
 </head>
 <body>
-<div style="min-height:100vh;display:flex;flex-direction:column">
 <div data-sentinel style="height:1px;margin-bottom:-1px;pointer-events:none"></div>
 
-<header style="position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(14px);background:color-mix(in srgb, var(--paper) 86%, transparent);border-bottom:1px solid var(--rule)">
-<div style="max-width:var(--caseShell);margin:0 auto;padding:14px clamp(18px,4vw,52px);display:flex;align-items:center;gap:10px 22px">
-<a href="/" style="display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:650;font-size:14px;margin-right:auto"><span style="font-family:'JetBrains Mono',monospace;color:var(--inkFaint)">&larr;</span>yulan.me</a>
-<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim)">All work</a>
-</div>
+<header class="chdr">
+  <div class="shell chdr__in">
+    <a href="/" class="chdr__home"><span>&larr;</span>yulan.me</a>
+    <div class="chdr__right">
+      <a href="/#work" class="chdr__all">All work</a>
+      <button data-theme-btn type="button" class="themeBtn" aria-label="Switch theme">&#9790;</button>
+    </div>
+  </div>
 </header>
 
-<section style="background:#191D21;color:#F5F3EE;position:relative;overflow:hidden">
-<div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 88% 10%, rgba(49,181,135,.13) 0%, transparent 60%);pointer-events:none"></div>
-<div style="position:relative;max-width:var(--caseShell);margin:0 auto;padding:clamp(48px,8vw,96px) clamp(18px,4vw,52px) clamp(36px,5vw,60px)">
-<div style="display:flex;flex-wrap:wrap;gap:8px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase">
-<span style="color:var(--signalOnDark);background:rgba(92,207,165,.12);padding:5px 10px;border-radius:5px">Academic · completed</span>
-<span style="color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:5px">2024</span>
-</div>
-<h1 style="margin-top:clamp(20px,3vw,30px);font-size:clamp(40px,8vw,84px);line-height:.95;letter-spacing:-.04em;font-weight:700">NetEAGLE</h1>
-<p style="margin-top:16px;font-size:clamp(18px,2.4vw,27px);line-height:1.35;letter-spacing:-.02em;color:rgba(255,255,255,.82);max-width:32ch;text-wrap:pretty">Raspberry Pi network security gateway with a mobile control plane.</p>
-<canvas data-fig="neteagle" style="display:block;width:100%;height:clamp(150px,20vw,220px);margin-top:clamp(32px,5vw,56px);border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)"></canvas>
-</div>
+<section class="chero">
+  <div class="chero__glow"></div>
+  <div class="shell chero__in">
+    <div class="chero__tags">
+      <span class="chero__tag">Academic · completed</span>
+      <span class="chero__tag chero__tag--plain">2024</span>
+    </div>
+    <h1 class="chero__title">NetEAGLE</h1>
+    <p class="chero__sub">Raspberry Pi network security gateway with a mobile control plane.</p>
+    <canvas data-fig="neteagle" class="chero__fig" aria-hidden="true"></canvas>
+  </div>
 </section>
 
-<main data-r="casemain" style="flex:1;max-width:var(--caseShell);width:100%;margin:0 auto;padding:clamp(44px,7vw,88px) clamp(18px,4vw,52px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,5vw,72px);align-items:start">
+<main class="shell cbody">
+<div class="cmain">
 
-<div data-r="span2" style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:clamp(38px,5vw,60px)">
+<div>
+  <div class="blk" data-reveal>
+    <div class="kick">The problem</div>
+    <h2 class="blk__title">The most critical device on a home network is the least watched.</h2>
+    <p class="prose" style="margin-top:18px">Home networks now hold the kind of data enterprises spend fortunes protecting: banking credentials, personal records and, since the shift to remote work, direct tunnels into corporate systems. Yet they are rarely monitored and seldom patched.</p>
+    <p class="prose">Endpoint antivirus does not close the gap. It guards one device, and only after a threat has already crossed the network. Tools that could help, like PRTG or Nessus, assume networking expertise the average household simply does not have.</p>
+  </div>
 
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The problem</h2>
+  <div class="blk" data-reveal>
+    <div class="kick">The approach</div>
+    <p class="pull pull--wide">Move the defence off the endpoint and onto the gateway.</p>
+    <p class="prose">A Raspberry Pi 5 sits inline with the home&rsquo;s traffic and unifies three defences, Nmap host discovery, a UFW firewall, and Suricata intrusion detection and prevention, behind a deliberately simple mobile app with near-real-time cloud sync and one-tap actions. It gives non-technical users the network-level visibility and control that, until now, only enterprises had.</p>
+  </div>
 
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">Home networks now hold the kind of data enterprises spend fortunes protecting: banking credentials, personal records, and, since the shift to remote work, direct tunnels into corporate systems. Yet they are rarely monitored and seldom patched. The router is the single most critical device on the network and, in practice, the most neglected. Endpoint antivirus doesn’t close the gap: it guards one device, and only after a threat has already crossed the network. Tools that could help, like PRTG or Nessus, assume networking expertise the average household simply doesn’t have.</p>
+  <div class="blk" data-reveal>
+    <div class="kick">Research-led design</div>
+    <h2 class="blk__title">A survey cut the scope before a line was written.</h2>
+    <p class="prose" style="margin-top:18px">Six questions, written in plain language, put to home users. The answers set the boundaries directly.</p>
+    <div class="cards" style="margin-top:clamp(20px,3vw,28px)">
+      <div class="card">
+        <div class="card__k">Strong demand</div>
+        <div class="card__display card__display--signal">Kept</div>
+        <p class="card__p">Intrusion detection and firewalling, the two things users could name a reason for wanting.</p>
+      </div>
+      <div class="card">
+        <div class="card__k">Low interest</div>
+        <div class="card__display">Cut</div>
+        <p class="card__p">Vulnerability assessment, dropped from scope rather than built and left unused.</p>
+      </div>
+      <div class="card">
+        <div class="card__k">Clear preference</div>
+        <div class="card__display card__display--signal">Mobile</div>
+        <p class="card__p">Real-time updates through a phone, which is what drove the whole architecture.</p>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:clamp(20px,3vw,28px)">The Pi runs a Flask REST API as an auto-starting service. Each feature maps an app tap to a shell script and a Python parser that writes state to a Firebase Realtime Database, which pushes live updates to a Flutter app.</p>
+  </div>
+
+  <div class="blk" data-reveal>
+    <div class="kick">The result</div>
+    <p class="prose">A functional, end-to-end appliance that meets all four objectives with an effectively plug-in install: connect it inline, no configuration required.</p>
+  </div>
+
+  <div class="blk" data-reveal>
+    <div class="turn">
+      <div class="turn__k">An honest evaluation</div>
+      <p class="turn__q">Assessed against the constraint it was built for, not a benchmark it was never aimed at.</p>
+      <p class="turn__p">It was evaluated functionally and qualitatively against the non-technical-user constraint rather than by throughput, and the low-end Pi&rsquo;s upload limits meant syncs were made user-triggered. Both are flagged as clear directions for future work rather than written around.</p>
+    </div>
+  </div>
+
+  <div class="blk" data-reveal>
+    <div class="kick">What it does</div>
+    <div class="stages" style="margin-top:18px">
+      <div class="stage"><div class="stage__n">01</div><h3 class="stage__t">Inline gateway</h3><p class="stage__p">A Raspberry Pi 5 that sees and filters all household traffic: defence at the network layer, not the endpoint.</p></div>
+      <div class="stage"><div class="stage__n">02</div><h3 class="stage__t">Three unified defences</h3><p class="stage__p">Nmap host discovery, a UFW firewall, and Suricata IDS/IPS, each surfaced as a one-tap action.</p></div>
+      <div class="stage"><div class="stage__n">03</div><h3 class="stage__t">Live control plane</h3><p class="stage__p">A Flask REST API, auto-started as a system service, bridging the Pi to a Flutter mobile app via a Firebase Realtime Database.</p></div>
+      <div class="stage"><div class="stage__n">04</div><h3 class="stage__t">Research-led scope</h3><p class="stage__p">A survey of non-technical home users cut vulnerability assessment and drove the real-time, mobile-first design.</p></div>
+      <div class="stage"><div class="stage__n">05</div><h3 class="stage__t">Plug-in deployment</h3><p class="stage__p">Zero configuration. The Pi even takes on the router role, turning a hardware constraint into a self-contained design.</p></div>
+    </div>
+  </div>
 </div>
 
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The approach</h2>
-
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">NetEAGLE moves protection from the endpoint to the gateway. A Raspberry Pi 5 sits inline with the home’s traffic and unifies three defences — Nmap host discovery, a UFW firewall, and Suricata intrusion detection and prevention — behind a deliberately simple mobile app, with near-real-time cloud sync and one-tap actions. It gives non-technical users the network-level visibility and control that, until now, only enterprises had.</p>
-</div>
-
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">Research-led design</h2>
-
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">The design was research-led. A six-question survey of home users, written in plain language, set the scope directly: strong demand for intrusion detection and firewalling, low interest in vulnerability assessment (cut from scope), and a clear preference for real-time updates through a mobile app, which drove the architecture. The Pi runs a Flask REST API as an auto-starting service; each feature maps an app tap to a shell script and a Python parser that writes state to a Firebase Realtime Database, which pushes live updates to a Flutter app.</p>
-</div>
-
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">The result</h2>
-
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">A functional, end-to-end appliance that meets all four objectives with an effectively plug-in install: connect it inline, no configuration required. In the spirit of an honest evaluation, it was assessed functionally and qualitatively against the non-technical-user constraint rather than a throughput benchmark, and the low-end Pi’s upload limits meant syncs were made user-triggered. Both are flagged as clear directions for future work.</p>
-</div>
-
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">What it does</h2>
-<ol style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden">
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">01</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Inline gateway.</strong> A Raspberry Pi 5 that sees and filters all household traffic: defence at the network layer, not the endpoint.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">02</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Three unified defences.</strong> Nmap host discovery, a UFW firewall, and Suricata IDS/IPS, each surfaced as a one-tap action.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">03</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Live control plane.</strong> A Flask REST API, auto-started as a system service, bridging the Pi to a Flutter mobile app via a Firebase Realtime Database.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">04</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Research-led scope.</strong> A survey of non-technical home users cut vulnerability assessment and drove the real-time, mobile-first design.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">05</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Plug-in deployment.</strong> Zero configuration: the Pi even takes on the router role, turning a hardware constraint into a self-contained design.</span></li>
-</ol>
-</div>
-
-</div>
-
-<aside data-reveal data-r="caseaside" style="min-width:0;position:sticky;top:88px;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)">
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Role</div><div style="margin-top:8px;font-size:15px;line-height:1.5">Sole engineer</div><div style="margin-top:4px;font-size:13.5px;color:var(--inkDim);line-height:1.5">Final-year project, supervised by Mr. Chamindra Attanayake</div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Status</div><div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:14px">Completed · 2024</div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Stack</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px"><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Python</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Flask</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Raspberry Pi</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Linux</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Nmap</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">UFW</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Suricata</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Flutter</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Firebase</span></div></div>
+<aside class="caside" data-reveal>
+      <div class="meta"><div class="meta__k">Role</div><div class="meta__v">Sole engineer</div><p class="meta__s">Final-year project, supervised by Mr. Chamindra Attanayake</p></div>
+      <div class="meta"><div class="meta__k">Status</div><div class="meta__v">Completed</div><div class="meta__mono">2024</div></div>
+      <div class="meta"><div class="meta__k">Stack</div><div class="chips"><span class="chip">Python</span><span class="chip">Flask</span><span class="chip">Raspberry Pi</span><span class="chip">Linux</span><span class="chip">Nmap</span><span class="chip">UFW</span><span class="chip">Suricata</span><span class="chip">Flutter</span><span class="chip">Firebase</span></div></div>
 </aside>
 
+</div>
 </main>
 
-<nav style="border-top:1px solid var(--rule);background:var(--well)">
-<div style="max-width:var(--caseShell);margin:0 auto;padding:clamp(28px,4vw,44px) clamp(18px,4vw,52px);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center">
-<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim);margin-right:auto">&larr; All work</a>
-<a href="/work/domain-hygiene-audit/" style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--ink)">Next · Domain hygiene audit <span style="color:var(--signalText)">&rarr;</span></a>
-</div>
+<nav class="cnav">
+  <div class="shell cnav__in">
+    <a href="/#work" class="cnav__all">&larr; All work</a>
+    <a href="/work/domain-hygiene-audit/" class="cnav__next">Next · Domain hygiene audit <span>&rarr;</span></a>
+  </div>
 </nav>
 
-<button data-top type="button" aria-label="Back to top" style="position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:60;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid var(--ruleStrong);border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .35s,transform .35s,border-color .25s,color .25s" data-h="neteagle1">
-<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<button data-top type="button" class="toTop" aria-label="Back to top">
+  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </button>
 
-</div>
-<script src="/neteagle.js" defer></script>
-  <!-- Cloudflare Web Analytics: cookieless, no personal data. Deferred, so
-       it cannot delay rendering. Token is a public site identifier. -->
+<script src="/case.js" defer></script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14d488ac60b7471a95918e542f8d2485"}'></script>
 </body>
 </html>

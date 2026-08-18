@@ -1,0 +1,206 @@
+/* Case pages.
+   One stylesheet for all six, replacing the six near-identical per-page files.
+   The vocabulary here is lifted from the homepage's AdverSec section, which is
+   the best-looking thing on the site: mono kickers, stat cards with a large
+   coloured display figure, a tinted highlight panel for the one question a
+   project turns on, numbered stage cards, and a two-up closing grid.
+
+   Every project uses a different subset. A recipe archive does not need a
+   research apparatus, and a dissertation should not read like a link page. */
+
+:root{
+--caseShell:1100px;
+--paper:#FBFAF7;--surface:#FFFFFF;--well:#F2F0EB;
+--rule:#E5E1D9;--ruleStrong:#D3CDC1;
+--ink:#12151A;--inkDim:#454B55;--inkFaint:#656C78;
+--signal:#0E8A5F;--signalDeep:#0A6B4A;--signalSoft:#E3F0EA;--warn:#8A5A08;
+--signalText:#0A6B4A;--signalOnDark:#5CCFA5;--warnText:#7A4F07;
+--shadow:0 1px 2px rgba(18,21,26,.04),0 8px 24px -12px rgba(18,21,26,.10);
+--slab:#191D21;--slabInk:#F5F3EE;
+}
+[data-theme="dark"]{
+--paper:#0C0E10;--surface:#141719;--well:#1A1E21;
+--rule:#262B30;--ruleStrong:#394046;
+--ink:#F1EFEA;--inkDim:#A9B0B8;--inkFaint:#8B939C;
+--signal:#31B587;--signalDeep:#5CCFA5;--signalSoft:#12261F;--warn:#D69A2E;
+--signalText:#5CCFA5;--signalOnDark:#5CCFA5;--warnText:#E0AC4E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+color-scheme:dark;
+}
+@media (min-width:1600px){:root{--caseShell:1280px}}
+@media (min-width:1920px){:root{--caseShell:1400px}}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,h4,p,figure,blockquote,ol,ul{margin:0}
+ol,ul{padding:0;list-style:none}
+a{color:var(--signalText);text-decoration:none}
+a:hover{color:var(--ink)}
+img,canvas,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--signalText);outline-offset:2px;border-radius:3px}
+::selection{background:var(--signalSoft);color:var(--ink)}
+@keyframes ygRise{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+
+.shell{max-width:var(--caseShell);margin-inline:auto;padding-inline:clamp(18px,4vw,52px)}
+
+/* ── Shared type ──────────────────────────────────────────── */
+.kick{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)}
+.kick--mute{color:var(--inkFaint)}
+.prose{font-size:clamp(16px,1.7vw,18.5px);line-height:1.68;color:var(--inkDim);text-wrap:pretty}
+.prose + .prose{margin-top:16px}
+.prose strong{color:var(--ink);font-weight:650}
+.prose em{font-style:italic}
+.prose code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--well);border:1px solid var(--rule);border-radius:4px;padding:1px 5px}
+
+/* ── Header ───────────────────────────────────────────────── */
+.chdr{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);background:color-mix(in srgb,var(--paper) 82%,transparent);border-bottom:1px solid var(--rule)}
+.chdr__in{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-block:14px}
+.chdr__home{display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:650;font-size:14.5px;letter-spacing:-.01em}
+.chdr__home span{font-family:'JetBrains Mono',monospace;color:var(--inkFaint)}
+.chdr__right{display:flex;align-items:center;gap:16px}
+.chdr__all{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkDim)}
+.chdr__all:hover{color:var(--signalText)}
+.themeBtn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--rule);border-radius:9px;background:var(--surface);color:var(--inkDim);font-size:13px;line-height:1}
+.themeBtn:hover{border-color:var(--ruleStrong);color:var(--ink)}
+
+/* ── Hero slab ────────────────────────────────────────────── */
+/* Fixed dark in both themes, as the slabs are on the homepage. */
+.chero{background:var(--slab);color:var(--slabInk);position:relative;overflow:hidden}
+.chero__glow{position:absolute;inset:0;background:radial-gradient(90% 70% at 12% 0%,rgba(92,207,165,.16),transparent 62%);pointer-events:none}
+.chero__in{position:relative;padding-block:clamp(44px,7vw,86px)}
+.chero__tags{display:flex;flex-wrap:wrap;gap:8px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.chero__tag{color:var(--signalOnDark);background:rgba(92,207,165,.12);padding:5px 11px;border-radius:5px}
+.chero__tag--plain{color:rgba(255,255,255,.72);background:none;border:1px solid rgba(255,255,255,.16)}
+.chero__title{margin-top:clamp(20px,3vw,30px);font-size:clamp(40px,8vw,92px);line-height:.98;letter-spacing:-.04em;font-weight:700}
+.chero__sub{margin-top:16px;font-size:clamp(18px,2.4vw,27px);line-height:1.34;letter-spacing:-.02em;color:rgba(245,243,238,.82);max-width:26ch;text-wrap:pretty}
+.chero__fig{width:100%;height:clamp(150px,20vw,220px);margin-top:clamp(28px,4vw,44px);border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+
+/* ── Page rhythm ──────────────────────────────────────────── */
+.cbody{padding-block:clamp(44px,7vw,88px)}
+.band{padding-block:clamp(44px,7vw,84px);border-top:1px solid var(--rule)}
+.band--well{background:var(--well)}
+.blk + .blk{margin-top:clamp(38px,6vw,68px)}
+.blk__head{margin-bottom:18px}
+.blk__title{margin-top:12px;font-size:clamp(26px,3.6vw,42px);line-height:1.06;letter-spacing:-.03em;font-weight:700;max-width:20ch;text-wrap:balance}
+.blk__lede{margin-top:16px;font-size:clamp(17px,1.9vw,21px);line-height:1.5;color:var(--inkDim);max-width:48ch;text-wrap:pretty}
+.narrow{max-width:68ch}
+
+/* ── Stat cards ───────────────────────────────────────────── */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(270px,100%),1fr));gap:clamp(14px,2.2vw,24px)}
+.cards--2{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.card{padding:clamp(20px,3vw,30px);border:1px solid var(--rule);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+.card__k{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)}
+.card__display{margin-top:14px;font-size:clamp(28px,3.8vw,44px);line-height:1;font-weight:700;letter-spacing:-.035em;color:var(--warnText)}
+.card__display--signal{color:var(--signalText)}
+.card__p{margin-top:12px;font-size:15.5px;line-height:1.62;color:var(--inkDim);text-wrap:pretty}
+
+/* ── The highlight panel: one per page, for the thing it turns on ── */
+.turn{padding:clamp(24px,4vw,44px);border:1px solid var(--signal);border-radius:16px;background:var(--signalSoft)}
+.turn__k{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--signalDeep)}
+.turn__q{margin-top:16px;font-size:clamp(20px,2.6vw,32px);line-height:1.32;letter-spacing:-.02em;font-weight:600;max-width:30ch;color:var(--ink);text-wrap:pretty}
+.turn__p{margin-top:16px;font-size:16px;line-height:1.62;color:var(--inkDim);max-width:62ch;text-wrap:pretty}
+
+/* ── Numbered stages ──────────────────────────────────────── */
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(255px,100%),1fr));gap:clamp(12px,1.8vw,18px)}
+.stage{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:clamp(18px,2.4vw,26px)}
+.stage__n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--signalText)}
+.stage__t{margin-top:12px;font-size:16px;font-weight:650;letter-spacing:-.01em}
+.stage__p{margin-top:8px;font-size:14px;line-height:1.58;color:var(--inkDim);text-wrap:pretty}
+
+/* A timeline reading of the same thing, for work that happened in order. */
+.trail{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--rule);padding-left:clamp(20px,3vw,30px)}
+.trail__i{position:relative;padding-block:clamp(16px,2.4vw,22px)}
+.trail__i + .trail__i{border-top:1px solid var(--rule)}
+.trail__i::before{content:"";position:absolute;left:calc(clamp(20px,3vw,30px) * -1 - 6px);top:calc(clamp(16px,2.4vw,22px) + 7px);width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--ruleStrong)}
+.trail__i--live::before{border-color:var(--signal);background:var(--signal)}
+.trail__n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--signalText)}
+.trail__t{margin-top:8px;font-size:17px;font-weight:650;letter-spacing:-.015em}
+.trail__p{margin-top:7px;font-size:15px;line-height:1.6;color:var(--inkDim);text-wrap:pretty}
+
+/* ── Pull quote ───────────────────────────────────────────── */
+.pull{margin-block:clamp(24px,4vw,36px);padding-left:clamp(16px,2vw,24px);border-left:3px solid var(--signal);font-size:clamp(19px,2.4vw,27px);line-height:1.34;letter-spacing:-.02em;font-weight:600;color:var(--ink);max-width:26ch;text-wrap:pretty}
+.pull--wide{max-width:34ch}
+
+/* ── Two-up closing grid ──────────────────────────────────── */
+.twoup{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(16px,2.6vw,34px);align-items:start}
+.twoup__p{margin-top:14px;font-size:16px;line-height:1.62;color:var(--inkDim);text-wrap:pretty}
+
+/* ── A single big figure, for one number that carries a page ── */
+.bignum{display:flex;flex-wrap:wrap;align-items:baseline;gap:clamp(14px,2.4vw,26px);padding:clamp(24px,4vw,40px);border:1px solid var(--rule);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}
+.bignum__v{font-size:clamp(52px,10vw,116px);line-height:.86;font-weight:700;letter-spacing:-.05em;color:var(--ink);font-variant-numeric:tabular-nums}
+.bignum__c{flex:1;min-width:min(230px,100%)}
+.bignum__p{margin-top:12px;font-size:15.5px;line-height:1.62;color:var(--inkDim);text-wrap:pretty}
+
+/* ── Colour swatches, for a project whose point is a palette ── */
+.swatches{display:flex;flex-wrap:wrap;gap:clamp(12px,2vw,18px)}
+.sw{flex:1;min-width:min(150px,100%);border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--surface)}
+.sw__chip{height:74px}
+.sw__m{padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkFaint)}
+.sw__m b{display:block;margin-top:5px;font-family:Inter,system-ui,sans-serif;font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:var(--ink);text-transform:none}
+
+/* A meta row under the hero, for pages that run full-width bands instead
+   of a sticky rail. */
+.metastrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:clamp(12px,1.8vw,18px)}
+
+/* ── Main two-column layout with the sticky meta rail ─────── */
+.cmain{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,290px);gap:clamp(28px,4vw,56px);align-items:start}
+.caside{position:sticky;top:88px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.meta{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.meta__k{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)}
+.meta__v{margin-top:8px;font-size:15px;line-height:1.5;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.meta__s{margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--inkDim);text-wrap:pretty}
+.meta__mono{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--signalText)}
+.chips{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+.chip{padding:5px 10px;border:1px solid var(--rule);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--inkDim);background:var(--well)}
+.meta__links{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.meta__link{font-size:14px;font-weight:600;color:var(--signalText)}
+.meta__link:hover{color:var(--ink)}
+
+/* ── Live-site call to action ─────────────────────────────── */
+.visit{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:clamp(22px,3.4vw,34px);border:1px solid var(--rule);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}
+.visit__p{margin-top:10px;font-size:15.5px;line-height:1.6;color:var(--inkDim);max-width:52ch;text-wrap:pretty}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:10px;font-size:15px;font-weight:600;letter-spacing:-.01em;background:var(--ink);color:var(--paper);border:1px solid transparent}
+.btn:hover{background:var(--signalDeep);color:var(--paper)}
+.btn--ghost{background:var(--surface);color:var(--ink);border-color:var(--ruleStrong)}
+.btn--ghost:hover{background:var(--surface);border-color:var(--signalText);color:var(--signalText)}
+
+/* ── Prev / next ──────────────────────────────────────────── */
+.cnav{border-top:1px solid var(--rule);background:var(--well)}
+.cnav__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding-block:clamp(26px,4vw,40px)}
+.cnav__all{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkDim)}
+.cnav__all:hover{color:var(--signalText)}
+.cnav__next{display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:650;letter-spacing:-.015em;color:var(--ink)}
+.cnav__next span{color:var(--signalText)}
+.cnav__next:hover{color:var(--signalText)}
+
+.toTop{position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:60;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--rule);color:var(--inkDim);box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .3s,border-color .25s,color .25s}
+.toTop.on{opacity:1;pointer-events:auto}
+.toTop:hover{border-color:var(--signalText);color:var(--signalText)}
+
+/* ── Reveal ───────────────────────────────────────────────────
+   The hidden state is applied by script, never by this stylesheet, so a
+   scripting failure leaves the page readable rather than blank. */
+[data-reveal].pre{opacity:0}
+[data-reveal].in{animation:ygRise .62s cubic-bezier(.2,.7,.3,1) both}
+
+/* ── Adaptive tiers ───────────────────────────────────────── */
+@media (max-width:900px){
+  .cmain{grid-template-columns:1fr}
+  .caside{position:static;flex-direction:row;flex-wrap:wrap}
+  .meta{flex:1;min-width:min(210px,100%)}
+}
+@media (max-width:700px){
+  .chero__fig{height:clamp(120px,34vw,168px)}
+  .bignum__v{font-size:clamp(46px,17vw,72px)}
+}
+@media (max-height:520px) and (orientation:landscape){
+  .chero__fig{height:132px}
+}
+@media (hover:none){
+  .card,.meta,.visit,.bignum{box-shadow:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  [data-reveal]{opacity:1;animation:none}
+}

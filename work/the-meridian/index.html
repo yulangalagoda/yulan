@@ -3,27 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Meridian — Yulan Galagoda</title>
-<meta name="description" content="A living archive of antiques, books, and historical objects.">
+<title>The Meridian · Yulan Galagoda</title>
+<meta name="description" content="A living archive of antiques, books and historical objects, each documented with provenance, condition and valuation notes.">
   <link rel="canonical" href="https://yulan.me/work/the-meridian/">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon_180.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFAF7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0C0E10">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Yulan Galagoda">
   <meta property="og:locale" content="en_GB">
   <meta property="og:url" content="https://yulan.me/work/the-meridian/">
-  <meta property="og:title" content="The Meridian — Yulan Galagoda">
-  <meta property="og:description" content="A living archive of antiques, books, and historical objects.">
+  <meta property="og:title" content="The Meridian · Yulan Galagoda">
+  <meta property="og:description" content="A living archive of antiques, books and historical objects, each documented with provenance, condition and valuation notes.">
   <meta property="og:image" content="https://yulan.me/og/portfolio.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@YulanGalagoda">
   <meta name="twitter:creator" content="@YulanGalagoda">
-  <meta name="twitter:title" content="The Meridian — Yulan Galagoda">
-  <meta name="twitter:description" content="A living archive of antiques, books, and historical objects.">
+  <meta name="twitter:title" content="The Meridian · Yulan Galagoda">
+  <meta name="twitter:description" content="A living archive of antiques, books and historical objects, each documented with provenance, condition and valuation notes.">
   <meta name="twitter:image" content="https://yulan.me/og/portfolio.png">
   <meta name="author" content="Yulan Galagoda">
   <meta name="robots" content="index, follow">
@@ -33,86 +35,109 @@
        heading weights, so the hero does not swap after first paint. -->
   <link rel="preload" href="/fonts/inter-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/fonts.css">
-<link rel="stylesheet" href="/the-meridian.css">
+  <link rel="stylesheet" href="/case.css">
+  <!-- Blocking, so the theme is right before the first paint. -->
+  <script src="/theme.js"></script>
 </head>
 <body>
-<div style="min-height:100vh;display:flex;flex-direction:column">
 <div data-sentinel style="height:1px;margin-bottom:-1px;pointer-events:none"></div>
 
-<header style="position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(14px);background:color-mix(in srgb, var(--paper) 86%, transparent);border-bottom:1px solid var(--rule)">
-<div style="max-width:var(--caseShell);margin:0 auto;padding:14px clamp(18px,4vw,52px);display:flex;align-items:center;gap:10px 22px">
-<a href="/" style="display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:650;font-size:14px;margin-right:auto"><span style="font-family:'JetBrains Mono',monospace;color:var(--inkFaint)">&larr;</span>yulan.me</a>
-<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim)">All work</a>
-</div>
+<header class="chdr">
+  <div class="shell chdr__in">
+    <a href="/" class="chdr__home"><span>&larr;</span>yulan.me</a>
+    <div class="chdr__right">
+      <a href="/#work" class="chdr__all">All work</a>
+      <button data-theme-btn type="button" class="themeBtn" aria-label="Switch theme">&#9790;</button>
+    </div>
+  </div>
 </header>
 
-<section style="background:#191D21;color:#F5F3EE;position:relative;overflow:hidden">
-<div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 88% 10%, rgba(49,181,135,.13) 0%, transparent 60%);pointer-events:none"></div>
-<div style="position:relative;max-width:var(--caseShell);margin:0 auto;padding:clamp(48px,8vw,96px) clamp(18px,4vw,52px) clamp(36px,5vw,60px)">
-<div style="display:flex;flex-wrap:wrap;gap:8px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase">
-<span style="color:var(--signalOnDark);background:rgba(92,207,165,.12);padding:5px 10px;border-radius:5px">Personal · published</span>
-<span style="color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:5px">2025</span>
-</div>
-<h1 style="margin-top:clamp(20px,3vw,30px);font-size:clamp(40px,8vw,80px);line-height:.95;letter-spacing:-.04em;font-weight:700">The Meridian</h1>
-<p style="margin-top:16px;font-size:clamp(18px,2.4vw,27px);line-height:1.35;letter-spacing:-.02em;color:rgba(255,255,255,.82);max-width:32ch;text-wrap:pretty">A living archive of antiques, books, and historical objects.</p>
-<canvas data-fig="meridian" style="display:block;width:100%;height:clamp(150px,20vw,220px);margin-top:clamp(32px,5vw,56px);border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09)"></canvas>
-</div>
+<section class="chero">
+  <div class="chero__glow"></div>
+  <div class="shell chero__in">
+    <div class="chero__tags">
+      <span class="chero__tag">Personal · published</span>
+      <span class="chero__tag chero__tag--plain">2025</span>
+    </div>
+    <h1 class="chero__title">The Meridian</h1>
+    <p class="chero__sub">A living archive of antiques, books, and historical objects.</p>
+    <canvas data-fig="meridian" class="chero__fig" aria-hidden="true"></canvas>
+  </div>
 </section>
 
-<main data-r="casemain" style="flex:1;max-width:var(--caseShell);width:100%;margin:0 auto;padding:clamp(44px,7vw,88px) clamp(18px,4vw,52px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,5vw,72px);align-items:start">
+<main class="shell cbody">
+<div class="cmain">
 
-<div data-r="span2" style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:clamp(38px,5vw,60px)">
+<div>
+  <div class="blk" data-reveal>
+    <div class="kick">What it is</div>
+    <h2 class="blk__title">A personal digital reliquary.</h2>
+    <p class="prose" style="margin-top:18px">A curated, research-backed catalogue of antiques and historical items. Each entry is documented with provenance, condition, valuation notes and reference material.</p>
+    <p class="prose">The site is the public face of an extensive private Notion database, and it exists to show how a careful schema, a considered visual language and editorial writing turn a personal collection into something genuinely useful.</p>
+  </div>
 
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">What it is</h2>
+  <div class="blk" data-reveal>
+    <div class="kick">The visual language</div>
+    <p class="prose" style="margin-top:16px">Oxblood and cream, borrowed from leather-bound archives. The palette is doing work: it signals age and care before a single entry is read.</p>
+    <div class="swatches" style="margin-top:clamp(18px,3vw,26px)">
+      <div class="sw"><div class="sw__chip" style="background:#5A1A1E"></div><div class="sw__m">Oxblood<b>#5A1A1E</b></div></div>
+      <div class="sw"><div class="sw__chip" style="background:#F3EDE1"></div><div class="sw__m">Cream<b>#F3EDE1</b></div></div>
+      <div class="sw"><div class="sw__chip" style="background:#2B2622"></div><div class="sw__m">Ink<b>#2B2622</b></div></div>
+    </div>
+  </div>
 
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">A personal digital reliquary: a curated, research-backed catalogue of antiques and historical items. Each entry is documented with provenance, condition, valuation notes, and reference material.</p>
-<p style="margin-top:20px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">The site is the public face of an extensive private Notion database, and it exists to show how a careful schema, an oxblood-and-cream visual language, and editorial writing turn a personal collection into something genuinely useful.</p>
+  <div class="blk" data-reveal>
+    <div class="kick">How it is built</div>
+    <div class="stages" style="margin-top:18px">
+      <div class="stage"><div class="stage__n">01</div><h3 class="stage__t">Full provenance</h3><p class="stage__p">A curated catalogue of antiques, books and historical objects, each documented to the same standard.</p></div>
+      <div class="stage"><div class="stage__n">02</div><h3 class="stage__t">Schema-driven design</h3><p class="stage__p">Every field justified and consistent across entries.</p></div>
+      <div class="stage"><div class="stage__n">03</div><h3 class="stage__t">A deliberate visual language</h3><p class="stage__p">Oxblood and cream, inspired by leather-bound archives.</p></div>
+      <div class="stage"><div class="stage__n">04</div><h3 class="stage__t">A refined rebuild</h3><p class="stage__p">Replaces the earlier Reliquary at the-reliquary.pages.dev.</p></div>
+      <div class="stage"><div class="stage__n">05</div><h3 class="stage__t">Notion-backed pipeline</h3><p class="stage__p">Published to Cloudflare Pages from the database that holds the collection.</p></div>
+    </div>
+  </div>
+
+  <div class="blk" data-reveal>
+    <div class="turn">
+      <div class="turn__k">Credit where it is due</div>
+      <p class="turn__q">Curation, schema and copy are mine. The site code is not.</p>
+      <p class="turn__p">It was written by Perplexity, Claude Opus 4.7 and Claude Sonnet 4.6 under direction. Saying so is the point: the interesting work here was deciding what a collection entry should contain, not typing the markup.</p>
+    </div>
+  </div>
+
+  <div class="blk" data-reveal>
+    <div class="visit">
+      <div>
+        <div class="kick">Live</div>
+        <p class="visit__p">The archive is public and growing. Browse the collection as it stands today.</p>
+      </div>
+      <a class="btn" href="https://meridian.yulan.me">Visit The Meridian &rarr;</a>
+    </div>
+  </div>
 </div>
 
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">Credit where it is due</h2>
-
-<p style="margin-top:16px;font-size:clamp(16px,1.7vw,18.5px);line-height:1.7;color:var(--inkDim);max-width:66ch;text-wrap:pretty">Curation, schema, and copy are mine. The site code was written by Perplexity, Claude Opus 4.7, and Claude Sonnet 4.6 under direction.</p>
-</div>
-
-<div data-reveal>
-<h2 style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signalText)">How it is built</h2>
-<ol style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden">
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">01</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Full provenance.</strong> A curated catalogue of antiques, books, and historical objects, each documented to the same standard.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">02</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Schema-driven design.</strong> Every field justified and consistent across entries.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">03</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">A deliberate visual language.</strong> Oxblood and cream, inspired by leather-bound archives.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">04</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">A refined rebuild.</strong> Replaces the earlier Reliquary at the-reliquary.pages.dev.</span></li>
-<li style="background:var(--surface);padding:20px 22px;display:flex;gap:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--signalText);padding-top:3px">05</span><span style="font-size:16px;line-height:1.6;color:var(--inkDim);text-wrap:pretty"><strong style="color:var(--ink);font-weight:600">Notion-backed pipeline.</strong> Published to Cloudflare Pages from the database that holds the collection.</span></li>
-</ol>
-</div>
-
-</div>
-
-<aside data-reveal data-r="caseaside" style="min-width:0;position:sticky;top:88px;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)">
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Role</div><div style="margin-top:8px;font-size:15px;line-height:1.5">Curation and archiving</div><div style="margin-top:4px;font-size:13.5px;color:var(--inkDim);line-height:1.5">Site development by AI (Perplexity, Claude Opus 4.7, Claude Sonnet 4.6) under direction</div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Status</div><div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:14px">Published · since 2025</div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Stack</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px"><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Notion API</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Cloudflare Pages</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">Static Site Generation</span><span style="padding:6px 11px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--inkDim)">JavaScript</span></div></div>
-<div style="background:var(--surface);padding:20px 22px"><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--inkFaint)">Links</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px"><a href="https://meridian.yulan.me" style="display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--rule);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--inkDim);transition:border-color .25s,color .25s,transform .25s" data-h="themeridian1">meridian.yulan.me</a></div></div>
+<aside class="caside" data-reveal>
+      <div class="meta"><div class="meta__k">Role</div><div class="meta__v">Curation and archiving</div><p class="meta__s">Site development by AI (Perplexity, Claude Opus 4.7, Claude Sonnet 4.6) under direction</p></div>
+      <div class="meta"><div class="meta__k">Status</div><div class="meta__v">Published</div><div class="meta__mono">Since 2025</div></div>
+      <div class="meta"><div class="meta__k">Stack</div><div class="chips"><span class="chip">Notion API</span><span class="chip">Cloudflare Pages</span><span class="chip">Static site generation</span><span class="chip">JavaScript</span></div></div>
+      <div class="meta"><div class="meta__k">Links</div><div class="meta__links"><a class="meta__link" href="https://meridian.yulan.me">meridian.yulan.me &rarr;</a></div></div>
 </aside>
 
+</div>
 </main>
 
-<nav style="border-top:1px solid var(--rule);background:var(--well)">
-<div style="max-width:var(--caseShell);margin:0 auto;padding:clamp(28px,4vw,44px) clamp(18px,4vw,52px);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center">
-<a href="/#work" style="font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkDim);margin-right:auto">&larr; All work</a>
-<a href="/work/rampe/" style="display:inline-flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--ink)">Next · Rampe <span style="color:var(--signalText)">&rarr;</span></a>
-</div>
+<nav class="cnav">
+  <div class="shell cnav__in">
+    <a href="/#work" class="cnav__all">&larr; All work</a>
+    <a href="/work/rampe/" class="cnav__next">Next · Rampe <span>&rarr;</span></a>
+  </div>
 </nav>
 
-<button data-top type="button" aria-label="Back to top" style="position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:60;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid var(--ruleStrong);border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .35s,transform .35s,border-color .25s,color .25s" data-h="themeridian2">
-<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<button data-top type="button" class="toTop" aria-label="Back to top">
+  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </button>
 
-</div>
-<script src="/the-meridian.js" defer></script>
-  <!-- Cloudflare Web Analytics: cookieless, no personal data. Deferred, so
-       it cannot delay rendering. Token is a public site identifier. -->
+<script src="/case.js" defer></script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14d488ac60b7471a95918e542f8d2485"}'></script>
 </body>
 </html>

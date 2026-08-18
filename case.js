@@ -1,57 +1,79 @@
-/* neteagle — behaviour, no eval, no framework */
+/* Case pages: shared behaviour for all six.
+   One cached file instead of six near-identical ones. The hero painters are
+   keyed off data-fig, so each project keeps its own figure. */
 (function () {
 
-class Page {
-  componentDidMount() {
-    this.reveal();
-    this.top();
-    this.figure();
+  /* ---- theme -------------------------------------------------------- */
+  /* The attribute is already on <html> from the inline boot script in the
+     head; this only owns the button and the persistence. */
+  function theme() {
+    var root = document.documentElement;
+    var btn = document.querySelector('[data-theme-btn]');
+    if (!btn) return;
+    var set = function (t) { btn.textContent = t === 'dark' ? '☀' : '☾'; };
+    set(root.getAttribute('data-theme') || 'light');
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      set(next);
+      try { localStorage.setItem('yg-theme', next); } catch (e) {}
+      syncLab(next);
+    });
+    syncLab(root.getAttribute('data-theme') || 'light');
   }
 
-  reveal() {
-    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+  /* lab.yulan.me is a separate origin and cannot read the preference. */
+  function syncLab(t) {
+    var links = document.querySelectorAll('[data-yg-lab]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].href = 'https://lab.yulan.me/' + (t === 'dark' ? '?theme=dark' : '');
+    }
+  }
+
+  /* ---- reveal ------------------------------------------------------- */
+  function reveal() {
+    var els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
     if (!els.length) return;
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    els.forEach(el => { if (!reduce) el.style.opacity = '0'; });
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    els.forEach(function (el) { el.classList.add('pre'); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        e.target.style.animation = 'ygRise .7s cubic-bezier(.2,.7,.2,1) both';
-        e.target.style.opacity = '';
+        e.target.classList.remove('pre');
+        e.target.classList.add('in');
         io.unobserve(e.target);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    els.forEach(el => io.observe(el));
-    setTimeout(() => els.forEach(el => { el.style.opacity = ''; }), 4000);
+    els.forEach(function (el) { io.observe(el); });
+    // Nothing stays hidden because an observer never fired.
+    setTimeout(function () { els.forEach(function (el) { el.classList.remove('pre'); }); }, 4000);
   }
 
-  top() {
-    const btn = document.querySelector('[data-top]');
+  /* ---- back to top -------------------------------------------------- */
+  function toTop() {
+    var btn = document.querySelector('[data-top]');
     if (!btn) return;
-    const show = (on) => {
-      btn.style.opacity = on ? '1' : '0';
-      btn.style.transform = on ? 'none' : 'translateY(10px)';
-      btn.style.pointerEvents = on ? 'auto' : 'none';
-    };
-    // the host may own scrolling, so measure the sentinel's position rather than trust scrollY
-    const sentinel = document.querySelector('[data-sentinel]');
-    let last = null;
-    const sync = () => {
-      const off = sentinel ? -sentinel.getBoundingClientRect().top : window.scrollY;
-      const on = off > window.innerHeight * 0.5;
-      if (on !== last) { last = on; show(on); }
+    // Something other than window may own scrolling, so measure a sentinel.
+    var sentinel = document.querySelector('[data-sentinel]');
+    var last = null;
+    var sync = function () {
+      var off = sentinel ? -sentinel.getBoundingClientRect().top : window.scrollY;
+      var on = off > window.innerHeight * 0.5;
+      if (on !== last) { last = on; btn.classList.toggle('on', on); }
     };
     sync();
     setInterval(sync, 200);
     window.addEventListener('scroll', sync, { passive: true });
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (document.scrollingElement) document.scrollingElement.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-
-  figure() {
+  /* ---- hero figures ------------------------------------------------- */
+  /* Painted on the fixed dark slab, so the palette here is deliberately
+     independent of the theme. */
+  function figure() {
     const cv = document.querySelector('[data-fig]');
     if (!cv) return;
     const ctx = cv.getContext('2d');
@@ -217,22 +239,56 @@ class Page {
         }
         ctx.globalAlpha = 1;
       }
+
+      else if (KEY === 'adversec') {
+        // A perturbation front sweeping the bus: frames deform inside it,
+        // and recover behind it.
+        var N = 7;
+        if (!m.rows) {
+          m.rows = [];
+          for (var r0 = 0; r0 < N; r0++) {
+            var bars = [];
+            for (var x0 = 18; x0 < w - 18; x0 += 9 + Math.random() * 11) bars.push({ x: x0, w: 4 + Math.random() * 8, k: Math.random() });
+            m.rows.push(bars);
+          }
+        }
+        var pad2 = 16, laneH = (h - pad2 * 2) / N;
+        var front = ((t * 0.3) % 1.45 - 0.22) * w;
+        for (var r = 0; r < N; r++) {
+          var y2 = pad2 + laneH * (r + 0.5);
+          for (var bi = 0; bi < m.rows[r].length; bi++) {
+            var b = m.rows[r][bi];
+            var d2 = (b.x - front) / (w * 0.15);
+            var inside = Math.abs(d2) < 1, before = d2 > 0;
+            var j = inside ? Math.sin(t * 6 + b.k * 9) * (1 - Math.abs(d2)) * 6 : 0;
+            ctx.globalAlpha = before ? 0.26 : inside ? 0.95 : 0.9;
+            ctx.fillStyle = inside ? WARN : before ? 'rgba(245,243,238,.5)' : SIG;
+            ctx.fillRect(b.x, y2 + j - 1.5, b.w, 3);
+          }
+        }
+        ctx.globalAlpha = 1;
+        var g = ctx.createLinearGradient(front - w * 0.15, 0, front + w * 0.15, 0);
+        g.addColorStop(0, 'rgba(224,172,78,0)');
+        g.addColorStop(0.5, 'rgba(224,172,78,.12)');
+        g.addColorStop(1, 'rgba(224,172,78,0)');
+        ctx.fillStyle = g; ctx.fillRect(front - w * 0.15, 0, w * 0.3, h);
+        ctx.strokeStyle = WARN; ctx.globalAlpha = 0.5; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(front + 0.5, 6); ctx.lineTo(front + 0.5, h - 6); ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
       requestAnimationFrame(draw);
     };
     requestAnimationFrame(draw);
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 160); });
   }
-}
 
-Page.prototype.setState = function (p) { this.state = Object.assign({}, this.state, typeof p === 'function' ? p(this.state) : p); };
-Page.prototype.forceUpdate = function () {};
-var boot = function () {
-  var c = new Page();
-  c.props = {};
-  c.state = {};
-  try { c.componentDidMount(); } catch (e) { console.error('boot', e); }
-};
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-else boot();
+  var boot = function () {
+    try { theme(); } catch (e) {}
+    try { reveal(); } catch (e) {}
+    try { toTop(); } catch (e) {}
+    try { figure(); } catch (e) {}
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();

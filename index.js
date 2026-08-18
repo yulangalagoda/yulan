@@ -1,4 +1,4 @@
-/* index — behaviour, no eval, no framework */
+/* index: behaviour, no eval, no framework */
 (function () {
 
 class Page {
