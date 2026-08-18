@@ -13,6 +13,17 @@ class Page {
     const stored = (() => { try { return localStorage.getItem('yg-theme'); } catch (e) { return null; } })();
     const theme = stored || this.props.theme || 'light';
     root.setAttribute('data-theme', theme);
+
+    // lab.yulan.me is a different origin, so it cannot read this preference
+    // from localStorage. Hand it over on the link instead.
+    const labLinks = document.querySelectorAll('[data-yg-lab]');
+    const syncLab = (t) => {
+      labLinks.forEach((a) => {
+        a.href = 'https://lab.yulan.me/' + (t === 'dark' ? '?theme=dark' : '');
+      });
+    };
+    syncLab(theme);
+
     const btn = document.querySelector('[data-yg-theme]');
     if (btn) {
       btn.textContent = theme === 'dark' ? '☀' : '☾';
@@ -21,6 +32,7 @@ class Page {
         root.setAttribute('data-theme', next);
         btn.textContent = next === 'dark' ? '☀' : '☾';
         try { localStorage.setItem('yg-theme', next); } catch (e) {}
+        syncLab(next);
         this._colors = null;
       });
     }
