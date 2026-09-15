@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Colophon · Yulan Galagoda</title>
-<meta name="description" content="How yulan.me is built: hand-written static HTML, self-hosted fonts, canvas figures written from scratch, and the measurements behind them.">
+<meta name="description" content="How yulan.me is built: static HTML with no framework, self-hosted fonts, canvas figures that compute in the browser, and the measurements behind the claims.">
   <link rel="canonical" href="https://yulan.me/colophon/">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png">
@@ -17,7 +17,7 @@
   <meta property="og:locale" content="en_GB">
   <meta property="og:url" content="https://yulan.me/colophon/">
   <meta property="og:title" content="Colophon · Yulan Galagoda">
-  <meta property="og:description" content="How yulan.me is built: hand-written static HTML, self-hosted fonts, canvas figures written from scratch, and the measurements behind them.">
+  <meta property="og:description" content="How yulan.me is built: static HTML with no framework, self-hosted fonts, canvas figures that compute in the browser, and the measurements behind the claims.">
   <meta property="og:image" content="https://yulan.me/og/portfolio.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
   <meta name="twitter:site" content="@YulanGalagoda">
   <meta name="twitter:creator" content="@YulanGalagoda">
   <meta name="twitter:title" content="Colophon · Yulan Galagoda">
-  <meta name="twitter:description" content="How yulan.me is built: hand-written static HTML, self-hosted fonts, canvas figures written from scratch, and the measurements behind them.">
+  <meta name="twitter:description" content="How yulan.me is built: static HTML with no framework, self-hosted fonts, canvas figures that compute in the browser, and the measurements behind the claims.">
   <meta name="twitter:image" content="https://yulan.me/og/portfolio.png">
   <meta name="author" content="Yulan Galagoda">
   <meta name="robots" content="index, follow">
@@ -60,7 +60,7 @@
       <span class="chero__tag chero__tag--plain">Since May 2026</span>
     </div>
     <h1 class="chero__title">How this<br>site is made.</h1>
-    <p class="chero__sub">Hand-written static HTML, self-hosted type, and figures drawn from scratch.</p>
+    <p class="chero__sub">Static HTML with no framework, self-hosted type, and figures that compute in the browser.</p>
   </div>
 </section>
 
@@ -118,7 +118,7 @@
       <h2 class="blk__title">Every animation is code, not a video.</h2>
     </div>
     <div class="narrow" data-reveal>
-      <p class="prose">The constellation behind the hero, the perturbation front on the AdverSec page, the certificate timeline on the domain audit: all of them are hand-written 2D canvas, drawn per frame.</p>
+      <p class="prose">The constellation behind the hero, the perturbation front on the AdverSec page, the certificate timeline on the domain audit: all of them are 2D canvas, drawn per frame in code written for this site rather than pulled from a charting library.</p>
       <p class="prose">They share the same discipline. Device pixel ratio capped at 2, because past that you are paying for pixels nobody can see. Frames driven by the <code>requestAnimationFrame</code> timestamp with the delta clamped, so a backgrounded tab does not return and jump. Visibility gated on <code>offsetParent</code> before geometry, because a hidden canvas reports a rectangle at the origin and a naive check reads that as on-screen. Palettes resolved once and cached rather than read from CSS every frame, which is otherwise hundreds of forced style recalculations a second.</p>
     </div>
   </div>
@@ -163,11 +163,11 @@
 <section class="band band--well">
   <div class="shell">
     <div class="blk__head narrow" data-reveal>
-      <div class="kick">Credit</div>
-      <h2 class="blk__title">Written with AI, directed throughout.</h2>
+      <div class="kick">Direction</div>
+      <h2 class="blk__title">Every decision here is mine.</h2>
     </div>
     <div class="narrow" data-reveal>
-      <p class="prose">The structure, the content, the research it describes and every judgment about what belongs here are mine. Much of the code was written by Claude working to my direction, reviewed and revised by me across the history you can read. The same is true of <a href="/work/the-meridian/">The Meridian</a>, and it is said there for the same reason it is said here.</p>
+      <p class="prose">The architecture, the content, the research it describes, the type, the palette, the three-role green, what each page argues and what was left out. I set the direction, supervised the implementation end to end, and reviewed every change against those decisions. Plenty were rejected and rebuilt, which is the part the history shows.</p>
       <p class="prose">The history is public because the process is the honest part. Anyone can read what changed, when, and why, including the mistakes and the reversals. <a href="https://github.com/yulangalagoda/yulan">The repository</a> is the site.</p>
     </div>
   </div>
