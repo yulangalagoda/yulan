@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colophon · Yulan Galagoda</title>
+<meta name="description" content="How yulan.me is built: hand-written static HTML, self-hosted fonts, canvas figures written from scratch, and the measurements behind them.">
+  <link rel="canonical" href="https://yulan.me/colophon/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon_180.png">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFAF7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0C0E10">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Yulan Galagoda">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://yulan.me/colophon/">
+  <meta property="og:title" content="Colophon · Yulan Galagoda">
+  <meta property="og:description" content="How yulan.me is built: hand-written static HTML, self-hosted fonts, canvas figures written from scratch, and the measurements behind them.">
+  <meta property="og:image" content="https://yulan.me/og/portfolio.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@YulanGalagoda">
+  <meta name="twitter:creator" content="@YulanGalagoda">
+  <meta name="twitter:title" content="Colophon · Yulan Galagoda">
+  <meta name="twitter:description" content="How yulan.me is built: hand-written static HTML, self-hosted fonts, canvas figures written from scratch, and the measurements behind them.">
+  <meta name="twitter:image" content="https://yulan.me/og/portfolio.png">
+  <meta name="author" content="Yulan Galagoda">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yulan.me"}, {"@type": "ListItem", "position": 2, "name": "Colophon", "item": "https://yulan.me/colophon/"}]}</script>
+<!-- Self-hosted: no third-party origin, and the CSP can stay same-origin.
+       One preload for the Inter latin subset, which serves both body and
+       heading weights, so the hero does not swap after first paint. -->
+  <link rel="preload" href="/fonts/inter-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/case.css">
+  <!-- Blocking, so the theme is right before the first paint. -->
+  <script src="/theme.js"></script>
+</head>
+<body>
+<div data-sentinel style="height:1px;margin-bottom:-1px;pointer-events:none"></div>
+
+<header class="chdr">
+  <div class="shell chdr__in">
+    <a href="/" class="chdr__home"><span>&larr;</span>yulan.me</a>
+    <div class="chdr__right">
+      <a href="/#work" class="chdr__all">All work</a>
+      <button data-theme-btn type="button" class="themeBtn" aria-label="Switch theme">&#9790;</button>
+    </div>
+  </div>
+</header>
+
+<section class="chero">
+  <div class="chero__glow"></div>
+  <div class="shell chero__in">
+    <div class="chero__tags">
+      <span class="chero__tag">Colophon</span>
+      <span class="chero__tag chero__tag--plain">Since May 2026</span>
+    </div>
+    <h1 class="chero__title">How this<br>site is made.</h1>
+    <p class="chero__sub">Hand-written static HTML, self-hosted type, and figures drawn from scratch.</p>
+  </div>
+</section>
+
+<main>
+
+<section class="shell cbody">
+  <div class="metastrip" data-reveal>
+    <div class="meta"><div class="meta__k">First published</div><div class="meta__v">May 2026</div><p class="meta__s">Developed continuously since, in the open.</p></div>
+    <div class="meta"><div class="meta__k">Build</div><div class="meta__v">None</div><p class="meta__s">The pages you are reading are the files on disk.</p></div>
+    <div class="meta"><div class="meta__k">Hosting</div><div class="meta__v">Cloudflare Pages</div><div class="meta__mono">Deployed from Git</div></div>
+    <div class="meta"><div class="meta__k">Source</div><div class="meta__v">Public</div><div class="meta__links"><a class="meta__link" href="https://github.com/yulangalagoda/yulan">github.com/yulangalagoda/yulan &rarr;</a></div></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="shell">
+    <div class="blk__head narrow" data-reveal>
+      <div class="kick">The build</div>
+      <h2 class="blk__title">No framework, because there is nothing here a framework would solve.</h2>
+    </div>
+    <div class="narrow" data-reveal>
+      <p class="prose">This site is seven files and some HTML. The homepage is <code>index.html</code> with <code>index.css</code>, <code>index.js</code> and <code>figures.js</code>. The six case pages share <code>case.css</code> and <code>case.js</code>. <code>theme.js</code> is common to both and does one job.</p>
+      <p class="prose">It started life as a Next.js application reading from Notion at build time, and that was the right shape while the content was still moving. Once it settled, the build step was pure cost: a toolchain, a dependency tree and a deploy pipeline standing between me and eleven pages that never change between requests. So it was rewritten as static files. Nothing renders on a server, nothing hydrates, and there is no step between editing a file and seeing it.</p>
+      <p class="prose">The <a href="https://lab.yulan.me">lab</a> is the exception and keeps its build. Ten instruments that run real computation in the browser are genuinely an application, so they live on their own subdomain as a Next.js static export, separate repository and separate deploy.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band band--well">
+  <div class="shell">
+    <div class="blk__head narrow" data-reveal>
+      <div class="kick">Type and colour</div>
+      <h2 class="blk__title">Two families, three roles for one green.</h2>
+    </div>
+    <div class="narrow" data-reveal>
+      <p class="prose">Inter for anything structural, JetBrains Mono for labels and metadata only. Mono is a signal that something is machine-readable, so using it for display headings spends that signal on nothing.</p>
+      <p class="prose">Both are self-hosted: thirteen <code>woff2</code> files mirroring Google's exact builds, with the <code>unicode-range</code> subsetting preserved so a visitor downloads only the glyphs their language needs. No third-party font request, and the CSP can stay same-origin as a result.</p>
+    </div>
+    <div class="swatches" data-reveal style="margin-top:clamp(20px,3vw,30px)">
+      <div class="sw"><div class="sw__chip" style="background:#FBFAF7;border-bottom:1px solid #E5E1D9"></div><div class="sw__m">Paper<b>#FBFAF7</b></div></div>
+      <div class="sw"><div class="sw__chip" style="background:#12151A"></div><div class="sw__m">Ink<b>#12151A</b></div></div>
+      <div class="sw"><div class="sw__chip" style="background:#0E8A5F"></div><div class="sw__m">Signal<b>#0E8A5F</b></div></div>
+      <div class="sw"><div class="sw__chip" style="background:#191D21"></div><div class="sw__m">Slab<b>#191D21</b></div></div>
+    </div>
+    <div class="narrow" data-reveal style="margin-top:clamp(20px,3vw,28px)">
+      <p class="prose">The green splits three ways and that split is the reason the palette survives a theme switch. <code>--signal</code> draws graphics only. <code>--signalText</code> is the darker weight used for text on light ground. <code>--signalOnDark</code> is the lighter weight for text on the fixed dark slabs. One colour used three ways fails contrast in at least one of them; three named roles cannot.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="shell">
+    <div class="blk__head narrow" data-reveal>
+      <div class="kick">The figures</div>
+      <h2 class="blk__title">Every animation is code, not a video.</h2>
+    </div>
+    <div class="narrow" data-reveal>
+      <p class="prose">The constellation behind the hero, the perturbation front on the AdverSec page, the certificate timeline on the domain audit: all of them are hand-written 2D canvas, drawn per frame.</p>
+      <p class="prose">They share the same discipline. Device pixel ratio capped at 2, because past that you are paying for pixels nobody can see. Frames driven by the <code>requestAnimationFrame</code> timestamp with the delta clamped, so a backgrounded tab does not return and jump. Visibility gated on <code>offsetParent</code> before geometry, because a hidden canvas reports a rectangle at the origin and a naive check reads that as on-screen. Palettes resolved once and cached rather than read from CSS every frame, which is otherwise hundreds of forced style recalculations a second.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band band--well">
+  <div class="shell">
+    <div class="blk__head narrow" data-reveal>
+      <div class="kick">Measured</div>
+      <h2 class="blk__title">Claims worth making are claims worth checking.</h2>
+    </div>
+    <div class="cards" data-reveal>
+      <div class="card">
+        <div class="card__k">Contrast, both themes</div>
+        <div class="card__display card__display--signal">653 / 653</div>
+        <p class="card__p">Every rendered text node measured against its true painted background. No failures. Minimum 4.65:1 in light, 5.39:1 in dark, against a 4.5:1 requirement.</p>
+      </div>
+      <div class="card">
+        <div class="card__k">Horizontal overflow</div>
+        <div class="card__display card__display--signal">None</div>
+        <p class="card__p">Checked at 280, 320, 375, 768, 1280 and 1920 pixels. Every auto-fit grid uses <code>minmax(min(Npx,100%),1fr)</code>, which is the fix for the track floor that silently overflows narrow screens.</p>
+      </div>
+      <div class="card">
+        <div class="card__k">Third-party requests</div>
+        <div class="card__display card__display--signal">One</div>
+        <p class="card__p">A privacy-preserving analytics beacon. No cookies, no cross-site identifier, no advertising network, no font CDN, no tag manager.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="shell">
+    <div class="turn" data-reveal>
+      <div class="turn__k">The posture</div>
+      <p class="turn__q">A personal site is a security surface like any other, so it is configured like one.</p>
+      <p class="turn__p">A Content Security Policy with <code>default-src 'self'</code>, no <code>'unsafe-inline'</code> permitted for scripts, <code>object-src 'none'</code> and <code>frame-ancestors 'none'</code>. That last constraint is why the theme is applied by a blocking external script rather than an inline snippet: the inline version is shorter, works perfectly in local development, and is silently refused in production. Constraints you set for yourself only count if you let them cost you something.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band band--well">
+  <div class="shell">
+    <div class="blk__head narrow" data-reveal>
+      <div class="kick">Credit</div>
+      <h2 class="blk__title">Written with AI, directed throughout.</h2>
+    </div>
+    <div class="narrow" data-reveal>
+      <p class="prose">The structure, the content, the research it describes and every judgment about what belongs here are mine. Much of the code was written by Claude working to my direction, reviewed and revised by me across the history you can read. The same is true of <a href="/work/the-meridian/">The Meridian</a>, and it is said there for the same reason it is said here.</p>
+      <p class="prose">The history is public because the process is the honest part. Anyone can read what changed, when, and why, including the mistakes and the reversals. <a href="https://github.com/yulangalagoda/yulan">The repository</a> is the site.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<nav class="cnav">
+  <div class="shell cnav__in">
+    <a href="/#work" class="cnav__all">&larr; All work</a>
+    <a href="https://lab.yulan.me" data-yg-lab class="cnav__next">The Lab <span>&rarr;</span></a>
+  </div>
+</nav>
+
+<button data-top type="button" class="toTop" aria-label="Back to top">
+  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script src="/case.js" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14d488ac60b7471a95918e542f8d2485"}'></script>
+</body>
+</html>
